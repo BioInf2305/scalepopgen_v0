@@ -15,6 +15,8 @@ nextflow.enable.dsl=2
 
 include { FILTER_SNPS_FROM_BED } from "${baseDir}/modules/plink/filter_snps_from_bed"
 
+include { PLOT_GEO_MAP } from "${baseDir}/modules/plot_geo_map"
+
 
 
 //
@@ -48,6 +50,18 @@ workflow{
     // first check if the input parameter contains ".csv"
     //  yes --> input is vcf and sample map files is required
     //  no --> input is assumed to be plink bed file 
+
+    if( params.geo_plot_yml != "none" && params.tile_yml != "none" ){
+
+        geo_yml = Channel.fromPath(params.geo_plot_yml)
+        tile_yml = Channel.fromPath(params.tile_yml)
+
+        PLOT_GEO_MAP(
+            geo_yml,
+            tile_yml
+        )
+
+        }
 
     if( params.input.endsWith(".csv") ) {
         
