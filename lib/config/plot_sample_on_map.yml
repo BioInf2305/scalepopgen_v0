@@ -1,0 +1,10 @@
+---
+  input: location_abv_samplesize_popname.txt
+  tile: world_gray_canvas
+  marker_prop: 0
+  const_radius : 10
+  zoom_level: 16
+  overlap_cordi: False
+  display_sample_size: False
+  display_popup: False
+  output_prefix: cattle_260

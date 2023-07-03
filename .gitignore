@@ -1,0 +1,12 @@
+.nextflow*
+work/
+./nextflow/
+*.txt
+*.map
+trial*
+Trial*
+101*
+*.csv
+./input_csv_files/
+/goat_66_samples/
+examples/

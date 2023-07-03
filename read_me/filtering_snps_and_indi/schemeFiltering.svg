@@ -1,0 +1,2359 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="668.46631mm"
+   height="467.06961mm"
+   viewBox="0 0 668.46631 467.06961"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="schemeFiltering.svg">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker2389"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         transform="scale(0.4)"
+         style="fill:#4c4c4c;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path2387"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker2118"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2)"
+         style="fill:#4c4c4c;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path2116"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutM"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1372"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#4c4c4c;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.4)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1335"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1187"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#4c4c4c;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1193"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1181"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <filter
+       inkscape:label="Bloom"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft, cushion-like bevel with matte highlights"
+       style="color-interpolation-filters:sRGB"
+       id="filter2433">
+      <feGaussianBlur
+         result="result1"
+         in="SourceAlpha"
+         stdDeviation="2.2"
+         id="feGaussianBlur2409" />
+      <feSpecularLighting
+         result="result0"
+         specularExponent="18.10000038"
+         specularConstant="2"
+         surfaceScale="5"
+         id="feSpecularLighting2413">
+        <feDistantLight
+           azimuth="225"
+           elevation="24"
+           id="feDistantLight2411" />
+      </feSpecularLighting>
+      <feComposite
+         result="result6"
+         operator="in"
+         in2="SourceAlpha"
+         id="feComposite2415" />
+      <feMorphology
+         radius="5.7"
+         operator="dilate"
+         id="feMorphology2417" />
+      <feGaussianBlur
+         result="result11"
+         stdDeviation="5.7"
+         id="feGaussianBlur2419" />
+      <feDiffuseLighting
+         surfaceScale="5"
+         result="result3"
+         diffuseConstant="2"
+         in="result1"
+         id="feDiffuseLighting2423">
+        <feDistantLight
+           elevation="25"
+           azimuth="225"
+           id="feDistantLight2421" />
+      </feDiffuseLighting>
+      <feBlend
+         result="result7"
+         mode="multiply"
+         in="result3"
+         in2="SourceGraphic"
+         id="feBlend2425" />
+      <feComposite
+         in="result7"
+         operator="in"
+         in2="SourceAlpha"
+         result="result91"
+         id="feComposite2427" />
+      <feBlend
+         result="result9"
+         mode="lighten"
+         in="result6"
+         in2="result91"
+         id="feBlend2429" />
+      <feComposite
+         in="result11"
+         in2="result9"
+         id="feComposite2431" />
+    </filter>
+    <filter
+       inkscape:label="Bloom"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft, cushion-like bevel with matte highlights"
+       style="color-interpolation-filters:sRGB"
+       id="filter2459">
+      <feGaussianBlur
+         result="result1"
+         in="SourceAlpha"
+         stdDeviation="2.2"
+         id="feGaussianBlur2435" />
+      <feSpecularLighting
+         result="result0"
+         specularExponent="18.10000038"
+         specularConstant="2"
+         surfaceScale="5"
+         id="feSpecularLighting2439">
+        <feDistantLight
+           azimuth="225"
+           elevation="24"
+           id="feDistantLight2437" />
+      </feSpecularLighting>
+      <feComposite
+         result="result6"
+         operator="in"
+         in2="SourceAlpha"
+         id="feComposite2441" />
+      <feMorphology
+         radius="5.7"
+         operator="dilate"
+         id="feMorphology2443" />
+      <feGaussianBlur
+         result="result11"
+         stdDeviation="5.7"
+         id="feGaussianBlur2445" />
+      <feDiffuseLighting
+         surfaceScale="5"
+         result="result3"
+         diffuseConstant="2"
+         in="result1"
+         id="feDiffuseLighting2449">
+        <feDistantLight
+           elevation="25"
+           azimuth="225"
+           id="feDistantLight2447" />
+      </feDiffuseLighting>
+      <feBlend
+         result="result7"
+         mode="multiply"
+         in="result3"
+         in2="SourceGraphic"
+         id="feBlend2451" />
+      <feComposite
+         in="result7"
+         operator="in"
+         in2="SourceAlpha"
+         result="result91"
+         id="feComposite2453" />
+      <feBlend
+         result="result9"
+         mode="lighten"
+         in="result6"
+         in2="result91"
+         id="feBlend2455" />
+      <feComposite
+         in="result11"
+         in2="result9"
+         id="feComposite2457" />
+    </filter>
+    <filter
+       inkscape:label="Blotting Paper"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Inkblot on blotting paper"
+       height="1.3"
+       y="-0.15000001"
+       width="1.3"
+       x="-0.15000001"
+       style="color-interpolation-filters:sRGB"
+       id="filter2475">
+      <feGaussianBlur
+         stdDeviation="3"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur2461" />
+      <feTurbulence
+         type="turbulence"
+         baseFrequency="0.05"
+         numOctaves="5"
+         result="result0"
+         id="feTurbulence2463" />
+      <feDisplacementMap
+         in2="result0"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result2"
+         id="feDisplacementMap2465" />
+      <feBlend
+         result="result5"
+         in="result2"
+         mode="multiply"
+         in2="result2"
+         id="feBlend2467" />
+      <feGaussianBlur
+         stdDeviation="5"
+         in="result2"
+         result="result4"
+         id="feGaussianBlur2469" />
+      <feComposite
+         operator="arithmetic"
+         in2="result5"
+         in="result4"
+         k2="0.25"
+         k3="1"
+         k1="1"
+         id="feComposite2471"
+         k4="0" />
+      <feComposite
+         operator="in"
+         in2="result2"
+         id="feComposite2473" />
+    </filter>
+    <filter
+       inkscape:label="Blotting Paper"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Inkblot on blotting paper"
+       height="1.3"
+       y="-0.15000001"
+       width="1.3"
+       x="-0.15000001"
+       style="color-interpolation-filters:sRGB"
+       id="filter2491">
+      <feGaussianBlur
+         stdDeviation="3"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur2477" />
+      <feTurbulence
+         type="turbulence"
+         baseFrequency="0.05"
+         numOctaves="5"
+         result="result0"
+         id="feTurbulence2479" />
+      <feDisplacementMap
+         in2="result0"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result2"
+         id="feDisplacementMap2481" />
+      <feBlend
+         result="result5"
+         in="result2"
+         mode="multiply"
+         in2="result2"
+         id="feBlend2483" />
+      <feGaussianBlur
+         stdDeviation="5"
+         in="result2"
+         result="result4"
+         id="feGaussianBlur2485" />
+      <feComposite
+         operator="arithmetic"
+         in2="result5"
+         in="result4"
+         k2="0.25"
+         k3="1"
+         k1="1"
+         id="feComposite2487"
+         k4="0" />
+      <feComposite
+         operator="in"
+         in2="result2"
+         id="feComposite2489" />
+    </filter>
+    <filter
+       inkscape:label="Bark"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Bark texture, vertical; use with deep colors"
+       style="color-interpolation-filters:sRGB"
+       id="filter2515">
+      <feTurbulence
+         seed="10"
+         baseFrequency="0.12 0.02"
+         numOctaves="10"
+         type="fractalNoise"
+         id="feTurbulence2493" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.7 0 "
+         result="result5"
+         id="feColorMatrix2495" />
+      <feComposite
+         in2="result5"
+         operator="out"
+         in="SourceGraphic"
+         id="feComposite2497" />
+      <feMorphology
+         result="result3"
+         radius="1.3"
+         operator="dilate"
+         id="feMorphology2499" />
+      <feTurbulence
+         seed="25"
+         type="turbulence"
+         baseFrequency="0.08 0.05"
+         numOctaves="8"
+         result="result91"
+         id="feTurbulence2501" />
+      <feDisplacementMap
+         result="result4"
+         scale="5"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result3"
+         in2="result91"
+         id="feDisplacementMap2503" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1"
+         surfaceScale="2"
+         lighting-color="#ffffff"
+         result="result1"
+         in="result4"
+         id="feSpecularLighting2507">
+        <feDistantLight
+           azimuth="235"
+           elevation="75"
+           id="feDistantLight2505" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="result4"
+         id="feComposite2509" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="result4"
+         in2="result2"
+         id="feComposite2511"
+         k1="0"
+         k4="0" />
+      <feBlend
+         mode="multiply"
+         in2="result4"
+         id="feBlend2513" />
+    </filter>
+    <filter
+       inkscape:label="Bark"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Bark texture, vertical; use with deep colors"
+       style="color-interpolation-filters:sRGB"
+       id="filter2539">
+      <feTurbulence
+         seed="10"
+         baseFrequency="0.12 0.02"
+         numOctaves="10"
+         type="fractalNoise"
+         id="feTurbulence2517" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.7 0 "
+         result="result5"
+         id="feColorMatrix2519" />
+      <feComposite
+         in2="result5"
+         operator="out"
+         in="SourceGraphic"
+         id="feComposite2521" />
+      <feMorphology
+         result="result3"
+         radius="1.3"
+         operator="dilate"
+         id="feMorphology2523" />
+      <feTurbulence
+         seed="25"
+         type="turbulence"
+         baseFrequency="0.08 0.05"
+         numOctaves="8"
+         result="result91"
+         id="feTurbulence2525" />
+      <feDisplacementMap
+         result="result4"
+         scale="5"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result3"
+         in2="result91"
+         id="feDisplacementMap2527" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1"
+         surfaceScale="2"
+         lighting-color="#ffffff"
+         result="result1"
+         in="result4"
+         id="feSpecularLighting2531">
+        <feDistantLight
+           azimuth="235"
+           elevation="75"
+           id="feDistantLight2529" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="result4"
+         id="feComposite2533" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="result4"
+         in2="result2"
+         id="feComposite2535"
+         k1="0"
+         k4="0" />
+      <feBlend
+         mode="multiply"
+         in2="result4"
+         id="feBlend2537" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="Partly opaque water color effect with bleed"
+       inkscape:menu="Textures"
+       inkscape:label="Gouache"
+       style="color-interpolation-filters:sRGB"
+       id="filter2553">
+      <feGaussianBlur
+         stdDeviation="3"
+         result="result5"
+         in="SourceGraphic"
+         id="feGaussianBlur2541" />
+      <feTurbulence
+         result="result1"
+         baseFrequency="0.02"
+         type="fractalNoise"
+         seed="0"
+         numOctaves="3"
+         id="feTurbulence2543" />
+      <feDisplacementMap
+         result="result3"
+         in2="result1"
+         in="SourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="30"
+         id="feDisplacementMap2545" />
+      <feComposite
+         result="result4"
+         in="result3"
+         in2="result1"
+         operator="out"
+         id="feComposite2547" />
+      <feComposite
+         result="result6"
+         operator="arithmetic"
+         k2="1"
+         k1="0.3"
+         k3="0.3"
+         in2="result4"
+         id="feComposite2549"
+         k4="0" />
+      <feComposite
+         in2="result5"
+         in="result6"
+         operator="over"
+         id="feComposite2551" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="Partly opaque water color effect with bleed"
+       inkscape:menu="Textures"
+       inkscape:label="Gouache"
+       style="color-interpolation-filters:sRGB"
+       id="filter2567">
+      <feGaussianBlur
+         stdDeviation="3"
+         result="result5"
+         in="SourceGraphic"
+         id="feGaussianBlur2555" />
+      <feTurbulence
+         result="result1"
+         baseFrequency="0.02"
+         type="fractalNoise"
+         seed="0"
+         numOctaves="3"
+         id="feTurbulence2557" />
+      <feDisplacementMap
+         result="result3"
+         in2="result1"
+         in="SourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="30"
+         id="feDisplacementMap2559" />
+      <feComposite
+         result="result4"
+         in="result3"
+         in2="result1"
+         operator="out"
+         id="feComposite2561" />
+      <feComposite
+         result="result6"
+         operator="arithmetic"
+         k2="1"
+         k1="0.3"
+         k3="0.3"
+         in2="result4"
+         id="feComposite2563"
+         k4="0" />
+      <feComposite
+         in2="result5"
+         in="result6"
+         operator="over"
+         id="feComposite2565" />
+    </filter>
+    <filter
+       inkscape:label="3D Marble"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="3D warped marble texture"
+       height="1.5"
+       y="-0.25"
+       width="1.5"
+       x="-0.25"
+       style="color-interpolation-filters:sRGB"
+       id="filter2597">
+      <feGaussianBlur
+         stdDeviation="4"
+         result="result8"
+         id="feGaussianBlur2569" />
+      <feTurbulence
+         seed="50"
+         result="result7"
+         type="turbulence"
+         numOctaves="7"
+         baseFrequency="0.01 0.01"
+         id="feTurbulence2571" />
+      <feColorMatrix
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.4 0 "
+         id="feColorMatrix2573" />
+      <feComposite
+         result="result6"
+         in="result5"
+         operator="in"
+         in2="result8"
+         id="feComposite2575" />
+      <feDisplacementMap
+         in="result5"
+         xChannelSelector="A"
+         yChannelSelector="A"
+         scale="100"
+         result="result4"
+         in2="result6"
+         id="feDisplacementMap2577" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(224,224,224)"
+         id="feFlood2579" />
+      <feComposite
+         result="result2"
+         operator="atop"
+         in2="result4"
+         id="feComposite2581" />
+      <feComposite
+         in="result2"
+         operator="atop"
+         in2="SourceGraphic"
+         result="result9"
+         id="feComposite2583" />
+      <feBlend
+         result="fbSourceGraphic"
+         mode="darken"
+         in2="result9"
+         id="feBlend2585" />
+      <feGaussianBlur
+         stdDeviation="5"
+         in="fbSourceGraphic"
+         result="result0"
+         id="feGaussianBlur2587" />
+      <feSpecularLighting
+         in="result0"
+         result="result1"
+         lighting-color="#ffffff"
+         surfaceScale="8"
+         specularConstant="0.80000001"
+         specularExponent="30"
+         id="feSpecularLighting2591">
+        <feDistantLight
+           elevation="55"
+           azimuth="235"
+           id="feDistantLight2589" />
+      </feSpecularLighting>
+      <feComposite
+         in2="fbSourceGraphic"
+         in="result1"
+         result="result2"
+         operator="in"
+         id="feComposite2593" />
+      <feComposite
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="1"
+         k3="1"
+         in2="result2"
+         id="feComposite2595"
+         k1="0"
+         k4="0" />
+    </filter>
+    <filter
+       inkscape:label="3D Marble"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="3D warped marble texture"
+       height="1.5"
+       y="-0.25"
+       width="1.5"
+       x="-0.25"
+       style="color-interpolation-filters:sRGB"
+       id="filter2627">
+      <feGaussianBlur
+         stdDeviation="4"
+         result="result8"
+         id="feGaussianBlur2599" />
+      <feTurbulence
+         seed="50"
+         result="result7"
+         type="turbulence"
+         numOctaves="7"
+         baseFrequency="0.01 0.01"
+         id="feTurbulence2601" />
+      <feColorMatrix
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.4 0 "
+         id="feColorMatrix2603" />
+      <feComposite
+         result="result6"
+         in="result5"
+         operator="in"
+         in2="result8"
+         id="feComposite2605" />
+      <feDisplacementMap
+         in="result5"
+         xChannelSelector="A"
+         yChannelSelector="A"
+         scale="100"
+         result="result4"
+         in2="result6"
+         id="feDisplacementMap2607" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(224,224,224)"
+         id="feFlood2609" />
+      <feComposite
+         result="result2"
+         operator="atop"
+         in2="result4"
+         id="feComposite2611" />
+      <feComposite
+         in="result2"
+         operator="atop"
+         in2="SourceGraphic"
+         result="result9"
+         id="feComposite2613" />
+      <feBlend
+         result="fbSourceGraphic"
+         mode="darken"
+         in2="result9"
+         id="feBlend2615" />
+      <feGaussianBlur
+         stdDeviation="5"
+         in="fbSourceGraphic"
+         result="result0"
+         id="feGaussianBlur2617" />
+      <feSpecularLighting
+         in="result0"
+         result="result1"
+         lighting-color="#ffffff"
+         surfaceScale="8"
+         specularConstant="0.80000001"
+         specularExponent="30"
+         id="feSpecularLighting2621">
+        <feDistantLight
+           elevation="55"
+           azimuth="235"
+           id="feDistantLight2619" />
+      </feSpecularLighting>
+      <feComposite
+         in2="fbSourceGraphic"
+         in="result1"
+         result="result2"
+         operator="in"
+         id="feComposite2623" />
+      <feComposite
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="1"
+         k3="1"
+         in2="result2"
+         id="feComposite2625"
+         k1="0"
+         k4="0" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="Bright metallic effect for any color"
+       inkscape:menu="Bevels"
+       inkscape:label="Bright Metal"
+       style="color-interpolation-filters:sRGB"
+       id="filter2673">
+      <feGaussianBlur
+         result="result6"
+         stdDeviation="8"
+         in="SourceGraphic"
+         id="feGaussianBlur2653" />
+      <feComposite
+         in2="SourceGraphic"
+         in="result6"
+         operator="xor"
+         result="result10"
+         id="feComposite2655" />
+      <feGaussianBlur
+         result="result2"
+         stdDeviation="8"
+         id="feGaussianBlur2657" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="atop"
+         in="result10"
+         result="result91"
+         id="feComposite2659" />
+      <feComposite
+         result="result4"
+         in="result2"
+         operator="xor"
+         in2="result91"
+         id="feComposite2661" />
+      <feGaussianBlur
+         in="result4"
+         result="result3"
+         stdDeviation="4"
+         id="feGaussianBlur2663" />
+      <feSpecularLighting
+         result="result5"
+         specularExponent="5"
+         specularConstant="1.10000002"
+         surfaceScale="18"
+         id="feSpecularLighting2667">
+        <feDistantLight
+           azimuth="235"
+           elevation="55"
+           id="feDistantLight2665" />
+      </feSpecularLighting>
+      <feComposite
+         in="result3"
+         k3="1.1"
+         k2="0.5"
+         operator="arithmetic"
+         result="result7"
+         in2="result5"
+         k1="0.5"
+         id="feComposite2669"
+         k4="0" />
+      <feComposite
+         in="result7"
+         operator="atop"
+         in2="SourceGraphic"
+         result="result8"
+         id="feComposite2671" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="Bright metallic effect for any color"
+       inkscape:menu="Bevels"
+       inkscape:label="Bright Metal"
+       style="color-interpolation-filters:sRGB"
+       id="filter2695">
+      <feGaussianBlur
+         result="result6"
+         stdDeviation="8"
+         in="SourceGraphic"
+         id="feGaussianBlur2675" />
+      <feComposite
+         in2="SourceGraphic"
+         in="result6"
+         operator="xor"
+         result="result10"
+         id="feComposite2677" />
+      <feGaussianBlur
+         result="result2"
+         stdDeviation="8"
+         id="feGaussianBlur2679" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="atop"
+         in="result10"
+         result="result91"
+         id="feComposite2681" />
+      <feComposite
+         result="result4"
+         in="result2"
+         operator="xor"
+         in2="result91"
+         id="feComposite2683" />
+      <feGaussianBlur
+         in="result4"
+         result="result3"
+         stdDeviation="4"
+         id="feGaussianBlur2685" />
+      <feSpecularLighting
+         result="result5"
+         specularExponent="5"
+         specularConstant="1.10000002"
+         surfaceScale="18"
+         id="feSpecularLighting2689">
+        <feDistantLight
+           azimuth="235"
+           elevation="55"
+           id="feDistantLight2687" />
+      </feSpecularLighting>
+      <feComposite
+         in="result3"
+         k3="1.1"
+         k2="0.5"
+         operator="arithmetic"
+         result="result7"
+         in2="result5"
+         k1="0.5"
+         id="feComposite2691"
+         k4="0" />
+      <feComposite
+         in="result7"
+         operator="atop"
+         in2="SourceGraphic"
+         result="result8"
+         id="feComposite2693" />
+    </filter>
+    <filter
+       inkscape:label="Button"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft bevel, slightly depressed middle"
+       style="color-interpolation-filters:sRGB"
+       id="filter2723">
+      <feGaussianBlur
+         stdDeviation="2.3"
+         in="SourceAlpha"
+         result="result0"
+         id="feGaussianBlur2697" />
+      <feMorphology
+         in="SourceAlpha"
+         radius="6.6"
+         result="result1"
+         id="feMorphology2699" />
+      <feGaussianBlur
+         stdDeviation="8.9"
+         in="result1"
+         id="feGaussianBlur2701" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0"
+         result="result91"
+         id="feColorMatrix2703" />
+      <feComposite
+         in="result0"
+         operator="out"
+         result="result2"
+         in2="result91"
+         id="feComposite2705" />
+      <feGaussianBlur
+         stdDeviation="1.7"
+         result="result4"
+         id="feGaussianBlur2707" />
+      <feDiffuseLighting
+         surfaceScale="10"
+         id="feDiffuseLighting2711">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2709" />
+      </feDiffuseLighting>
+      <feBlend
+         in2="SourceGraphic"
+         mode="multiply"
+         id="feBlend2713" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         result="result3"
+         id="feComposite2715" />
+      <feSpecularLighting
+         in="result4"
+         surfaceScale="5"
+         specularExponent="17.89999962"
+         id="feSpecularLighting2719">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2717" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result3"
+         operator="atop"
+         id="feComposite2721" />
+    </filter>
+    <filter
+       inkscape:label="Button"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft bevel, slightly depressed middle"
+       style="color-interpolation-filters:sRGB"
+       id="filter2751">
+      <feGaussianBlur
+         stdDeviation="2.3"
+         in="SourceAlpha"
+         result="result0"
+         id="feGaussianBlur2725" />
+      <feMorphology
+         in="SourceAlpha"
+         radius="6.6"
+         result="result1"
+         id="feMorphology2727" />
+      <feGaussianBlur
+         stdDeviation="8.9"
+         in="result1"
+         id="feGaussianBlur2729" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0"
+         result="result91"
+         id="feColorMatrix2731" />
+      <feComposite
+         in="result0"
+         operator="out"
+         result="result2"
+         in2="result91"
+         id="feComposite2733" />
+      <feGaussianBlur
+         stdDeviation="1.7"
+         result="result4"
+         id="feGaussianBlur2735" />
+      <feDiffuseLighting
+         surfaceScale="10"
+         id="feDiffuseLighting2739">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2737" />
+      </feDiffuseLighting>
+      <feBlend
+         in2="SourceGraphic"
+         mode="multiply"
+         id="feBlend2741" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         result="result3"
+         id="feComposite2743" />
+      <feSpecularLighting
+         in="result4"
+         surfaceScale="5"
+         specularExponent="17.89999962"
+         id="feSpecularLighting2747">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2745" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result3"
+         operator="atop"
+         id="feComposite2749" />
+    </filter>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1335-0"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <filter
+       inkscape:label="Button"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft bevel, slightly depressed middle"
+       style="color-interpolation-filters:sRGB"
+       id="filter2723-0">
+      <feGaussianBlur
+         stdDeviation="2.3"
+         in="SourceAlpha"
+         result="result0"
+         id="feGaussianBlur2697-6" />
+      <feMorphology
+         in="SourceAlpha"
+         radius="6.6"
+         result="result1"
+         id="feMorphology2699-7" />
+      <feGaussianBlur
+         stdDeviation="8.9"
+         in="result1"
+         id="feGaussianBlur2701-1" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0"
+         result="result91"
+         id="feColorMatrix2703-6" />
+      <feComposite
+         in="result0"
+         operator="out"
+         result="result2"
+         in2="result91"
+         id="feComposite2705-4" />
+      <feGaussianBlur
+         stdDeviation="1.7"
+         result="result4"
+         id="feGaussianBlur2707-3" />
+      <feDiffuseLighting
+         surfaceScale="10"
+         id="feDiffuseLighting2711-6">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2709-7" />
+      </feDiffuseLighting>
+      <feBlend
+         in2="SourceGraphic"
+         mode="multiply"
+         id="feBlend2713-0" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         result="result3"
+         id="feComposite2715-1" />
+      <feSpecularLighting
+         in="result4"
+         surfaceScale="5"
+         specularExponent="17.89999962"
+         id="feSpecularLighting2719-8">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2717-8" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result3"
+         operator="atop"
+         id="feComposite2721-7" />
+    </filter>
+    <filter
+       inkscape:label="Button"
+       inkscape:menu="Bevels"
+       inkscape:menu-tooltip="Soft bevel, slightly depressed middle"
+       style="color-interpolation-filters:sRGB"
+       id="filter2751-7">
+      <feGaussianBlur
+         stdDeviation="2.3"
+         in="SourceAlpha"
+         result="result0"
+         id="feGaussianBlur2725-8" />
+      <feMorphology
+         in="SourceAlpha"
+         radius="6.6"
+         result="result1"
+         id="feMorphology2727-7" />
+      <feGaussianBlur
+         stdDeviation="8.9"
+         in="result1"
+         id="feGaussianBlur2729-4" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0"
+         result="result91"
+         id="feColorMatrix2731-0" />
+      <feComposite
+         in="result0"
+         operator="out"
+         result="result2"
+         in2="result91"
+         id="feComposite2733-7" />
+      <feGaussianBlur
+         stdDeviation="1.7"
+         result="result4"
+         id="feGaussianBlur2735-7" />
+      <feDiffuseLighting
+         surfaceScale="10"
+         id="feDiffuseLighting2739-8">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2737-4" />
+      </feDiffuseLighting>
+      <feBlend
+         in2="SourceGraphic"
+         mode="multiply"
+         id="feBlend2741-4" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         result="result3"
+         id="feComposite2743-1" />
+      <feSpecularLighting
+         in="result4"
+         surfaceScale="5"
+         specularExponent="17.89999962"
+         id="feSpecularLighting2747-0">
+        <feDistantLight
+           azimuth="225"
+           elevation="45"
+           id="feDistantLight2745-2" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result3"
+         operator="atop"
+         id="feComposite2749-7" />
+    </filter>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutM-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1372-7"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#4c4c4c;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.4)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1335-2"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="120.7106"
+     inkscape:cy="1051.7356"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="961"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(203.63532,22.528868)">
+    <rect
+       style="opacity:0.5;fill:#bababa;fill-opacity:0.70048308;fill-rule:nonzero;stroke:none;stroke-width:4.99119854;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1098-6"
+       width="418.13196"
+       height="336.13956"
+       x="-40.084408"
+       y="100.894" />
+    <rect
+       style="opacity:0.5;fill:#bababa;fill-opacity:0.70048308;fill-rule:nonzero;stroke:none;stroke-width:2.77569532;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1098-0"
+       width="139.79749"
+       height="310.93359"
+       x="-199.03943"
+       y="100.894" />
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.00000003, 3.00000003;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-2)"
+       d="m -13.278616,402.38269 -38.286294,0.0458 0.35111,-259.04991 -23.879781,-0.61233"
+       id="path1170-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 3;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM)"
+       d="m 178.60822,402.14867 40.69172,-0.12414 -0.88565,-264.49257 24.68159,0.18948"
+       id="path1170"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-4"
+       d="M 151.09891,85.604454 V 379.74382"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-1-7"
+       d="M 309.47365,92.202265 V 138.50451"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-196.56728"
+       y="110.15833"
+       id="text1102-5"><tspan
+         sodipodi:role="line"
+         id="tspan1100-8"
+         x="-196.56728"
+         y="110.15833"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.17222214px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">VCFtools</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-6-7"
+       d="M -126.75977,306.02541 V 352.3275"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-6"
+       d="m -126.75977,161.90219 v 46.30209"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6"
+       d="M -126.75977,78.105917 V 124.40801"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256"
+       d="M 24.942732,82.443303 V 308.58884"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -96.939166,53.671456 H -0.6445981"
+       id="path13313-9-0-7"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8"
+       d="M -50.648813,6.1113624 V 52.413441"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#adde8a;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(3.0176557,0.04663148,-0.12288236,0.97980492,-322.83574,-47.896045)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="-50.542706"
+       y="-0.81068468"
+       id="text1231"><tspan
+         sodipodi:role="line"
+         x="-50.542706"
+         y="-0.81068468"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1237">-VCF files (by chromosomes)</tspan><tspan
+         sodipodi:role="line"
+         x="-50.542706"
+         y="11.536538"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13214">-indexed VCF files</tspan><tspan
+         sodipodi:role="line"
+         x="-50.542706"
+         y="23.88376"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13210">-sample sheet</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-50.542706"
+         y="36.230984"
+         id="tspan13212" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-50.542706"
+         y="48.578205"
+         id="tspan1233" /></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4"
+       width="75.568375"
+       height="55.119675"
+       x="-12.841439"
+       y="111.01212"
+       ry="15.981199"
+       rx="30.988983" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="24.691929"
+       y="123.42498"
+       id="text1231-7"><tspan
+         sodipodi:role="line"
+         x="26.061697"
+         y="123.42498"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13210-6">convert VCF to </tspan><tspan
+         sodipodi:role="line"
+         x="24.691929"
+         y="135.7722"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan115">BED format files</tspan><tspan
+         sodipodi:role="line"
+         x="26.061699"
+         y="148.11943"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan117">for each </tspan><tspan
+         sodipodi:role="line"
+         x="24.691929"
+         y="160.46664"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1132">chromosome</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.691929"
+         y="172.81387"
+         id="tspan13212-2" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.691929"
+         y="185.16109"
+         id="tspan1233-3" /></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5"
+       width="76.156639"
+       height="52.981518"
+       x="-13.135568"
+       y="178.45406"
+       ry="15.36127"
+       rx="31.230221" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="24.918613"
+       y="196.53288"
+       id="text1231-7-7"><tspan
+         sodipodi:role="line"
+         x="26.288385"
+         y="196.53288"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1019">merge BED files </tspan><tspan
+         sodipodi:role="line"
+         x="24.918613"
+         y="208.88011"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1025">of chromosomes</tspan><tspan
+         sodipodi:role="line"
+         x="24.918613"
+         y="221.22733"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13212-2-8">into one file</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.918613"
+         y="233.57455"
+         id="tspan1233-3-4" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1236"
+       sodipodi:sides="5"
+       sodipodi:cx="-41.219021"
+       sodipodi:cy="-9.2809334"
+       sodipodi:r1="54.05706"
+       sodipodi:r2="49.942211"
+       sodipodi:arg1="0.79649458"
+       sodipodi:arg2="1.4248131"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -3.4214022,29.364969 -62.8719498,9.24401 -28.220076,-56.938222 45.430983,-44.433765 56.2979682,29.476644 z"
+       inkscape:transform-center-x="-1.4926238"
+       transform="matrix(0.77836329,0.10400665,-0.10870647,0.74471146,56.112002,77.661111)"
+       inkscape:transform-center-y="-1.4601482" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778091px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="24.969242"
+       y="65.334488"
+       id="text1260"><tspan
+         sodipodi:role="line"
+         x="24.969242"
+         y="65.334488"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1240">-Sample filtering</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.969242"
+         y="77.681717"
+         id="tspan1264" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1236-6"
+       sodipodi:sides="5"
+       sodipodi:cx="-41.219021"
+       sodipodi:cy="-9.2809334"
+       sodipodi:r1="54.05706"
+       sodipodi:r2="49.942211"
+       sodipodi:arg1="0.79649458"
+       sodipodi:arg2="1.4248131"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -3.4214022,29.364969 -62.8719498,9.24401 -28.220076,-56.938222 45.430983,-44.433765 56.2979682,29.476644 z"
+       inkscape:transform-center-x="-1.4926238"
+       transform="matrix(0.77836329,0.10400665,-0.10870647,0.74471146,-95.590537,77.661111)"
+       inkscape:transform-center-y="-1.4601482" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="-126.89972"
+       y="65.346542"
+       id="text1260-2"><tspan
+         sodipodi:role="line"
+         x="-126.89972"
+         y="65.346542"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1240-7">-SNP filtering</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-126.89972"
+         y="77.693771"
+         id="tspan1264-8" /></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5-9"
+       width="76.156639"
+       height="52.981518"
+       x="-13.135568"
+       y="243.69266"
+       ry="15.36127"
+       rx="31.230221" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="24.918613"
+       y="261.77087"
+       id="text1231-7-7-8"><tspan
+         sodipodi:role="line"
+         x="26.288385"
+         y="261.77087"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1019-5">merge BED files </tspan><tspan
+         sodipodi:role="line"
+         x="24.918613"
+         y="274.1181"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1025-7">of chromosomes</tspan><tspan
+         sodipodi:role="line"
+         x="24.918613"
+         y="286.46533"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13212-2-8-4">into one file</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.918613"
+         y="298.81253"
+         id="tspan1233-3-4-0" /></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot195"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion197"><rect
+           id="rect199"
+           width="451.42856"
+           height="331.42856"
+           x="-777.14288"
+           y="908.23395" /></flowRegion><flowPara
+         id="flowPara201" /></flowRoot>    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5-9-6-1"
+       width="98.072739"
+       height="67.41407"
+       x="-175.79636"
+       y="111.01212"
+       ry="19.545794"
+       rx="40.217548" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#bfc5ff;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-6"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.3519168,0.05520478,-0.09577272,1.1599441,-187.19579,339.27064)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="24.942732"
+       y="386.27768"
+       id="text1231-7-7-8-2"><tspan
+         sodipodi:role="line"
+         x="26.312502"
+         y="386.27768"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan285">List of samples </tspan><tspan
+         sodipodi:role="line"
+         x="24.942732"
+         y="398.62491"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan287">that pass the</tspan><tspan
+         sodipodi:role="line"
+         x="26.312502"
+         y="410.97214"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan289"> filtering criteria </tspan><tspan
+         sodipodi:role="line"
+         x="24.942734"
+         y="423.31934"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan291">and will be kept</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="24.942732"
+         y="435.66656"
+         id="tspan1233-3-4-0-0" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="-127.15065"
+       y="128.84622"
+       id="text1231-7-7-8-7-1"><tspan
+         sodipodi:role="line"
+         x="-125.78088"
+         y="128.84622"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan248-0">Removing individuals </tspan><tspan
+         sodipodi:role="line"
+         x="-125.78088"
+         y="141.19345"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1164">according to </tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="153.54066"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1166">sample filtering</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="165.88789"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1168">output list</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="178.23511"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-3" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-127.15065"
+         y="190.58234"
+         id="tspan1233-3-4-0-1-3" /></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5-9-6-1-5"
+       width="98.072739"
+       height="121.84264"
+       x="-175.79636"
+       y="191.26009"
+       ry="35.326618"
+       rx="40.217552" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="-127.15065"
+       y="212.56902"
+       id="text1231-7-7-8-7-1-1"><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="212.56902"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1168-6">Filtering based on:</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="224.91624"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1676">- MAF</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="237.26346"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1678">- HWE</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="249.61069"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1682">- missing genotypes</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="261.95792"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1684">- minimum depth</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="274.30511"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1686">- maximum depth</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="286.65234"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1690">- quality value</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="298.99957"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1692">- user-defind SNPs</tspan><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="311.3468"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1688" /><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="323.69403"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1680" /><tspan
+         sodipodi:role="line"
+         x="-127.15065"
+         y="336.04123"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-3-8" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-127.15065"
+         y="348.38846"
+         id="tspan1233-3-4-0-1-3-1" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#bfc5ff;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-6-3"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.4489196,0.06699306,-0.09972278,1.4076355,-347.64777,284.776)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="-126.65384"
+       y="339.01315"
+       id="text1231-7-7-8-7-1-2"><tspan
+         sodipodi:role="line"
+         x="-125.28407"
+         y="339.01315"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1168-5">Site and </tspan><tspan
+         sodipodi:role="line"
+         x="-126.65384"
+         y="351.36038"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1773">sample filetered:</tspan><tspan
+         sodipodi:role="line"
+         x="-126.65384"
+         y="363.70761"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1775">-VCF files (by chromosomes)</tspan><tspan
+         sodipodi:role="line"
+         x="-126.65384"
+         y="376.05481"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1769">-indexed VCF files</tspan><tspan
+         sodipodi:role="line"
+         x="-126.65384"
+         y="388.40204"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1771">-sample sheet</tspan><tspan
+         sodipodi:role="line"
+         x="-126.65384"
+         y="400.74927"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-3-2" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="-126.65384"
+         y="413.0965"
+         id="tspan1233-3-4-0-1-3-6" /></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-6-7-0"
+       d="M 309.36307,254.40929 V 300.7114"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-1"
+       d="m 309.36307,156.13601 v 46.30236"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 175.31034,54.200623 h 96.29457"
+       id="path13313-9-0-7-9"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-1"
+       d="M 230.33684,7.0825578 V 53.384645"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1236-1"
+       sodipodi:sides="5"
+       sodipodi:cx="-41.219021"
+       sodipodi:cy="-9.2809334"
+       sodipodi:r1="54.05706"
+       sodipodi:r2="49.942211"
+       sodipodi:arg1="0.79649458"
+       sodipodi:arg2="1.4248131"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -3.4214022,29.364969 -62.8719498,9.24401 -28.220076,-56.938222 45.430983,-44.433765 56.2979682,29.476644 z"
+       inkscape:transform-center-x="-1.4926238"
+       transform="matrix(0.77836329,0.10400665,-0.10870647,0.74471146,182.26818,77.661111)"
+       inkscape:transform-center-y="-1.4601482" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="150.24341"
+       y="67.164482"
+       id="text1260-0"><tspan
+         sodipodi:role="line"
+         x="150.24341"
+         y="67.164482"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1240-3">-Sample filtering</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="150.24341"
+         y="79.511711"
+         id="tspan1264-5" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1236-6-9"
+       sodipodi:sides="5"
+       sodipodi:cx="-41.219021"
+       sodipodi:cy="-9.2809334"
+       sodipodi:r1="54.05706"
+       sodipodi:r2="49.942211"
+       sodipodi:arg1="0.79649458"
+       sodipodi:arg2="1.4248131"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -3.4214022,29.364969 -62.8719498,9.24401 -28.220076,-56.938222 45.430983,-44.433765 56.2979682,29.476644 z"
+       inkscape:transform-center-x="-1.4926238"
+       transform="matrix(0.77836329,0.10400665,-0.10870647,0.74471146,339.47401,77.661111)"
+       inkscape:transform-center-y="-1.4601482" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="308.16455"
+       y="67.176537"
+       id="text1260-2-1"><tspan
+         sodipodi:role="line"
+         x="308.16455"
+         y="67.176537"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1240-7-7">-SNP filtering</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="308.16455"
+         y="79.523766"
+         id="tspan1264-8-1" /></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5-9-6-3"
+       width="91.658272"
+       height="67.41407"
+       x="104.38747"
+       y="289.32053"
+       ry="19.545794"
+       rx="37.587112" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="150.25066"
+       y="308.10992"
+       id="text1231-7-7-8-7-3"><tspan
+         sodipodi:role="line"
+         x="150.25066"
+         y="308.10992"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13212-2-8-4-7-7">Filtering based on:</tspan><tspan
+         sodipodi:role="line"
+         x="150.25066"
+         y="320.45715"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan240-7">- kinship coefficient</tspan><tspan
+         sodipodi:role="line"
+         x="150.25066"
+         y="332.80438"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan244-5">- missing genotypes</tspan><tspan
+         sodipodi:role="line"
+         x="150.25066"
+         y="345.15158"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan248-8">- user-defind IDs</tspan><tspan
+         sodipodi:role="line"
+         x="150.25066"
+         y="357.49881"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-9" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="150.25066"
+         y="369.84604"
+         id="tspan1233-3-4-0-1-6" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#bfc5ff;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-6-0"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.057954,0.05520478,-0.08380222,1.1599441,-34.872635,339.27064)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-37.584423"
+       y="109.14582"
+       id="text1102-9"><tspan
+         sodipodi:role="line"
+         id="tspan1100-5"
+         x="-37.584423"
+         y="109.14582"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46666622px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">PLINK</tspan></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864-4-5-9-6-1-5-1"
+       width="98.072739"
+       height="80.148598"
+       x="260.32626"
+       y="187.26825"
+       ry="23.237997"
+       rx="40.217552" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="309.4205"
+       y="206.25099"
+       id="text1231-7-7-8-7-1-1-6"><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="206.25099"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1168-6-1">Filtering based on:</tspan><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="218.59822"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1676-3">- MAF</tspan><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="230.94543"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1678-9">- HWE</tspan><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="243.29266"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1690-6">- missing genotypes</tspan><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="255.63988"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1692-2">- user-defind SNPs</tspan><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="267.98709"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1688-2" /><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="280.33432"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1680-4" /><tspan
+         sodipodi:role="line"
+         x="309.4205"
+         y="292.68155"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-3-8-4" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="309.4205"
+         y="305.02878"
+         id="tspan1233-3-4-0-1-3-1-3" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#bfc5ff;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-6-3-2"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.4489196,0.06699306,-0.09972278,1.4076355,88.475146,242.68494)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="309.36023"
+       y="301.60657"
+       id="text1231-7-7-8-7-1-2-2"><tspan
+         sodipodi:role="line"
+         x="310.73001"
+         y="301.60657"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1168-5-0">Site and </tspan><tspan
+         sodipodi:role="line"
+         x="309.36023"
+         y="313.9538"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan1771-9">sample filetered</tspan><tspan
+         sodipodi:role="line"
+         x="309.36023"
+         y="326.30103"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan4035">PLINK binary files</tspan><tspan
+         sodipodi:role="line"
+         x="309.36023"
+         y="338.64822"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan4037">(*.bed, *.bim, *.fam)</tspan><tspan
+         sodipodi:role="line"
+         x="309.36023"
+         y="350.99545"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan238-3-2-3" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="309.36023"
+         y="363.34268"
+         id="tspan1233-3-4-0-1-3-6-5" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:0.98000004;fill:#a5dd7c;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-43"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.4801166,0.04169188,-0.10099316,0.8760156,6.2587944,-44.735253)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;opacity:0.98000004;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="229.95845"
+       y="-0.66901183"
+       id="text1231-4"><tspan
+         sodipodi:role="line"
+         x="229.95845"
+         y="-0.66901183"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13210-6-3">PLINK binary files</tspan><tspan
+         sodipodi:role="line"
+         x="229.95845"
+         y="11.678215"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan4980">(*.bed, *.bim, *.fam)</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="229.95845"
+         y="24.025442"
+         id="tspan13212-7" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="229.95845"
+         y="36.372669"
+         id="tspan1233-1" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;opacity:0.98000004;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="150.21448"
+       y="387.76755"
+       id="text1231-4-8"><tspan
+         sodipodi:role="line"
+         x="151.58424"
+         y="387.76755"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13210-6-3-3">Filtered PLINK </tspan><tspan
+         sodipodi:role="line"
+         x="150.21448"
+         y="400.11478"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan3551">binary files</tspan><tspan
+         sodipodi:role="line"
+         x="150.21448"
+         y="412.46201"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan4980-4">(*.bed, *.bim, *.fam)</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="150.21448"
+         y="424.80923"
+         id="tspan13212-7-1" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="150.21448"
+         y="437.15646"
+         id="tspan1233-1-3" /></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#a5dd7c;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-1-6-0-5"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(2.3519168,0.05520478,-0.09577272,1.1599441,96.695421,74.609389)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778187px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;opacity:0.98000004;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="308.83109"
+       y="127.86962"
+       id="text1231-4-8-9"><tspan
+         sodipodi:role="line"
+         x="310.20087"
+         y="127.86962"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan13210-6-3-3-0">Filtered PLINK </tspan><tspan
+         sodipodi:role="line"
+         x="308.83109"
+         y="140.21684"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan3551-1">binary files</tspan><tspan
+         sodipodi:role="line"
+         x="308.83109"
+         y="152.56407"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;line-height:0px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan4980-4-2">(*.bed, *.bim, *.fam)</tspan><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="308.83109"
+         y="164.9113"
+         id="tspan13212-7-1-1" /><tspan
+         style="stroke-width:0.26458299"
+         sodipodi:role="line"
+         x="308.83109"
+         y="177.25853"
+         id="tspan1233-1-3-7" /></text>
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       d="m 23.400631,307.08848 h 71.70909"
+       id="path384"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 104.65096,333.97176 H 24.143821"
+       id="path384-3"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1256-8-6-1-8"
+       d="m 24.942732,332.38425 v 34.17202"
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2389)" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#adde8a;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(1.2273861,0.01425337,-0.04998055,0.29948698,309.13268,113.37756)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778091px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="419.64474"
+       y="133.32574"
+       id="text837"><tspan
+         sodipodi:role="line"
+         id="tspan835"
+         x="419.64474"
+         y="133.32574"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299">INPUT</tspan></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#bfc5ff;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path833-9"
+       sodipodi:sides="6"
+       sodipodi:cx="92.226196"
+       sodipodi:cy="49.80357"
+       sodipodi:r1="27.256248"
+       sodipodi:r2="23.604605"
+       sodipodi:arg1="-0.055498505"
+       sodipodi:arg2="0.46810027"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 119.44048,48.291665 107.14269,72.615878 79.928402,74.127783 65.011913,51.315474 77.309707,26.991261 104.52399,25.479357 Z"
+       transform="matrix(1.2273831,0.01425313,-0.04998042,0.29948203,309.13295,219.09337)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778091px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="419.74298"
+       y="239.07918"
+       id="text837-0"><tspan
+         sodipodi:role="line"
+         x="419.74298"
+         y="239.07918"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299"
+         id="tspan860">OUTPUT</tspan></text>
+    <rect
+       style="opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:evenodd;stroke:#0a4079;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect864"
+       width="57.803493"
+       height="24.919565"
+       x="390.93951"
+       y="147.82962"
+       ry="7.2250891"
+       rx="23.703983" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778091px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="419.72708"
+       y="164.04619"
+       id="text1556"><tspan
+         sodipodi:role="line"
+         id="tspan1554"
+         x="419.72708"
+         y="164.04619"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299">PROCESS</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#4c4c4c;stroke-width:1.17139006;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect13522"
+       width="143.37486"
+       height="77.497681"
+       x="111.20644"
+       y="-458.58914"
+       transform="rotate(90)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46666622px;line-height:1.25;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="398.06894"
+       y="107.91179"
+       id="text13526"><tspan
+         sodipodi:role="line"
+         id="tspan13524"
+         x="398.06894"
+         y="107.91179"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46666622px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299">LEGEND</tspan></text>
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1236-9"
+       sodipodi:sides="5"
+       sodipodi:cx="-41.219021"
+       sodipodi:cy="-9.2809334"
+       sodipodi:r1="54.05706"
+       sodipodi:r2="49.942211"
+       sodipodi:arg1="0.79649458"
+       sodipodi:arg2="1.4248131"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m -3.4214022,29.364969 -62.8719498,9.24401 -28.220076,-56.938222 45.430983,-44.433765 56.2979682,29.476644 z"
+       inkscape:transform-center-x="-0.8328622"
+       transform="matrix(0.43431579,0.05575302,-0.06065669,0.39920444,437.23264,207.15684)"
+       inkscape:transform-center-y="-0.78271263" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778091px;line-height:1.25;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="419.95319"
+       y="202.8756"
+       id="text1556-6"><tspan
+         sodipodi:role="line"
+         id="tspan1554-8"
+         x="419.95319"
+         y="202.8756"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'CG Omega';-inkscape-font-specification:'CG Omega, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#2d2d2d;fill-opacity:1;stroke-width:0.26458299">OPTION</tspan></text>
+    <path
+       style="fill:none;stroke:#4c4c4c;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.00000008, 3.00000008;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 24.942732,307.09738 v 27.06105"
+       id="path385"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

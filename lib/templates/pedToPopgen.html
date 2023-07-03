@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+</style>
+<h1>plinkToPopgen</h1>
+<p>this html file is created at: <span id="datetime"></span></p>
+<script>
+var dt = new Date();
+document.getElementById("datetime").innerHTML = dt.toLocaleString();
+</script>
+<h2>List of parameters set for all analyses</h2>
+<table>
+   <thead>
+       <tr><th>Parameters</th><th>Values/Settings</th></tr>
+   </thead>
+   <tbody>
+       {% for col1, col2 in lines %}
+       <tr><td>{{ col1 }}</td><td>{{ col2 }}</td></tr>
+       {% endfor %}
+   </tbody>
+</table>
+
+<figure>
+  <img src={{ dagFigure }} alt="DAG representation" style="width:100%">
+  <figcaption>Fig.1 DAG of the analysis carried out.</figcaption>
+</figure>
+
+</html>

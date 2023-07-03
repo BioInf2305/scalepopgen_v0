@@ -1,0 +1,2 @@
+#!/usr/bin/awk -f
+{pop[$0];next}END{count=0;for(f in pop){for(s in pop){for (t in pop){if(f!=s && s!=t && f!=t){count++;if(count==1){first[count] = f;second[count] = s;third[count]=t;print f,s,t}else{delete repeat;for(i in first){if(((first[i] == f && second[i] == s) || (first[i] == s && second[i] == f)) && third[i] == t){repeat["YES"]}else{repeat["NO"]}}if(!("YES" in repeat)){first[count] = f;second[count]=s;third[count]=t;print f,s,t}}}}}}}
