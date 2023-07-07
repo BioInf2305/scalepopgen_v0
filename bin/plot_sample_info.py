@@ -8,7 +8,6 @@ import folium.map
 from geopy.geocoders import Nominatim
 from folium import plugins
 from branca.element import Template, MacroElement
-import pdfkit
 
 
 template = """
