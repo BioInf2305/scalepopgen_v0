@@ -17,6 +17,8 @@ include { FILTER_SNPS_FROM_BED } from "${baseDir}/modules/plink/filter_snps_from
 
 include { PLOT_GEO_MAP } from "${baseDir}/modules/plot_geo_map"
 
+include { PRINT_HELP } from "${baseDir}/modules/print_help"
+
 
 
 //
@@ -46,6 +48,12 @@ include { RUN_SEL_SWEEPFINDER2 } from "${baseDir}/subworkflows/run_sel_sweepfind
 
 
 workflow{
+
+
+    if( params.help ){
+            PRINT_HELP()
+            exit 0
+        }
 
     // first check if the input parameter contains ".csv"
     //  yes --> input is vcf and sample map files is required
@@ -184,7 +192,7 @@ workflow{
 
     if( params.sig_sel ){
 
-        if( params.tajima_d || params.pi || params.pairwise_fst ){
+        if( params.tajima_d || params.pi || params.pairwise_fst || params.single_vs_all_fst ){
                 RUN_SEL_VCFTOOLS( n3_chrom_vcf_idx_map )
             }
 

@@ -97,5 +97,14 @@ workflow RUN_SEL_VCFTOOLS{
             
                CALC_WFST( n4_chrom_vcf_pop1_pop2 )
         }
+        if( params.single_vs_all_fst ){
+                
+                pop1_allsample = pop_idfile.combine(SPLIT_MAP_FOR_VCFTOOLS.out.iss)
 
+                n4_chrom_vcf_pop1_allsample = n4_chrom_vcf.combine(pop1_allsample)
+
+                n4_chrom_vcf_pop1_allsample.view()
+
+
+            }
 }

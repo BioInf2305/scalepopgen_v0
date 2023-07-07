@@ -1,7 +1,10 @@
-params{
+def print_help() {
+    log.info"""
+    Usage:
     // general parameters
 
-     input                    = "${baseDir}/../input/vcf_map.csv" //In case of vcf, the input should be ".csv" with first column as chromosome id, second column as path to the vcf file and third column, path to its respective index. In case of plink, the input should be directly the path to the bed file, "*.{bim,bed,fam}"
+    -- input [file]           In case of vcf, the input should be ".csv" with first column as chromosome id, second column as path to the vcf file                              and third column, path to its respective index. In case of plink, the input should be directly the path to the 
+                              bed file, "*.{bim,bed,fam}"
     outDir                    = "${baseDir}/../zebu_out/" // Path to the directory, where all the outputs will be stored. If the directory is not present, it will be created
     sample_map                = "${baseDir}/input_files/sample_pop.map" //Path to the sample map file, format: first column, sample id and the second column, population id
     geo_plot_yml              = "none" //Path to the yaml file containing parameters for plotting the samples on map
@@ -99,6 +102,7 @@ params{
    
 
     //begale phasing parameters
+
     ref_vcf                   = "none"
     cm_map                    = "none"
     burnin_val                = 3
@@ -106,5 +110,9 @@ params{
     impute_status             = false
     ne_val                    = 1000000
 
-
+    """.stripIndent()
 }
+
+workflow PRINT_HELP{
+        print_help()
+    }
