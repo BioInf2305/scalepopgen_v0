@@ -43,6 +43,8 @@ include { CONVERT_BED_TO_SPLITTED_VCF } from "${baseDir}/subworkflows/convert_be
 
 include { RUN_SEL_VCFTOOLS } from "${baseDir}/subworkflows/run_sel_vcftools"
 
+include { PREPARE_ANC_FILES } from "${baseDir}/subworkflows/prepare_anc_files"
+
 include { RUN_SEL_SWEEPFINDER2 } from "${baseDir}/subworkflows/run_sel_sweepfinder2"
 
 
@@ -196,6 +198,12 @@ workflow{
                 RUN_SEL_VCFTOOLS( n3_chrom_vcf_idx_map )
             }
 
+        if( params.clr || params.ihs || params.xpehh ){
+                PREPARE_ANC_FILES( n3_chrom_vcf_idx_map )
+            }
+
+        /*
+
         if( params.clr ){
                 RUN_SEL_SWEEPFINDER2(n3_chrom_vcf_idx_map)
             }
@@ -203,5 +211,6 @@ workflow{
         if( params.ihs || params.nsl || params.xpehh ){
                 RUN_SIG_SEL_PHASED_DATA( n3_chrom_vcf_idx_map )
             }
+    */
     }
 }

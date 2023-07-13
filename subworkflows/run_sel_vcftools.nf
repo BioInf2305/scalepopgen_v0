@@ -103,7 +103,7 @@ workflow RUN_SEL_VCFTOOLS{
 
                 n4_chrom_vcf_pop1_allsample = n4_chrom_vcf.combine(pop1_allsample)
 
-                n4_chrom_vcf_pop1_allsample.view()
+                //n4_chrom_vcf_pop1_allsample.view()
 
 
             }
