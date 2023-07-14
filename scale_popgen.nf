@@ -200,6 +200,10 @@ workflow{
 
         if( params.clr || params.ihs || params.xpehh ){
                 PREPARE_ANC_FILES( n3_chrom_vcf_idx_map )
+
+                if( params.clr ){
+                        RUN_SEL_SWEEPFINDER2( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )
+                    }
             }
 
         /*

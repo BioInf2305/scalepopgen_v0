@@ -7,7 +7,7 @@ process PREPARE_SWEEPFINDER_INPUT{
     publishDir("${params.outDir}/selection/file_preparation/clr/", mode:"copy")
 
     input:
-        tuple val( chrom ), path( vcf ), path( pop_id ), path(anc)
+        tuple val( chrom ), path( vcf ), path( anc ), path(pop_id)
 
     output:
         tuple val(pop), path ( "${chrom}*.freq" ), emit: pop_freq

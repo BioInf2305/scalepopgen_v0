@@ -79,7 +79,7 @@ def vcf_to_swpfinder2(vcfIn, sampleMap, anc, pop, createRecomb, createGrid, outp
                 local_count_dict[map_dict[sample]][0] += gt.count(derived_allele)
                 local_count_dict[map_dict[sample]][1] += 2
         for popId in pop_list:
-            if local_count_dict[popId][0] > 0 or fold == "0":
+            if (local_count_dict[popId][0] > 0 and fold == "0") or (fold == "1"):
                 file_pointer_dict[popId][0].write(
                     str(rec.pos)
                     + "\t"

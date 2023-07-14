@@ -10,15 +10,15 @@ include { RUN_SWEEPFINDER2 } from '../modules/selection/run_sweepfinder2'
 
 workflow RUN_SEL_SWEEPFINDER2{
     take:
-        chrom_vcf_idx_map
+        chrom_vcf_idx_map_anc
 
     main:
-
+        
         // sample map file should be processed separately to split id pop-wise
 
-        map_f = chrom_vcf_idx_map.map{ chrom, vcf, idx, mp -> mp}.unique()
+        map_f = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, mp, anc -> mp}.unique()
 
-        n3_chrom_vcf = chrom_vcf_idx_map.map{ chrom, vcf, idx, map -> tuple(chrom, vcf) }
+        n1_chrom_vcf_anc = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map, anc -> tuple(chrom, vcf, anc) }
 
         //following module split the map file pop-wise
 
@@ -30,30 +30,19 @@ workflow RUN_SEL_SWEEPFINDER2{
 
         //each sample id file should be combine with each vcf file
 
-        n3_chrom_vcf_popid = n3_chrom_vcf.combine(pop_idfile)
+        n1_chrom_vcf_anc_popid = n1_chrom_vcf_anc.combine(pop_idfile)
 
         
             // read file containing paths to the ancestral allele files                
-
-        if(params.anc_files != "none" ){
-            Channel
-                .fromPath(params.anc_files)
-                .splitCsv(sep:",")
-                .map{ chrom, anc -> if(!file(anc).exists() ){ exit 1, 'ERROR: input anc file does not exist  \
-                    -> ${anc}' }else{tuple(chrom, file(anc))} }
-                .set{ chrom_anc }
-            n4_chrom_vcf_popid_anc = n3_chrom_vcf_popid.combine(chrom_anc, by:0)
-        }
-        else{
-            n4_chrom_vcf_popid_anc = n3_chrom_vcf_popid.combine(["none"])
-        }
         
-        n5_chrom_vcf_popid_anc = n4_chrom_vcf_popid_anc.map{ chrom, vcf, popid, anc ->tuple( chrom, vcf, popid, anc == "none" ? []: anc)}    
+        n1_chrom_vcf_popid_anc = n1_chrom_vcf_anc_popid.map{ chrom, vcf, popid, anc ->tuple( chrom, vcf, popid, anc == "none" ? []: anc)}    
+
+
 
         // prepare sweepfinder input files --> freq file and recomb file
 
         PREPARE_SWEEPFINDER_INPUT(
-            n5_chrom_vcf_popid_anc
+            n1_chrom_vcf_popid_anc
         )
 
         // group freq files and recomb files based on "pop" key
