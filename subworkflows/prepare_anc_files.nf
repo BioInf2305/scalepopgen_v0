@@ -20,7 +20,7 @@ workflow PREPARE_ANC_FILES{
             chrom_map_anc = chrom_vcf_idx_map_anc.map{chrom, vcf, idx, map, anc -> tuple(chrom, map, anc)}
             chrom_vcf_idx = EXTRACT_SITES(chrom_vcf_idx_map_anc).out.chrom_ancvcfpos_idx
             n1_chrom_vcf_idx_map_anc = chrom_vcf_idx.combine(chrom_map_anc,by:0)
-            n1_chrom_vcf_idx_map_anc.view()
+            n2_chrom_vcf_idx_map_anc = n1_chrom_vcf_idx_map_anc.map{chrom,v_i,m,a -> tuple(chrom,v_i[0],v_i[1],m,a)}
         }
         if( params.anc_files == "create" ){
             chrom_anc = RUN_ESTSFS(chrom_vcf_idx_map).chrom_anc
@@ -28,9 +28,12 @@ workflow PREPARE_ANC_FILES{
             chrom_map_anc = chrom_vcf_idx_map_anc.map{chrom, vcf, idx, map, anc -> tuple(chrom, map, anc)}
             chrom_vcf_idx = EXTRACT_SITES(chrom_vcf_idx_map_anc).chrom_ancvcfpos_idx
             n1_chrom_vcf_idx_map_anc = chrom_vcf_idx.combine(chrom_map_anc,by:0)
-            n1_chrom_vcf_idx_map_anc.view()
+            n2_chrom_vcf_idx_map_anc = n1_chrom_vcf_idx_map_anc.map{chrom,v_i,m,a -> tuple(chrom,v_i[0],v_i[1],m,a)}
         }
         if(params.anc_files == "none" ){
-                n1_chrom_vcf_idx_map_anc = chrom_vcf_idx_map.combine(["none"])
+                n2_chrom_vcf_idx_map_anc = chrom_vcf_idx_map.combine(["none"])
             }
+
+    emit:
+        n2_chrom_vcf_idx_map_anc = n2_chrom_vcf_idx_map_anc
 }
