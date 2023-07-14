@@ -199,6 +199,7 @@ workflow{
             }
 
         if( params.clr || params.ihs || params.xpehh ){
+                
                 PREPARE_ANC_FILES( n3_chrom_vcf_idx_map )
 
                 if( params.clr ){
