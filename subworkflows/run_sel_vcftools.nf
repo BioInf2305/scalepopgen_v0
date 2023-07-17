@@ -55,13 +55,16 @@ workflow RUN_SEL_VCFTOOLS{
 
         pop_idfile = SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.flatten()
 
-
-        n4_chrom_vcf = n3_chrom_vcf
-
-        /*
         
-        if( params.skip_chrmwise ){
-            n4_chrom_vcf = n3_chrom_vcf
+        if( params.is_vcf ){
+            if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
+                CONCAT_VCF(
+                    n3_chrom_vcf.map{chrom, vcf -> vcf}.collect()
+                )
+                n4_chrom_vcf = CONCAT_VCF.out.concatenatedvcf
+            }
+            else{
+                n4_chrom_vcf = n3_chrom_vcf
             }
         else{
             CONCAT_VCF(
@@ -69,7 +72,6 @@ workflow RUN_SEL_VCFTOOLS{
             )
             n4_chrom_vcf = CONCAT_VCF.out.concatenatedvcf
         }
-        */
 
         //each sample id file should be combine with each vcf file
 
