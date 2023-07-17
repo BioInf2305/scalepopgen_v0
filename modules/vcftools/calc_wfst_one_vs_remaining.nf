@@ -1,6 +1,6 @@
-process CALC_WFST{
+process CALC_WFST_ONE_VS_REMAINING{
 
-    tag { "calculating_pairwise_fst" }
+    tag { "calculating_one_vs_remaining_fst" }
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
@@ -10,7 +10,7 @@ process CALC_WFST{
         tuple val(prefix), path(vcf), path(pop1_file), path(pop2_file)
 
     output:
-        path("*.weir.fst"), emit: pairwise_fst_out
+        tuple val(pop1), path("*.weir.fst"), emit: pairwise_fst_out
 
     script:
         
@@ -23,14 +23,15 @@ process CALC_WFST{
         
         }
         
-        def pop1 = pop1_file.baseName
-        def pop2 = pop2_file.baseName
+        pop1 = pop1_file.baseName
+        pop2 = pop2_file.baseName
         
 
 
         """
+        awk 'NR==FNR{a[\$1];next}!(\$1 in a){print \$1}' ${pop1_file} ${pop2_file} > total_samples_excluding_${pop1}.txt
 
-        vcftools --gzvcf ${vcf} --weir-fst-pop ${pop1_file} --weir-fst-pop ${pop2_file} $args --out ${pop1}_${pop2}
+        vcftools --gzvcf ${vcf} --weir-fst-pop ${pop1_file} --weir-fst-pop total_samples_excluding_${pop1}.txt $args --out ${prefix}_${pop1}_vs_remaining.txt
 
 
         """ 
