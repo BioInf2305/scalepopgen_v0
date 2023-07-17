@@ -1,6 +1,6 @@
-process INDEX_VCF{
+process BGZIP_VCF{
 
-    tag { "index_vcf_${chrom}" }
+    tag { "bgzip_vcf_${chrom}" }
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.2"
     conda "${baseDir}/environment.yml"
@@ -10,14 +10,16 @@ process INDEX_VCF{
         tuple val(chrom), path(vcf)
 
     output:
-        tuple val(chrom), path ("*.tbi"), emit: idx_vcf
+        tuple val(chrom), path ("*.gz"), emit: chrom_gzvcf
         
     
     script:
 
         """
         
-        tabix ${vcf}
+        awk '{if(NR==1){gsub("v4.3","v4.2",\$0);print;next}else;if(\$0!~/chrSet/){print}}' ${vcf} > plink.vcf
+        
+        bgzip plink.vcf
 
 
         """ 

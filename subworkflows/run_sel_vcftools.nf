@@ -53,15 +53,15 @@ workflow RUN_SEL_VCFTOOLS{
         )
 
         pop_idfile = SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.flatten()
-
-        if( params.skip_chrmwise ){
+        
+        if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
+            n4_chrom_vcf = n3_chrom_vcf
+            }
+        else{
             CONCAT_VCF(
                 n3_chrom_vcf.map{ chrom, vcf -> vcf}.collect()
             )
             n4_chrom_vcf = CONCAT_VCF.out.concatenatedvcf
-        }
-        else{
-            n4_chrom_vcf = n3_chrom_vcf
         }
 
         //each sample id file should be combine with each vcf file
@@ -89,7 +89,17 @@ workflow RUN_SEL_VCFTOOLS{
                
                 // prepare channel for the pairwise fst                
 
-               pop1_pop2 = PREPARE_DIFFPOP_T(SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples).unique()
+            n4_chrom_vcf.view()
+
+            pop_idfile_collect = pop_idfile.collect()
+            
+            SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.view()
+
+            pop_idfile_collect.view()
+
+            pop1_pop2 = PREPARE_DIFFPOP_T(pop_idfile_collect).unique()
+
+            pop1_pop2.view()
 
                n4_chrom_vcf_pop1_pop2 = n4_chrom_vcf.combine(pop1_pop2)
 

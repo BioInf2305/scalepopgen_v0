@@ -18,12 +18,16 @@ process SPLIT_IDFILE_BY_POP{
     
         def min_samp_sel = params.min_samples_per_pop
         def skip_pop = params.skip_pop
+        def skip_sel_outgroup = params.skip_sel_outgroup
+        def outgroup = params.outgroup
         
         """
         
-        awk -v min_samp=${min_samp_sel} '{pop[\$1]++;next}END{for(i in pop){if(pop[i] >= min_samp){print i}}}' ${sample_map} > pop_remove.ids
+        awk -v min_samp=${min_samp_sel} '{pop[\$2]++;next}END{for(i in pop){if(pop[i] <= min_samp){print i}}}' ${sample_map} > pop_remove.ids
 
         if [[ ${skip_pop} != "none" ]]; then cat ${skip_pop} pop_remove.ids > pop_remove_ids.1;else mv pop_remove.ids pop_remove_ids.1;fi
+
+        if ${skip_sel_outgroup};then echo ${outgroup} >> pop_remove_ids.1;fi
 
         if [[ "\$(wc -l <pop_remove_ids.1)" -gt 0 ]]; then awk 'NR==FNR{pop[\$1];next}!(\$2 in pop){print \$1>>\$2".txt"}' pop_remove_ids.1 ${sample_map};else awk '{print \$1>>\$2".txt"}' ${sample_map};fi
         
