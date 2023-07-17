@@ -24,7 +24,6 @@ process RUN_ESTSFS{
 
         python3 ${baseDir}/bin/vcf_to_est-sfs_input.py -c ${chrom} -V ${vcf} -M ${sample_map} -o ${chrom}_outgroup.txt
 
-        export LD_LIBRARY_PATH=${baseDir}/work/conda/scalepopgen_0.1.1-0e359c715317f150cb85dbda0792a1b0/lib:\${LD_LIBRARY_PATH}
 
         ${baseDir}/bin/est-sfs ${chrom}_config.txt ${chrom}_data.txt ${chrom}_seed.txt ${chrom}_out_sfs.txt ${chrom}_out_pvalue.txt > ${chrom}.estsfs.log
 

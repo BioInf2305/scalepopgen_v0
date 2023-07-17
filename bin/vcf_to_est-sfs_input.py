@@ -5,7 +5,7 @@ from pysam import VariantFile
 
 def map_to_dict(sample_map, outgroup_id):
     sample_dict = {}
-    pop_dict = {"focal":[]}
+    pop_dict = {"focal": []}
     outgroup_list = []
     with open(outgroup_id) as source:
         for line in source:
@@ -27,22 +27,34 @@ def map_to_dict(sample_map, outgroup_id):
 
 def find_consensus_base_outgroup(base_dict):
     max_idx = list(base_dict.values()).index(max(base_dict.values()))
-    cons_list = [ 1 if i==max_idx else 0 for i in range(4) ]
+    cons_list = [1 if i == max_idx else 0 for i in range(4)]
     return cons_list
 
+
 def write_param(chrom, n_pop, model, n_random):
-    dest_c = open(chrom+"_config.txt","w")
-    dest_s = open(chrom+"_seed.txt","w")
-    dest_c.write("n_outgroup "+str(n_pop)+"\n"+"model "+str(model)+"\n"+"nrandom "+str(n_random)+"\n")
-    dest_s.write("345678"+"\n")
+    dest_c = open(chrom + "_config.txt", "w")
+    dest_s = open(chrom + "_seed.txt", "w")
+    dest_c.write(
+        "n_outgroup "
+        + str(n_pop)
+        + "\n"
+        + "model "
+        + str(model)
+        + "\n"
+        + "nrandom "
+        + str(n_random)
+        + "\n"
+    )
+    dest_s.write("345678" + "\n")
     dest_c.close()
     dest_s.close()
+
 
 def vcf_to_est_sfs(chrom, vcf_in, sample_map, outgroup_id, model, n_random):
     sample_dict, pop_dict, n_pop = map_to_dict(sample_map, outgroup_id)
     vcf_pntr = VariantFile(vcf_in)
-    dest_m = open(chrom+"_non_missing_sites.map","w")
-    with open(chrom+"_data.txt","w") as dest_d:
+    dest_m = open(chrom + "_non_missing_sites.map", "w")
+    with open(chrom + "_data.txt", "w") as dest_d:
         for rec in vcf_pntr.fetch():
             missing = 0
             ref_allele_count = 0
@@ -50,45 +62,60 @@ def vcf_to_est_sfs(chrom, vcf_in, sample_map, outgroup_id, model, n_random):
             snps = [rec.ref[0].upper(), rec.alts[0].upper()]
             pop_base_dict = {}
             for pop in pop_dict:
-                pop_base_dict[pop] = {"A":0,"C":0,"G":0,"T":0}
+                pop_base_dict[pop] = {"A": 0, "C": 0, "G": 0, "T": 0}
             for sample in sample_dict:
                 gt = rec.samples[sample]["GT"]
                 if sample_dict[sample] == "focal":
                     focal_sp = True
-                else: focal_sp = False
+                else:
+                    focal_sp = False
                 if gt == (None, None):
                     missing = 1
                     break
                 elif gt == (0, 0):
-                    pop_base_dict[sample_dict[sample]][snps[0]]+=2
-                    ref_allele_count = ref_allele_count+2 if focal_sp else ref_allele_count
+                    pop_base_dict[sample_dict[sample]][snps[0]] += 2
+                    ref_allele_count = (
+                        ref_allele_count + 2 if focal_sp else ref_allele_count
+                    )
                 elif gt == (1, 1):
-                    pop_base_dict[sample_dict[sample]][snps[1]]+=2
-                    alt_allele_count = alt_allele_count+2 if focal_sp else alt_allele_count
+                    pop_base_dict[sample_dict[sample]][snps[1]] += 2
+                    alt_allele_count = (
+                        alt_allele_count + 2 if focal_sp else alt_allele_count
+                    )
                 elif gt == (0, 1) or gt == (1, 0):
-                    pop_base_dict[sample_dict[sample]][snps[0]]+=1
-                    pop_base_dict[sample_dict[sample]][snps[1]]+=1
-                    ref_allele_count = ref_allele_count+1 if focal_sp else ref_allele_count
-                    alt_allele_count = alt_allele_count+1 if focal_sp else alt_allele_count
+                    pop_base_dict[sample_dict[sample]][snps[0]] += 1
+                    pop_base_dict[sample_dict[sample]][snps[1]] += 1
+                    ref_allele_count = (
+                        ref_allele_count + 1 if focal_sp else ref_allele_count
+                    )
+                    alt_allele_count = (
+                        alt_allele_count + 1 if focal_sp else alt_allele_count
+                    )
                 else:
-                    print("invalid genotypes at "+str(rec.pos)+"\n")
+                    print("invalid genotypes at " + str(rec.pos) + "\n")
                     sys.exit(1)
             w_line = ""
             for k in pop_base_dict:
                 if missing == 0:
                     if k == "focal":
-                        w_line += ",".join(map(str, pop_base_dict[k].values()))+ " "
+                        w_line += ",".join(map(str, pop_base_dict[k].values())) + " "
                     else:
                         base_count_list = find_consensus_base_outgroup(pop_base_dict[k])
-                        w_line += ",".join(map(str,base_count_list)) + " "
+                        w_line += ",".join(map(str, base_count_list)) + " "
             if missing == 0:
                 w_line.rstrip()
-                dest_d.write(w_line+"\n")
-                dest_m.write(str(rec.chrom)+"\t"+str(rec.pos)+"\t"+str(1 if
-                                                                       alt_allele_count>ref_allele_count else
-                                                                       0)+"\n")
+                dest_d.write(w_line + "\n")
+                dest_m.write(
+                    str(rec.chrom)
+                    + "\t"
+                    + str(rec.pos)
+                    + "\t"
+                    + str(1 if alt_allele_count > ref_allele_count else 0)
+                    + "\n"
+                )
     dest_m.close()
-    write_param(chrom, n_pop, model, n_random) 
+    write_param(chrom, n_pop, model, n_random)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -106,10 +133,14 @@ if __name__ == "__main__":
         "--map",
         metavar="File",
         help="map file with first column as sample and second column as pop",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        "-o", "--outgroup", metavar="File", help="file containing outgroup sample ids", required=True
+        "-o",
+        "--outgroup",
+        metavar="File",
+        help="file containing outgroup sample ids",
+        required=True,
     )
     parser.add_argument(
         "-m",
@@ -133,10 +164,5 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         vcf_to_est_sfs(
-            args.chrom,
-            args.vcf,
-            args.map,
-            args.outgroup,
-            args.Model,
-            args.n_random
+            args.chrom, args.vcf, args.map, args.outgroup, args.Model, args.n_random
         )
