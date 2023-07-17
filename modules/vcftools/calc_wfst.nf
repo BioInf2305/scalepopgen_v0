@@ -10,7 +10,7 @@ process CALC_WFST{
         tuple val(prefix), path(vcf), path(pop1_file), path(pop2_file)
 
     output:
-        path("*.weir.fst"), emit: pairwise_fst_out
+        tuple val("${pop1}_${pop2}"), path("*.weir.fst"), emit: pairwise_fst_out
 
     script:
         
@@ -23,14 +23,14 @@ process CALC_WFST{
         
         }
         
-        def pop1 = pop1_file.baseName
-        def pop2 = pop2_file.baseName
+        pop1 = pop1_file.baseName
+        pop2 = pop2_file.baseName
         
 
 
         """
 
-        vcftools --gzvcf ${vcf} --weir-fst-pop ${pop1_file} --weir-fst-pop ${pop2_file} $args --out ${pop1}_${pop2}
+        vcftools --gzvcf ${vcf} --weir-fst-pop ${pop1_file} --weir-fst-pop ${pop2_file} $args --out ${prefix}_${pop1}_${pop2}
 
 
         """ 

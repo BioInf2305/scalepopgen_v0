@@ -7,6 +7,7 @@ include { CONCAT_VCF } from '../modules/vcftools/concat_vcf'
 include { CALC_TAJIMA_D } from '../modules/vcftools/calc_tajima_d'
 include { CALC_PI } from '../modules/vcftools/calc_pi'
 include { CALC_WFST } from '../modules/vcftools/calc_wfst'
+include { CALC_WFST_ONE_VS_REMAINING } from '../modules/vcftools/calc_wfst_one_vs_remaining'
 
 
 /* to do 
@@ -53,9 +54,17 @@ workflow RUN_SEL_VCFTOOLS{
         )
 
         pop_idfile = SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.flatten()
+
         
-        if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
-            n4_chrom_vcf = n3_chrom_vcf
+        if( params.is_vcf ){
+            if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
+                CONCAT_VCF(
+                    n3_chrom_vcf.map{chrom, vcf -> vcf}.collect()
+                )
+                n4_chrom_vcf = CONCAT_VCF.out.concatenatedvcf
+            }
+            else{
+                n4_chrom_vcf = n3_chrom_vcf
             }
         else{
             CONCAT_VCF(
@@ -89,29 +98,29 @@ workflow RUN_SEL_VCFTOOLS{
                
                 // prepare channel for the pairwise fst                
 
-            n4_chrom_vcf.view()
 
             pop_idfile_collect = pop_idfile.collect()
             
-            SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.view()
+            //SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.view()
 
-            pop_idfile_collect.view()
+            //pop_idfile_collect.view()
 
             pop1_pop2 = PREPARE_DIFFPOP_T(pop_idfile_collect).unique()
 
-            pop1_pop2.view()
 
-               n4_chrom_vcf_pop1_pop2 = n4_chrom_vcf.combine(pop1_pop2)
+             n4_chrom_vcf_pop1_pop2 = n4_chrom_vcf.combine(pop1_pop2)
 
                 //following module calculates pairwise weir fst for all pairwise combination of pop
             
-               CALC_WFST( n4_chrom_vcf_pop1_pop2 )
+               //CALC_WFST( n4_chrom_vcf_pop1_pop2 ).pairwise_fst_out.groupTuple().view()
         }
         if( params.single_vs_all_fst ){
                 
                 pop1_allsample = pop_idfile.combine(SPLIT_MAP_FOR_VCFTOOLS.out.iss)
 
                 n4_chrom_vcf_pop1_allsample = n4_chrom_vcf.combine(pop1_allsample)
+
+                CALC_WFST_ONE_VS_REMAINING(n4_chrom_vcf_pop1_allsample)
 
                 //n4_chrom_vcf_pop1_allsample.view()
 
