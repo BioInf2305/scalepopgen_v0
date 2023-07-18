@@ -17,9 +17,9 @@ include { FILTER_SNPS_FROM_BED } from "${baseDir}/modules/plink/filter_snps_from
 
 include { PLOT_GEO_MAP } from "${baseDir}/modules/plot_geo_map"
 
-include { PRINT_HELP } from "${baseDir}/modules/print_help"
+include { PRINT_GENERAL_OPTIONS } from "${baseDir}/modules/help/print_general_options"
 
-
+include { PRINT_FILTERING_OPTIONS } from "${baseDir}/modules/help/print_filtering_options"
 
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
@@ -53,8 +53,14 @@ workflow{
 
 
     if( params.help ){
-            PRINT_HELP()
-            exit 0
+            if ( params.filtering ){
+                PRINT_FILTERING_OPTIONS()
+                exit 0
+            }
+            else{
+                PRINT_GENERAL_OPTIONS()
+                exit 0
+            }
         }
 
     // first check if the input parameter contains ".csv"
