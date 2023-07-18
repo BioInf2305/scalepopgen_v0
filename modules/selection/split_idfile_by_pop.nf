@@ -23,7 +23,7 @@ process SPLIT_IDFILE_BY_POP{
         
         """
         
-        awk -v min_samp=${min_samp_sel} '{pop[\$2]++;next}END{for(i in pop){if(pop[i] <= min_samp){print i}}}' ${sample_map} > pop_remove.ids
+        awk -v min_samp=${min_samp_sel} -v outgrp=${outgroup} '{if(\$2!=outgrp){pop[\$2]++;next}}END{for(i in pop){if(pop[i] <= min_samp){print i}}}' ${sample_map} > pop_remove.ids
 
         if [[ ${skip_pop} != "none" ]]; then cat ${skip_pop} pop_remove.ids > pop_remove_ids.1;else mv pop_remove.ids pop_remove_ids.1;fi
 
