@@ -90,14 +90,14 @@ workflow{
         // combine channel for vcf and sample map file //
 
         chrom_vcf_idx_map = CHECK_INPUT.out.chrom_vcf_idx.combine(map_file)
-        params.is_vcf = true
+        is_vcf = true
         
 
     }
     else{
 
         prefix_bed = Channel.fromFilePairs(params.input, size:3)
-        params.is_vcf = false
+        is_vcf = false
 
     }
     
@@ -106,7 +106,7 @@ workflow{
     //  indi filtering --> use plink to filter samples 
     //  sites filtering --> use vcftools to filter sites
 
-    if ( params.is_vcf ){
+    if ( is_vcf ){
 
         if( params.apply_indi_filters ){
 
@@ -174,7 +174,7 @@ workflow{
     
     if ( params.run_smartpca || params.run_gds_pca || params.admixture ) {
 
-        if( params.is_vcf ){
+        if( is_vcf ){
             CONVERT_FILTERED_VCF_TO_PLINK(
                 n3_chrom_vcf_idx_map
             )

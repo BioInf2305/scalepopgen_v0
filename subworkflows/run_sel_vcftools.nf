@@ -8,6 +8,8 @@ include { CALC_TAJIMA_D } from '../modules/vcftools/calc_tajima_d'
 include { CALC_PI } from '../modules/vcftools/calc_pi'
 include { CALC_WFST } from '../modules/vcftools/calc_wfst'
 include { CALC_WFST_ONE_VS_REMAINING } from '../modules/vcftools/calc_wfst_one_vs_remaining'
+include { CONCAT_WFST } from '../modules/concat_wst'
+include { GENERATE_FST_TREE } from '../modules/generate_fst_tree'
 
 
 /* to do 
@@ -56,7 +58,7 @@ workflow RUN_SEL_VCFTOOLS{
         pop_idfile = SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.flatten()
 
         
-        if( params.is_vcf ){
+        if( params.input.endsWith(".csv") ){
             if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
                 CONCAT_VCF(
                     n3_chrom_vcf.map{chrom, vcf -> vcf}.collect()
@@ -66,11 +68,9 @@ workflow RUN_SEL_VCFTOOLS{
             else{
                 n4_chrom_vcf = n3_chrom_vcf
             }
+        }
         else{
-            CONCAT_VCF(
-                n3_chrom_vcf.map{ chrom, vcf -> vcf}.collect()
-            )
-            n4_chrom_vcf = CONCAT_VCF.out.concatenatedvcf
+            n4_chrom_vcf = n3_chrom_vcf
         }
 
         //each sample id file should be combine with each vcf file
@@ -109,10 +109,19 @@ workflow RUN_SEL_VCFTOOLS{
 
 
              n4_chrom_vcf_pop1_pop2 = n4_chrom_vcf.combine(pop1_pop2)
-
-                //following module calculates pairwise weir fst for all pairwise combination of pop
             
-               //CALC_WFST( n4_chrom_vcf_pop1_pop2 ).pairwise_fst_out.groupTuple().view()
+            CALC_WFST( n4_chrom_vcf_pop1_pop2 )
+            
+
+            if( params.fst_nj_tree ){
+                
+                        CONCAT_WFST(
+                            CALC_WFST.out.pairwise_fst_out.groupTuple()
+                            )
+                        concatenated_fst_files = CONCAT_WFST.out.concatenated_fst_files.collect()
+                    
+                GENERATE_FST_TREE(concatenated_fst_files)
+            }
         }
         if( params.single_vs_all_fst ){
                 
@@ -122,7 +131,6 @@ workflow RUN_SEL_VCFTOOLS{
 
                 CALC_WFST_ONE_VS_REMAINING(n4_chrom_vcf_pop1_allsample)
 
-                //n4_chrom_vcf_pop1_allsample.view()
 
 
             }

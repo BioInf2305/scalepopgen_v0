@@ -12,11 +12,11 @@ def make_fst_tree(in_files, tree, outgroup, out_prefix):
     pop_list = []
     empty_list = [0]
     is_window_fst = False
-    pattern1 = re.compile("([^_]+)(_)(.*)(.weir.fst)")
+    pattern1 = re.compile(r"([^_]+)_([^_]+)(.*)")
     for in_file in in_files:
         match1 = re.findall(pattern1, in_file)
         pop1 = match1[0][0]
-        pop2 = match1[0][2]
+        pop2 = match1[0][1]
         fst_array = []
         header = 0
         if pop1 not in pop_list:

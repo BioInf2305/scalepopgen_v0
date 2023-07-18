@@ -12,7 +12,7 @@ process EST_OPT_MIGRATION_EDGE{
 	    path(cov)
 
     output:
-        path("OptMResults*")
+        path("OptM_results*")
 
     when:
      task.ext.when == null || task.ext.when
