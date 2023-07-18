@@ -19,7 +19,7 @@ process CALC_PI{
         def out_prefix = sample_id.baseName +"_"+prefix
         args = args +" --keep "+sample_id 
         if( params.pi_window_size > 0 ){
-            arg = args + " --window-pi "+ params.pi_window_size
+            args = args + " --window-pi "+ params.pi_window_size
             out_prefix = out_prefix +"_"+params.pi_window_size
             }
         if( params.pi_step_size > 0 ){
