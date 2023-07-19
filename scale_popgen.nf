@@ -21,6 +21,8 @@ include { PRINT_GENERAL_OPTIONS } from "${baseDir}/modules/help/print_general_op
 
 include { PRINT_FILTERING_OPTIONS } from "${baseDir}/modules/help/print_filtering_options"
 
+include { PRINT_GENSTRUCT_OPTIONS } from "${baseDir}/modules/help/print_genstruct_options"
+
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
 //
@@ -47,14 +49,20 @@ include { PREPARE_ANC_FILES } from "${baseDir}/subworkflows/prepare_anc_files"
 
 include { RUN_SEL_SWEEPFINDER2 } from "${baseDir}/subworkflows/run_sel_sweepfinder2"
 
+include { RUN_SIG_SEL_PHASED_DATA } from "${baseDir}/subworkflows/run_sig_sel_phased_data"
+
 
 
 workflow{
 
 
     if( params.help ){
-            if ( params.filtering ){
+            if ( params.apply_snp_filters || params.apply_indi_filters ){
                 PRINT_FILTERING_OPTIONS()
+                exit 0
+            }
+            if ( params.genetic_structure ){
+                PRINT_GENSTRUCT_OPTIONS()
                 exit 0
             }
             else{
@@ -77,7 +85,7 @@ workflow{
             tile_yml
         )
 
-        }
+    }
 
     if( params.input.endsWith(".csv") ) {
         
@@ -178,7 +186,7 @@ workflow{
     // in case of pca and admixture, convert filtered vcf to bed (if input is vcf)
     // the main rationale is that all plink dependent analysis should be covered in this "if" block
     
-    if ( params.run_smartpca || params.run_gds_pca || params.admixture ) {
+    if ( params.genetic_structure ) {
 
         if( is_vcf ){
             CONVERT_FILTERED_VCF_TO_PLINK(
@@ -210,18 +218,11 @@ workflow{
 
                 if( params.clr ){
                         RUN_SEL_SWEEPFINDER2( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )
-                    }
-            }
+                }
+                if ( params.ihs || params.xpehh ) {
+                        RUN_SIG_SEL_PHASED_DATA( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )
+                }
+        }
 
-        /*
-
-        if( params.clr ){
-                RUN_SEL_SWEEPFINDER2(n3_chrom_vcf_idx_map)
-            }
-
-        if( params.ihs || params.nsl || params.xpehh ){
-                RUN_SIG_SEL_PHASED_DATA( n3_chrom_vcf_idx_map )
-            }
-    */
     }
 }
