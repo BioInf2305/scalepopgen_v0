@@ -35,8 +35,7 @@ workflow RUN_SEL_SWEEPFINDER2{
         
             // read file containing paths to the ancestral allele files                
         
-        n1_chrom_vcf_popid_anc = n1_chrom_vcf_anc_popid.map{ chrom, vcf, popid, anc ->tuple( chrom, vcf, popid, anc == "none" ? []: anc)}    
-
+        n1_chrom_vcf_popid_anc = n1_chrom_vcf_anc_popid.map{ chrom, vcf, anc, popid ->tuple( chrom, vcf, popid, anc == "none" ? []: anc)}    
 
 
         // prepare sweepfinder input files --> freq file and recomb file
