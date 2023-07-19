@@ -27,23 +27,25 @@ def PREPARE_PAIRWISE_VCF( file_list_pop ){
 
 workflow RUN_SIG_SEL_PHASED_DATA{
     take:
-        chrom_vcf_idx_map
+        chrom_vcf_idx_map_anc
 
     main:
 
         //prepare input for phasing_genotpyes_beagle//
 
-        chrom_vcf = chrom_vcf_idx_map.map{ chrom, vcf, idx, map_f -> tuple(chrom, vcf) }
+        chrom_vcf = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> tuple(chrom, vcf) }
+
+        chrom_anc = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> tuple(chrom, anc) }
 
         // input for split_vcf_by_pop //
 
-        f_map = chrom_vcf_idx_map.map{ chrom, vcf, idx, map_f -> map_f }.unique()
+        f_map = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> map_f }.unique()
 
         
         //phase genotypes in vcf files using beagle
         if( !params.skip_phasing ){
             PHASING_GENOTYPE_BEAGLE( 
-                chrom_vcf 
+                chrom_vcf
             )
             p_chrom_vcf_map = PHASING_GENOTYPE_BEAGLE.out.phased_vcf.combine(f_map)
         }
@@ -59,8 +61,8 @@ workflow RUN_SIG_SEL_PHASED_DATA{
             Channel
                 .fromPath(params.selscan_map)
                 .splitCsv(sep:",")
-                .map{ chrom, recombmap -> if(!file(recombmap).exists() ){ exit 1, 'ERROR: input anc file does not exist  \
-                    -> ${anc}' }else{tuple(chrom, file(recombmap))} }
+                .map{ chrom, recombmap -> if(!file(recombmap).exists() ){ exit 1, 'ERROR: input recomb file does not exist  \
+                    -> ${recombmap}' }else{tuple(chrom, file(recombmap))} }
                 .set{ n1_chrom_recombmap }
         }
         else{
@@ -82,26 +84,17 @@ workflow RUN_SIG_SEL_PHASED_DATA{
         
         chrom_tvcf_rvcf = PREPARE_PAIRWISE_VCF(SPLIT_VCF_BY_POP.out.pop_phased_vcf).unique().map{ p1_vcf, p2_vcf -> tuple( p1_vcf.baseName.split("__")[0], p1_vcf, p2_vcf) }
 
-
+        
 
         if( params.ihs ){
                 
                 n1_p_chrom_vcf_recombmap = p_chrom_vcf.combine(n1_chrom_recombmap, by:0)
 
-                if(params.anc_files != "none" ){
-                    Channel
-                        .fromPath(params.anc_files)
-                        .splitCsv(sep:",")
-                        .map{ chrom, anc -> if(!file(anc).exists() ){ exit 1, 'ERROR: input anc file does not exist  \
-                            -> ${anc}' }else{tuple(chrom, file(anc))} }
-                        .set{ chrom_anc }
-                    n2_p_chrom_vcf_recombmap_anc = n1_p_chrom_vcf_recombmap.combine(chrom_anc, by:0)
-                }
-                else{
-                    n2_p_chrom_vcf_recombmap_anc = n1_p_chrom_vcf_recombmap.combine(["none"])
-                }
+                n1_p_chrom_vcf_recombmap_anc = n1_p_chrom_vcf_recombmap.combine(chrom_anc, by: 0)
+
+
                 CALC_iHS(
-                    n2_p_chrom_vcf_recombmap_anc.map{chrom, vcf, recomb, anc -> tuple(chrom, vcf, recomb, anc == "none"? []:anc)}
+                    n1_p_chrom_vcf_recombmap_anc.map{chrom, vcf, recomb, anc -> tuple(chrom, vcf, recomb, anc == "none"? []:anc)}
                 )
 
         }

@@ -1,25 +1,37 @@
 def print_help() {
     log.info"""
-    Usage popstruct options: 
-    // Only general options are printed
+Usage:    
+    nextflow run scalepopgen.nf --input ../example_plink/*.{bed,bim,fam} --outDir ../example_out_bed/ 
+    nextflow run scalepopgen.nf --input ../example_vcf/chr_vcf_idx.csv --sample_map ../example_vcf/sample_pop.map --outDir ../example_out_vcf/
 
-    -- input [file]           In case of vcf, the input should be ".csv" with first column as chromosome id, second column as path to the vcf file                              and third column, path to its respective index. In case of plink, the input should be directly the path to the 
-                              bed file, "*.{bim,bed,fam}"
-    outDir                    = "${baseDir}/../zebu_out/" // Path to the directory, where all the outputs will be stored. If the directory is not present, it will be created
-    sample_map                = "${baseDir}/input_files/sample_pop.map" //Path to the sample map file, format: first column, sample id and the second column, population id
-    geo_plot_yml              = "none" //Path to the yaml file containing parameters for plotting the samples on map
-    tile_yml                  = "${baseDir}/params/tiles_info.yml" // Path to the yaml file containing the info about world map to be used as map
-    fasta                     = "${baseDir}/../input_files/genome.fa" // If the inputs are plink bed files, fasta file is needed to set the reference allele in the converted vcf files. If not provided, the major allelel will be set as the reference allele
-    chrm_map                  = "none"
-    allow_extra_chrom         = true // Set to true, if the file contains chromosome name in the form of string
-    max_chrom                 = 29 // Maximum chromosomes to be allowed
-    outgroup                  = "none" // Specifiy pop id to be used as an outgroup in all the analysis
-    cm_to_bp                   = 1000000 // Specify how many bp should be considered as 1 cm. To be used only, when recombination map is not provided
+//sample-filtering parameters
+
+ --apply_indi_filters [bool] whether or not to perform sample filtering, Note that setting this to false overrides all parameters associated with sample filtering. In other words, sample filtering will not be carried out irrespective of arguments set for --king_cutoff, --rem_indi or --mind. Default: true
+
+ --king_cutoff [bool] King relationship coefficient value above which the pairs of individuals are considered to be related and based on this pairwise values plink2 will select the list of unrelated samples, Default: 0.08.
+
+ --rem_indi [file] Path to the file containing the list of custom individuals to be removed from all analyses. Note that in case of vcf file, this file should consists of only one column of individual id, whereas in case of plink generated binary files, this file consists of two columns, first column corresponding population id and second column, individual id. Setting this to "none" will disable this flag. Default:"none"
+ 
+  --mind [float] samples with missing genotypes greater than this will be removed. Setting this to negative value will disable this parameter. Default: 0.10. 
+
+// sites-filtering parameters
     
-    1). To see the options related to filtering of samples and sites, type "nextflow run scalepopgen.nf --help --filtering"
-    2). To see the options related to pca, admixture, type "nextflow run scalepopgen.nf --help --popstruct
-    3). To see the options related to treemix, type "nextflow run scalepopgen.nf --help --phylogeny"
+ --apply_snp_filters [bool] setting this to false overrides all other sites-filtering parameters. In other words, sites-filtering will not be carried out irrespective of arguments set for --remove_snps,  --maf, --min_meanDP, --max_meanDP, --hwe, --max_missing, --minQ. Note that depending on the input files, these parameters will be applied. For example, depth-related information and SNP quality information are not available (of course) for plink bed files and therefore, these parameters will be ignored in that case. However, parameters like max_missing, hwe and maf are applied to vcf as well as to plink-bed files. Default: true
 
+--remove_snps [file] path to the file containing SNP ids to be removed in case of plink-bed files, whereas in case of vcf file, this file should contain two columns: first col, chromsome_id and second col, positions to be removed. Setting this to "none" will disable this flag. Default: "none"
+
+--maf [float] sites with minor allele frequencies less than this will be filtered, if set to any value < 0, this filter will be ignored. Default: 0.01
+
+--min_meanDP [float] sites with average depth (across the samples) less than this will be filtered out, set to any value < 0 --> it will be ignored. Default: -9
+
+--max_meanDP [float] sites with average depth (across the samples) greater than this will be filtered out , set to any value < 0 --> it will be ignored. Default: -9
+
+--hwe [float] sites with p-value (hwe) less than this will be filtered out, set to any value < 0 --> it will be ignored. Default: -9
+
+--max_missing [float] sites with genotypes missing more than this proportion of samples will be filtered out, set to any value < 0 --> it will be ignored. Default: -9
+
+--minQ [Int] sites with SNP quality less than this will be filtered out, set to any value < 0 --> it will be ignored. Default:-9
+    
     """.stripIndent()
 }
 
