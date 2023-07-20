@@ -25,17 +25,17 @@ include { PRINT_GENSTRUCT_OPTIONS } from "${baseDir}/modules/help/print_genstruc
 
 include { EXTRACT_UNRELATED_SAMPLE_LIST } from "${baseDir}/modules/plink/extract_unrelated_sample_list"
 
-include { KEEP_INDI } from "${baseDir}/modules/plink/keep_indi"
+include { KEEP_INDI } from "${baseDir}/modules/vcftools/keep_indi"
+
+include { FILTER_SITES } from "${baseDir}/modules/vcftools/filter_sites"
+
+include { PREPARE_NEW_MAP } from "${baseDir}/modules/prepare_new_map"
 
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
 //
 
 include { CHECK_INPUT } from "${baseDir}/subworkflows/check_input"
-
-include { PREPARE_KEEP_INDI_LIST  } from "${baseDir}/subworkflows/prepare_keep_indi_list"
-
-include { FILTER_VCF } from "${baseDir}/subworkflows/filter_vcf"
 
 include { EXPLORE_GENETIC_STRUCTURE } from "${baseDir}/subworkflows/explore_genetic_structure"
 
@@ -91,7 +91,7 @@ workflow{
 
     }
 
-    if( params.input.endsWith(".csv") ) {
+    if( params.input.endsWith(".csv") ){
         
         // check input vcfsheet i.e. if vcf file exits //
     	
@@ -122,48 +122,58 @@ workflow{
     // in case of filtering the order is, first indi_filtering then sites_filtering
 
     if ( is_vcf ){
-
         if( params.apply_indi_filters ){
 
-            if( params.king_cutoff > 0 ){
+            // in case of indi filtering, following is the order of filtering:
+            // get list of unrelated samples and apply --mind filter using plink2
+            // then remove custom samples using criteria of vcftools
+
+            o_map = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
+
+            if( params.king_cutoff >= 0 || params.mind >= 0 ){
 
                 CONVERT_VCF_TO_PLINK( chrom_vcf_idx_map )
                 
                 EXTRACT_UNRELATED_SAMPLE_LIST( CONVERT_VCF_TO_PLINK.out.bed )
 
             }
-            if ( params.rem_indi != "none" ){
 
-                n0_chrom_vcf_idx_map_unrelids = chrom_vcf_idx_map.combine( params.king_cutoff > 0 ? EXTRACT_UNRELATED_SAMPLE_LIST.out.
-                KEEP_INDI(
+            n0_chrom_vcf_idx_map_unrelids = chrom_vcf_idx_map.combine( (params.king_cutoff >= 0  || params.mind >= 0 ) ? EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list: ["none"] )
+
+            KEEP_INDI( 
+                n0_chrom_vcf_idx_map_unrelids.map{chrom, vcf, idx, map, relids -> tuple(chrom, vcf, idx, map, relids=="none" ? [] : relids) }       
+            )
+
+            PREPARE_NEW_MAP(
+                o_map,
+                (params.king_cutoff >= 0 || params.mind >= 0) ? EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list : []
+            )
             
-            }
-
-
-            chrom_vcf_idx = chrom_vcf_idx_map.map{chrom, vcf, idx, map -> tuple(chrom, vcf, idx)}
-
-            n1_chrom_vcf_idx_map = chrom_vcf_idx.combine(PREPARE_KEEP_INDI_LIST.out.new_map)
-
+            n0_chrom_vcf_idx_map = KEEP_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
         }
         
         else{
-            n1_chrom_vcf_idx_map = chrom_vcf_idx_map
+            n0_chrom_vcf_idx_map = chrom_vcf_idx_map
         }
-        
-        // prepare input channel for filter vcf    
+    } 
+    if ( params.apply_snp_filters ){
 
-        chrom_vcf_idx_map_indilist = n1_chrom_vcf_idx_map.combine( params.apply_indi_filters ? PREPARE_KEEP_INDI_LIST.out.indi_list : ["none"])
-        
-        FILTER_VCF(
-          chrom_vcf_idx_map_indilist
-        )
+            n_map = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
 
-        n3_chrom_vcf_idx_map = FILTER_VCF.out.n2_chrom_vcf_idx_map 
+            chrom_vcf = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> tuple(chrom, vcf)}
+
+            FILTER_SITES(chrom_vcf)
+        
+            n1_chrom_vcf_idx_map = FILTER_SITES.out.s_chrom_vcf_tbi.combine(n_map)
+
     }
-
+    else{
+            n1_chrom_vcf_idx_map = n0_chrom_vcf_idx_map
+    }
+        
     // else input is bed:
     //  indi filtering and sites filtering --> use plink
-
+    /*
     else{
         if( params.apply_indi_filters ){
             
@@ -194,6 +204,7 @@ workflow{
             n3_chrom_vcf_idx_map = CONVERT_BED_TO_SPLITTED_VCF.out.p2_chrom_vcf_idx_map    
         }
     }
+    */
     
     // in case of pca and admixture, convert filtered vcf to bed (if input is vcf)
     // the main rationale is that all plink dependent analysis should be covered in this "if" block
@@ -202,7 +213,7 @@ workflow{
 
         if( is_vcf ){
             CONVERT_FILTERED_VCF_TO_PLINK(
-                n3_chrom_vcf_idx_map
+                n1_chrom_vcf_idx_map
             )
             n4_bed = CONVERT_FILTERED_VCF_TO_PLINK.out.bed
         }
@@ -215,18 +226,18 @@ workflow{
     }
     
     if( params.treemix ){
-            RUN_TREEMIX( n3_chrom_vcf_idx_map )
+            RUN_TREEMIX( n1_chrom_vcf_idx_map )
         }
 
     if( params.sig_sel ){
 
         if( params.tajima_d || params.pi || params.pairwise_fst || params.single_vs_all_fst ){
-                RUN_SEL_VCFTOOLS( n3_chrom_vcf_idx_map )
+                RUN_SEL_VCFTOOLS( n1_chrom_vcf_idx_map )
             }
 
         if( params.clr || params.ihs || params.xpehh ){
                 
-                PREPARE_ANC_FILES( n3_chrom_vcf_idx_map )
+                PREPARE_ANC_FILES( n1_chrom_vcf_idx_map )
 
                 if( params.clr ){
                         RUN_SEL_SWEEPFINDER2( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )

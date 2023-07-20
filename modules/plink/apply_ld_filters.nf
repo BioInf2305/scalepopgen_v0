@@ -29,7 +29,7 @@ process APPLY_LD_FILTERS{
 
             }
 
-        opt_arg1 = opt_arg + " --indep-pairwise "+params.ld_window_size+" "+params.step_size+" "+params.r2_value
+        opt_arg1 = opt_arg + " --indep-pairwise "+params.ld_window_size+" "+params.ld_step_size+" "+params.r2_value
         opt_arg2 = opt_arg + " --extract plink2.prune.in --make-bed --out "+new_prefix+"_ld_filtered"
 
 	
