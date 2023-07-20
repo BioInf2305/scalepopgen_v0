@@ -1,4 +1,4 @@
-process GET_KEEP_INDI_LIST{
+process EXTRACT_UNRELATED_SAMPLE_LIST{
 
     tag { "calc_missing_${prefix}" }
     label "oneCpu"
@@ -15,6 +15,7 @@ process GET_KEEP_INDI_LIST{
         path("indi_kept.txt"), emit: keep_indi_list
         path("indi_kept.map"), emit: keep_indi_map
         path("*.log" ), emit: log_file
+        path("*king*")
 
     when:
         task.ext.when == null || task.ext.when
@@ -24,20 +25,6 @@ process GET_KEEP_INDI_LIST{
         def max_chrom = params.max_chrom
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ max_chrom
-	if( params.allow_extra_chrom ){
-                
-            opt_args = opt_args + " --allow-extra-chr "
-
-            }
-
-        if ( params.rem_indi != "none" ){
-        
-            opt_args = opt_args + " --remove " + params.rem_indi
-        }
-        
-        if ( params.mind > 0 ){
-        
-            opt_args = opt_args + " --mind " + params.mind
         }
         if ( params.king_cutoff > 0 ){
         
