@@ -25,13 +25,21 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
         def max_chrom = params.max_chrom
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ max_chrom
-        }
-        if ( params.king_cutoff > 0 ){
+        if ( params.king_cutoff >= 0 ){
         
             opt_args = opt_args + " --king-cutoff " + params.king_cutoff 
         }
 
+        if ( params.mind >= 0 ){        
+            opt_args = opt_args + " --mind "+ params.mind
+        }
+
+        if ( params.allow_extra_chrom ){        
+            opt_args = opt_args + " --allow-extra-chr "
+        }
         opt_args = opt_args + " --make-bed --missing --out " + prefix +"_indi_kept"
+
+        
         
         """
 	
