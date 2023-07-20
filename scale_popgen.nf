@@ -23,6 +23,10 @@ include { PRINT_FILTERING_OPTIONS } from "${baseDir}/modules/help/print_filterin
 
 include { PRINT_GENSTRUCT_OPTIONS } from "${baseDir}/modules/help/print_genstruct_options"
 
+include { EXTRACT_UNRELATED_SAMPLE_LIST } from "${baseDir}/modules/plink/extract_unrelated_sample_list"
+
+include { KEEP_INDI } from "${baseDir}/modules/plink/keep_indi"
+
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
 //
@@ -116,17 +120,25 @@ workflow{
     }
     
     // in case of filtering the order is, first indi_filtering then sites_filtering
-    // if input is vcf:
-    //  indi filtering --> use plink to filter samples 
-    //  sites filtering --> use vcftools to filter sites
 
     if ( is_vcf ){
 
         if( params.apply_indi_filters ){
 
-            CONVERT_VCF_TO_PLINK( chrom_vcf_idx_map )
+            if( params.king_cutoff > 0 ){
 
-            PREPARE_KEEP_INDI_LIST( CONVERT_VCF_TO_PLINK.out.bed )
+                CONVERT_VCF_TO_PLINK( chrom_vcf_idx_map )
+                
+                EXTRACT_UNRELATED_SAMPLE_LIST( CONVERT_VCF_TO_PLINK.out.bed )
+
+            }
+            if ( params.rem_indi != "none" ){
+
+                n0_chrom_vcf_idx_map_unrelids = chrom_vcf_idx_map.combine( params.king_cutoff > 0 ? EXTRACT_UNRELATED_SAMPLE_LIST.out.
+                KEEP_INDI(
+            
+            }
+
 
             chrom_vcf_idx = chrom_vcf_idx_map.map{chrom, vcf, idx, map -> tuple(chrom, vcf, idx)}
 

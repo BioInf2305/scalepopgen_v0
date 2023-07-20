@@ -11,7 +11,7 @@ Usage:
 
 --run_gds_pca [bool] run PCA using the method implemented in snprelate package of R. Default: true
 
---ld_filt [bool] apply ld filtering before running PCA or/and admixture analysis. Settting this to Default: true. 
+--ld_filt [bool] whether or not to apply ld-based pruning of the dataset before running PCA or/and admixture analysis. Default: true.
 
 --ld_window_size [int] window size for LD calculation (as implemented in plink). Default: 50
 
@@ -19,11 +19,11 @@ Usage:
 
 --r2_value [float] r2 value of a SNP pair above which one of the SNPs will be discarded. Default: 0.01
 
---structure_remove_indi [file] path to the file containing list of individuals to be removed before running PCA and/or admixture. Note that this file should contain two columns: first column, population_id and second column, sample id to be remvoed. Default: "none".
+--structure_remove_indi [file] path to the file containing list of individuals to be removed before running PCA and/or admixture. Note that this file should contain two columns: first column as population_id and second column as sample id to be removed. Default: "none".
 
 --smartpca_param [file] path to the file containing additional/optional parameters to apply smartpca. To see the list of these parameters: . Default: "none"
 
---pop_color_file [file] path to the file containing color codes of each population to be plotted. This file should contain data in two columns: first column, pop_id, and second column, color name of code. If no such file is provided. Random colors will be chosen. Default: "none"
+--pop_color_file [file] path to the file containing color codes of each population to be plotted. This file should contain data in two columns: first column as pop_id and second column as color name of code. If no such file is provided, random colors will be chosen. Default: "none"
 
 --admixture [bool] whether to run admixture analysis. Default: false
 
@@ -35,7 +35,7 @@ Usage:
 
 --termination_criteria [float] termination criteria of admixture tool. Default: 0.0001
 
---pop_labels [file] any additional pop label to be plotted along with provided pop label in admixture results to be plotted. This file should contain data in two columns: first column, additional_pop_id, and second column, pop_id, mentioned in map (in case of vcf input) or fam (in case of plink binary input) file.  Default: "none"
+--pop_labels [file] any additional pop label to be plotted along with provided pop label in admixture results to be plotted. This file should contain data in two columns: first column as additional_pop_id and second column as pop_id, mentioned in the ".map" (in case of vcf input) or ".fam" (in case of plink binary input) file.  Default: "none"
 
 For more details (output files and processing) on this module, refer to readme/explore_genetic_structure.md
 
