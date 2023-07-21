@@ -155,33 +155,33 @@ workflow{
         else{
             n0_chrom_vcf_idx_map = chrom_vcf_idx_map
         }
+        if ( params.apply_snp_filters ){
+
+                n_map = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
+
+                chrom_vcf = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> tuple(chrom, vcf)}
+
+                FILTER_SITES(chrom_vcf)
+            
+                n1_chrom_vcf_idx_map = FILTER_SITES.out.s_chrom_vcf_tbi.combine(n_map)
+
+        }
+        else{
+                n1_chrom_vcf_idx_map = n0_chrom_vcf_idx_map
+        }
+        
     } 
-    if ( params.apply_snp_filters ){
-
-            n_map = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
-
-            chrom_vcf = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> tuple(chrom, vcf)}
-
-            FILTER_SITES(chrom_vcf)
-        
-            n1_chrom_vcf_idx_map = FILTER_SITES.out.s_chrom_vcf_tbi.combine(n_map)
-
-    }
-    else{
-            n1_chrom_vcf_idx_map = n0_chrom_vcf_idx_map
-    }
-        
     // else input is bed:
     //  indi filtering and sites filtering --> use plink
-    /*
+
     else{
         if( params.apply_indi_filters ){
             
             f_bed = prefix_bed.map{ prefix, bed -> bed }
 
-            PREPARE_KEEP_INDI_LIST( f_bed )
+            EXTRACT_UNRELATED_SAMPLE_LIST( f_bed )
 
-            n2_bed = PREPARE_KEEP_INDI_LIST.out.n1_bed
+            n2_bed = EXTRACT_UNRELATED_SAMPLE_LIST.out.indi_filt_bed
             
         }
         else{
@@ -201,10 +201,9 @@ workflow{
         }
         if (params.treemix || params.sig_sel) {
             CONVERT_BED_TO_SPLITTED_VCF( n3_bed )
-            n3_chrom_vcf_idx_map = CONVERT_BED_TO_SPLITTED_VCF.out.p2_chrom_vcf_idx_map    
+            n1_chrom_vcf_idx_map = CONVERT_BED_TO_SPLITTED_VCF.out.p2_chrom_vcf_idx_map    
         }
     }
-    */
     
     // in case of pca and admixture, convert filtered vcf to bed (if input is vcf)
     // the main rationale is that all plink dependent analysis should be covered in this "if" block
