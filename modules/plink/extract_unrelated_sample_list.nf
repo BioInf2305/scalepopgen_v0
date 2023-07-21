@@ -11,7 +11,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
 
     output:
         path("*miss"), emit: missing_indi_report
-        path("${prefix}_indi_kept*"), emit: missingness_filt_bed
+        path("${prefix}_indi_kept*"), emit: indi_filt_bed
         path("indi_kept.txt"), emit: keep_indi_list
         path("indi_kept.map"), emit: keep_indi_map
         path("*.log" ), emit: log_file
