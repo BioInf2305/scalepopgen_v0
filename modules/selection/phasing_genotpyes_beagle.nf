@@ -11,6 +11,7 @@ process PHASING_GENOTYPE_BEAGLE {
 
    output:        
      tuple val(chrom), file("*.phased.vcf.gz"), emit: phased_vcf
+     path("*.log")
 
    script:     
         args = ""
@@ -27,6 +28,7 @@ process PHASING_GENOTYPE_BEAGLE {
    """
 
     beagle "-Xmx${mem_per_thread}m" ${args} gt=${vcfIn} out=${chrom}.phased nthreads=${task.cpus}
+
 
    """
 }

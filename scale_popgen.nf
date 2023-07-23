@@ -102,8 +102,7 @@ workflow{
         // check sample map file i.e. if map file exists //
 
         samplesheet = Channel.fromPath( params.sample_map )
-        map_file = samplesheet.map{ samplesheet -> if(!file(samplesheet).exists()){ exit 1, "ERROR: file does not exit \
-                -> ${samplesheet}" }else{samplesheet} }
+        map_file = samplesheet.map{ samplesheet -> if(!file(samplesheet).exists() || !samplesheet.endswith(".map")){ exit 1, "ERROR: file does not exit or sample map does not end with .map -> ${samplesheet}" }else{samplesheet} }
     
         // combine channel for vcf and sample map file //
 
@@ -207,6 +206,7 @@ workflow{
     
     // in case of pca and admixture, convert filtered vcf to bed (if input is vcf)
     // the main rationale is that all plink dependent analysis should be covered in this "if" block
+
     
     if ( params.genetic_structure ) {
 
@@ -227,7 +227,6 @@ workflow{
     if( params.treemix ){
             RUN_TREEMIX( n1_chrom_vcf_idx_map )
         }
-
     if( params.sig_sel ){
 
         if( params.tajima_d || params.pi || params.pairwise_fst || params.single_vs_all_fst ){
@@ -247,4 +246,5 @@ workflow{
         }
 
     }
+
 }

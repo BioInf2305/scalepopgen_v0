@@ -18,8 +18,8 @@ process CALC_iHS{
         f_prefix   = anc==[] ? prefix + "_no_anc" : prefix + "_anc"
         def args = ""
 
-        if( params.ihs_params != "none" ){
-                args = args + " "+ params.ihs_params
+        if( params.ihs_args != "none" ){
+                args = args + " "+ params.ihs_args
         }
 
         if(anc == [] ){

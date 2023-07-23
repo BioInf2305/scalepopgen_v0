@@ -6,21 +6,21 @@ def print_help() {
 
     Required arguments:
 
-    --input [file]           In case of vcf, the input should be ".csv" with first column as chromosome id, second column as path to the vcf file and third column, path to its respective index (for example, see: example/input_vcf.csv). In case of plink,  the input should be directly the path to the ".bed" file with its extension, "*.{bim,bed,fam}".Note that there should ONLY be ONE SET OF PLINK binary files in the specified path.
+    --input [file]           In case of vcf, the input should be ".csv" with first column as chromosome id, second column as path to the vcf file and third column, path to its respective index (for example, see: examples/input_vcf.csv). In case of plink,  the input should be directly the path to the ".bed" file with its extension, "*.{bim,bed,fam}".Note that there should ONLY be ONE SET OF PLINK binary files in the specified path.
 
-    --sample_map [file]      Path to the sample map file (for example, see: example/sample_pop.map), format: first column as sample id and second column as population id. This is a REQUIRED argument only if the input is ".csv". Note that this file must end with the suffix ".map".
+    --sample_map [file]      Path to the sample map file (for example, see: examples/sample_pop.map), format: first column as sample id and second column as population id. This is a REQUIRED argument only if the input is ".csv". Note that this file must end with the suffix ".map".
 
     --outDir [dir]           Path to the directory, where all the outputs will be stored. If the directory is not present, it will be created. 
 
     Optional arguments:
                            
-    --geo_plot_yml [file]     Path to the yaml file containing parameters for plotting the samples on a map (for example, see: example/plot_sample_on_map.yaml). Refer to doc/plot_map.md for description of this yaml file
+    --geo_plot_yml [file]     Path to the yaml file containing parameters for plotting the samples on a map (for example, see: parameters/plot_on_map/plot_sample_on_map.yaml). Refer to doc/plot_map.md for description of this yaml file
 
-    --tile_yml [file]         Path to the yaml file containing parameters for the geographical map to be used for plotting (for example, see: example/tiles_info.yaml). Refer to doc/plot_map.md for description of this yaml file
+    --tile_yml [file]         Path to the yaml file containing parameters for the geographical map to be used for plotting (for example, see: parameters/plot_on_map/tiles_info.yaml). Refer to doc/plot_map.md for description of this yaml file
 
     --fasta [file]            If the inputs are plink binary files, fasta file is needed to set the reference allele in the converted vcf files. If not provided, the major allele will be set as the reference allele for all positions for all analyses
 
-    --chrm_map [file]         If the inputs are plink binary files, map file is needed to set the chromosome id and its respective size in the vcf header (for example, see: plink_example/chrm_size.map). If not provided, the greatest coordinate for each chromosome will be considered its total size.
+    --chrm_map [file]         If the inputs are plink binary files, map file is needed to set the chromosome id and its respective size in the vcf header (for example, see: examples/chrm_size.map). If not provided, the greatest coordinate for each chromosome will be considered its total size.
 
     --allow_extra_chrom [bool] set this argument to "true" if the chromosome id contains string, default: false
 
