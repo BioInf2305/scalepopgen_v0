@@ -31,11 +31,14 @@ include { FILTER_SITES } from "${baseDir}/modules/vcftools/filter_sites"
 
 include { PREPARE_NEW_MAP } from "${baseDir}/modules/prepare_new_map"
 
+
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
 //
 
 include { CHECK_INPUT } from "${baseDir}/subworkflows/check_input"
+
+include { PREPARE_INDIV_REPORT } from "${baseDir}/subworkflows/prepare_indiv_report"
 
 include { EXPLORE_GENETIC_STRUCTURE } from "${baseDir}/subworkflows/explore_genetic_structure"
 
@@ -61,11 +64,11 @@ workflow{
 
 
     if( params.help ){
-            if ( params.apply_snp_filters || params.apply_indi_filters ){
+            if ( params.indi_snp_filters ){
                 PRINT_FILTERING_OPTIONS()
                 exit 0
             }
-            if ( params.genetic_structure ){
+            if ( params.explore_genetic_structure ){
                 PRINT_GENSTRUCT_OPTIONS()
                 exit 0
             }
@@ -101,13 +104,24 @@ workflow{
 
         // check sample map file i.e. if map file exists //
 
+        //if ( params.sample_map.endsWith("*.map") ){
+
         samplesheet = Channel.fromPath( params.sample_map )
-        map_file = samplesheet.map{ samplesheet -> if(!file(samplesheet).exists() || !samplesheet.endswith(".map")){ exit 1, "ERROR: file does not exit or sample map does not end with .map -> ${samplesheet}" }else{samplesheet} }
+        map_file = samplesheet.map{ samplesheet -> if(!file(samplesheet).exists() ){ exit 1, "ERROR: file does not exit or sample map does not end with .map -> ${samplesheet}" }else{samplesheet} }
+
+        //}
+        /*
+        else{
+          println("the sample map file should end with suffix .map")
+          exit 1 
+        }
+        */
     
         // combine channel for vcf and sample map file //
 
         chrom_vcf_idx_map = CHECK_INPUT.out.chrom_vcf_idx.combine(map_file)
         is_vcf = true
+
         
 
     }
@@ -168,7 +182,9 @@ workflow{
         else{
                 n1_chrom_vcf_idx_map = n0_chrom_vcf_idx_map
         }
-        
+        if( params.indiv_summary ){
+            PREPARE_INDIV_REPORT( n1_chrom_vcf_idx_map )
+        }
     } 
     // else input is bed:
     //  indi filtering and sites filtering --> use plink

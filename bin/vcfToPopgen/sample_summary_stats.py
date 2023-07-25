@@ -15,6 +15,8 @@ from lib.vcf_to_chrom_windows import VcfToChromCords
 
 
 # the following class calculate sample-wise summary statistics using window size and step size
+
+
 class SampleSummaryStats:
     def __init__(
         self, vcf_in, sample_map, window, step, out_prefix, region, bed_in, bed_ex
@@ -31,9 +33,6 @@ class SampleSummaryStats:
         self.sample_total_stat = (
             {}
         )  # dictionary storing overall statistics (as opposed to local window based statistics)
-        self.pop_total_stat = (
-            {}
-        )  # same as mentioned in the line above but for population
         self.vcf_samples = list(
             self.vcf_in.header.samples
         )  # read header of the vcf file

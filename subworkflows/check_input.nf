@@ -14,10 +14,6 @@ workflow CHECK_INPUT{
                 -> ${vcf}" }else{tuple(chrom, file(vcf), file(idx))} }
             .set{ chrom_vcf_idx }
        
-        if( params.outgroup == "none" && params.anc_files == "create"){
-                println("anc_files parameter is set to create but no outgroup is provided")
-                exit 1
-        }
 
     emit:
         chrom_vcf_idx = chrom_vcf_idx

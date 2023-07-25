@@ -22,9 +22,9 @@ process KEEP_INDI{
 
         """
 
-        awk 'NR==FNR{sample_id[\$2];next}!(\$1 in sample_id){print \$1} ${rem_indi} ${unrel_id} > final_kept_indi_list.txt
+        awk 'NR==FNR{sample_id[\$2];next}!(\$1 in sample_id){print \$1}' ${rem_indi} ${unrel_id} > final_kept_indi_list.txt
         
-        vcftools --gzvcf ${f_vcf} --keep filtered_indi_list.txt --recode --stdout |sed "s/\\s\\.:/\\t.\\/.:/g"|bgzip -c > ${chrom}_filt_samples.vcf.gz
+        vcftools --gzvcf ${f_vcf} --keep final_kept_indi_list.txt --recode --stdout |sed "s/\\s\\.:/\\t.\\/.:/g"|bgzip -c > ${chrom}_filt_samples.vcf.gz
 
         tabix -p vcf ${chrom}_filt_samples.vcf.gz
 

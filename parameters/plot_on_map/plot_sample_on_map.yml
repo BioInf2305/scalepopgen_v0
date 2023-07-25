@@ -1,5 +1,5 @@
 ---
-  input: /gpfs/scratch/u8401/ru83ced/ru83ced/scalepopgen/input_files/location_abv_samplesize_popname.txt
+  input: /home/maulik/data/Shared/Maulik/projects/scalePopgen/tools/scalepopgen_v3/examples/location_abv_samplesize_popname.txt
   tile: world_gray_canvas
   marker_prop: 0
   const_radius : 10
