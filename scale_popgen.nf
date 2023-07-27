@@ -31,6 +31,8 @@ include { FILTER_SITES } from "${baseDir}/modules/vcftools/filter_sites"
 
 include { PREPARE_NEW_MAP } from "${baseDir}/modules/prepare_new_map"
 
+include { CONCAT_VCF } from "${baseDir}/modules/vcftools/concat_vcf"
+
 
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
@@ -41,8 +43,6 @@ include { CHECK_INPUT } from "${baseDir}/subworkflows/check_input"
 include { PREPARE_INDIV_REPORT } from "${baseDir}/subworkflows/prepare_indiv_report"
 
 include { EXPLORE_GENETIC_STRUCTURE } from "${baseDir}/subworkflows/explore_genetic_structure"
-
-include { CONVERT_VCF_TO_PLINK } from "${baseDir}/subworkflows/convert_vcf_to_plink"
 
 include { CONVERT_VCF_TO_PLINK as CONVERT_FILTERED_VCF_TO_PLINK } from "${baseDir}/subworkflows/convert_vcf_to_plink"
 
@@ -122,8 +122,6 @@ workflow{
         chrom_vcf_idx_map = CHECK_INPUT.out.chrom_vcf_idx.combine(map_file)
         is_vcf = true
 
-        
-
     }
     else{
 
@@ -132,38 +130,31 @@ workflow{
 
     }
     
-    // in case of filtering the order is, first indi_filtering then sites_filtering
 
     if ( is_vcf ){
         if( params.apply_indi_filters ){
 
-            // in case of indi filtering, following is the order of filtering:
-            // get list of unrelated samples and apply --mind filter using plink2
-            // then remove custom samples using criteria of vcftools
-
             o_map = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
 
-            if( params.king_cutoff >= 0 || params.mind >= 0 ){
+            vcflist = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> vcf}.collect()
 
-                CONVERT_VCF_TO_PLINK( chrom_vcf_idx_map )
+            CONCAT_VCF(vcflist)
+
+            CONCAT_VCF.out.concatenatedvcf.view()
+
                 
-                EXTRACT_UNRELATED_SAMPLE_LIST( CONVERT_VCF_TO_PLINK.out.bed )
-
-            }
-
-            n0_chrom_vcf_idx_map_unrelids = chrom_vcf_idx_map.combine( (params.king_cutoff >= 0  || params.mind >= 0 ) ? EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list: ["none"] )
-
-            KEEP_INDI( 
-                n0_chrom_vcf_idx_map_unrelids.map{chrom, vcf, idx, map, relids -> tuple(chrom, vcf, idx, map, relids=="none" ? [] : relids) }       
-            )
+            EXTRACT_UNRELATED_SAMPLE_LIST( CONCAT_VCF.out.concatenatedvcf )
+    
+            KEEP_INDI( chrom_vcf_idx_map.combine( EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list ))
 
             PREPARE_NEW_MAP(
                 o_map,
-                (params.king_cutoff >= 0 || params.mind >= 0) ? EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list : []
+                EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list
             )
             
             n0_chrom_vcf_idx_map = KEEP_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
         }
+
         
         else{
             n0_chrom_vcf_idx_map = chrom_vcf_idx_map
