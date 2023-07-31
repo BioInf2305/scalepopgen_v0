@@ -10,7 +10,7 @@ process CONCAT_VCF{
         path(vcf)
 
     output:
-        path ("all_chrm_concatenated.vcf.gz"), emit: concatenatedvcf
+        tuple val("all_chrom_concatenated"), path ("all_chrm_concatenated.vcf.gz"), emit: concatenatedvcf
 
     script:
         

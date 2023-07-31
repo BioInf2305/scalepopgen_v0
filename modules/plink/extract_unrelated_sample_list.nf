@@ -7,7 +7,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
     publishDir("${params.outDir}/plink/indi_filtered/", mode:"copy")
 
     input:
-        path(vcf)
+        tuple val(prefix), path(vcf)
 
     output:
         path("*miss"), emit: missing_indi_report optional true
