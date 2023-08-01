@@ -24,6 +24,7 @@ dependencies:
         - conda-forge::r=4.2
         - conda-forge::r-optm=0.1.6
         - conda-forge::gawk=5.1.0
+        - conda-forge::bokeh=3.2.1
         - bioconda::htslib=1.17
         - bioconda::pysam=0.20.0
         - bioconda::vcftools=0.1.16

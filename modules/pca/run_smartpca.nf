@@ -11,6 +11,8 @@ process RUN_SMARTPCA {
 
     output:
         path("*.{eigen*,snp,ind,evec,eval,par,ped,map,log}")
+        path("*.evec"), emit: evecfile
+        path("*.eval"), emit: evalfile
 
     when:
      task.ext.when == null || task.ext.when

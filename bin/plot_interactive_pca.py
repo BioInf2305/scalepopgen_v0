@@ -9,10 +9,11 @@ from bokeh.models import ColumnDataSource
 
 
 class PlotInteractivePca:
-    def __init__(self, evec_file, eval_file, pop_color_map, yaml_file):
+    def __init__(self, evec_file, eval_file, pop_color_map, yaml_file, outprefix):
         self.evec_file = evec_file
         self.eval_file = eval_file
         self.pop_color_map = pop_color_map
+        self.outprefix = outprefix
         self.yaml_file = yaml_file
         self.evec_dict = {}
         self.pop_color_dict = {}
@@ -348,8 +349,17 @@ class PlotInteractivePca:
         with open(self.pop_color_map) as source:
             for line in source:
                 line = line.rstrip().split()
-                self.pop_color_dict[line[0]] = [line[-1], line[1] + "_" + line[2]]
+                self.pop_color_dict[line[0]] = [line[2], line[1]]
         return self.pop_color_dict
+
+    def generate_random_colr_shape(self):
+        num_pop = len(self.pop_color_dict)
+        shape_list = []
+        for i in range(num_pop):
+            shape_select = random.choice(list(self.shape_method_dict.keys()))
+            shape_list.append(shape_select)
+        for i, v in enumerate(list(self.pop_color_dict.keys())):
+            self.pop_color_dict[v].append(shape_list[i])
 
     def evec_to_cord_dict(self):
         with open(self.yaml_file, "r") as p:
@@ -364,6 +374,7 @@ class PlotInteractivePca:
         line_alpha = params["line_alpha"]
         header = 0
         size = params["marker_size"]
+        color_list = ["none"]
         with open(self.evec_file) as source:
             for line in source:
                 line = line.rstrip().split()
@@ -371,7 +382,20 @@ class PlotInteractivePca:
                     header += 1
                 else:
                     if line[-1] not in self.evec_dict:
-                        n_pop = line[-1]
+                        if self.pop_color_map == "none":
+                            color = "none"
+                            while color in color_list:
+                                color = [
+                                    "#"
+                                    + "".join(
+                                        [
+                                            random.choice("0123456789ABCDEF")
+                                            for n in range(6)
+                                        ]
+                                    )
+                                ][0]
+                            color_list.append(color)
+                            self.pop_color_dict[line[-1]] = [color]
                         self.evec_dict[line[-1]] = {
                             "x_values": [],
                             "y_values": [],
@@ -389,6 +413,8 @@ class PlotInteractivePca:
                     self.evec_dict[line[-1]]["fill_alpha_list"].append(fill_alpha)
                     self.evec_dict[line[-1]]["line_alpha_list"].append(line_alpha)
                     self.evec_dict[line[-1]]["size_list"].append(size)
+        if self.pop_color_map == "none":
+            self.generate_random_colr_shape()
 
     def eval_to_list(self):
         self.eval_list = []
@@ -398,11 +424,12 @@ class PlotInteractivePca:
                 self.eval_list.append(line[0])
 
     def plot_evec(self):
-        self.read_pop_color_map()
+        if self.pop_color_map != "none":
+            self.read_pop_color_map()
         self.evec_to_cord_dict()
         self.eval_to_list()
         self.p = figure(width=self.width, height=self.height)
-        output_file(self.title + ".html")
+        output_file(self.outprefix + ".html")
         for pop in self.evec_dict:
             source = ColumnDataSource(data=self.evec_dict[pop])
             shape = self.pop_color_dict[pop][1]
@@ -423,6 +450,6 @@ class PlotInteractivePca:
 
 if __name__ == "__main__":
     plot_interactive_pca = PlotInteractivePca(
-        sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+        sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
     )
     plot_interactive_pca.plot_evec()

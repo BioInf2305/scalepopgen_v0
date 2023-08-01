@@ -96,12 +96,11 @@ color: #777;
 {% endmacro %}"""
 
 
-def plot_sample_map(param_yaml, tile_yaml):
+def plot_sample_map(sample_map, param_yaml, tile_yaml):
     with open(param_yaml, "r") as p:
         params = yaml.load(p, Loader=SafeLoader)
     with open(tile_yaml, "r") as t:
         tiles = yaml.load(t, Loader=SafeLoader)
-    sample_map = params["input"]
     output_file = params["output_prefix"] + ".html"
     tile = tiles[params["tile"]]["address"]
     attr_1 = tiles[params["tile"]]["attr"]
@@ -187,18 +186,7 @@ def plot_sample_map(param_yaml, tile_yaml):
     mapit.get_root().add_child(macro)
     mapit.get_root().html.add_child(macro)
     mapit.save(output_file)
-    # options = {
-    #    "javascript-delay": 500,
-    #    "page-size": "Letter",
-    #    "margin-top": "0.0in",
-    #    "margin-right": "0.0in",
-    #    "margin-bottom": "0.0in",
-    #    "margin-left": "0.0in",
-    #    "encoding": "UTF-8",
-    #    "custom-header": [("Accept-Encoding", "gzip")],
-    # }
-    # pdfkit.from_file(output_file, "trial.pdf", options=options)
 
 
 if __name__ == "__main__":
-    plot_sample_map(sys.argv[1], sys.argv[2])
+    plot_sample_map(sys.argv[1], sys.argv[2], sys.argv[3])

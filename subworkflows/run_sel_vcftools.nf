@@ -112,6 +112,7 @@ workflow RUN_SEL_VCFTOOLS{
             
             CALC_WFST( n4_chrom_vcf_pop1_pop2 )
             
+            /*
 
             if( params.fst_nj_tree ){
                 
@@ -122,6 +123,7 @@ workflow RUN_SEL_VCFTOOLS{
                     
                 GENERATE_FST_TREE(concatenated_fst_files)
             }
+            */
         }
         if( params.single_vs_all_fst ){
                 

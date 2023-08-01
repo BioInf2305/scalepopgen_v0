@@ -25,6 +25,10 @@ Usage:
 
 --pop_color_file [file] path to the file containing color codes of each population to be plotted. This file should contain data in two columns: first column as pop_id and second column as color name of code. If no such file is provided, random colors will be chosen. Default: "none"
 
+--f_pop_marker [file] path to the file containing first column as population id and second column as marker shape. Available markers shape are listed in "./extra/markershapes.txt" . If no such file is provided, random marker shapes will be selected.
+
+--pca_plot_params [file] path to the yaml file containing the paramterers to plot interactive PCA results. Refer to  "./parameters/interactive_pca_plot/pca_params.yml
+
 --admixture [bool] whether to run admixture analysis. Default: false
 
 --starting_k_value [int] starting range of "k" value to run admixture analysis. Default: 1
@@ -36,6 +40,9 @@ Usage:
 --termination_criteria [float] termination criteria of admixture tool. Default: 0.0001
 
 --pop_labels [file] any additional pop label to be plotted along with provided pop label in admixture results to be plotted. This file should contain data in two columns: first column as additional_pop_id and second column as pop_id, mentioned in the ".map" (in case of vcf input) or ".fam" (in case of plink binary input) file.  Default: "none"
+
+--fst_based_nj_tree [bool] 
+
 
 For more details (output files and processing) on this module, refer to readme/explore_genetic_structure.md
 

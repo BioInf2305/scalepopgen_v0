@@ -10,9 +10,12 @@ process RUN_SNPGDSPCA{
         file(bed)
 
     output:
-        path("*.{eigenvect,jpeg,varprop}")
+        path("${new_prefix}.{eigenvect,jpeg,varprop}")
         path("*.log")
         path("*.gds")
+        path("*snprelate.eigenvect"), emit: eigenvect
+        path("*snprelate.varprop"), emit: varprop
+        
 
     when:
         task.ext.when == null || task.ext.when
@@ -31,6 +34,10 @@ process RUN_SNPGDSPCA{
 	Rscript ${baseDir}/bin/pca.r -b ${new_prefix} -C ${max_chrom} ${opt_arg}
 
         cp .command.log ${new_prefix}_snpgdspca.log
+
+        awk 'NR==FNR{a[\$2]=\$1;next}{if(FNR==1){print \$0,"pop";next}else;print \$0,a[\$1]}' ${new_prefix}.fam ${new_prefix}.eigenvect > ${new_prefix}_snprelate.eigenvect
+
+        awk 'NR>1{print \$1*100}' ${new_prefix}.varprop > ${new_prefix}_snprelate.varprop
 
 
 	"""

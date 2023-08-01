@@ -33,6 +33,8 @@ include { PREPARE_NEW_MAP } from "${baseDir}/modules/prepare_new_map"
 
 include { CONCAT_VCF } from "${baseDir}/modules/vcftools/concat_vcf"
 
+include { GENERATE_POP_COLOR_MAP } from "${baseDir}/modules/generate_pop_color_map.nf"
+
 
 //
 // SUBWORKFLOW: Consisting of a mix of local modules
@@ -82,17 +84,6 @@ workflow{
     //  yes --> input is vcf and sample map files is required
     //  no --> input is assumed to be plink bed file 
 
-    if( params.geo_plot_yml != "none" && params.tile_yml != "none" ){
-
-        geo_yml = Channel.fromPath(params.geo_plot_yml)
-        tile_yml = Channel.fromPath(params.tile_yml)
-
-        PLOT_GEO_MAP(
-            geo_yml,
-            tile_yml
-        )
-
-    }
 
     if( params.input.endsWith(".csv") ){
         
@@ -129,6 +120,10 @@ workflow{
         is_vcf = false
 
     }
+
+    GENERATE_POP_COLOR_MAP(
+        is_vcf ? chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique() : prefix_bed.map{prefix,bed -> bed[2]}
+    )
     
 
     if ( is_vcf ){
@@ -140,9 +135,6 @@ workflow{
 
             CONCAT_VCF(vcflist)
 
-            CONCAT_VCF.out.concatenatedvcf.view()
-
-                
             EXTRACT_UNRELATED_SAMPLE_LIST( CONCAT_VCF.out.concatenatedvcf )
     
             KEEP_INDI( chrom_vcf_idx_map.combine( EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list ))
@@ -176,6 +168,7 @@ workflow{
         if( params.indiv_summary ){
             PREPARE_INDIV_REPORT( n1_chrom_vcf_idx_map )
         }
+        
     } 
     // else input is bed:
     //  indi filtering and sites filtering --> use plink
@@ -210,6 +203,20 @@ workflow{
             n1_chrom_vcf_idx_map = CONVERT_BED_TO_SPLITTED_VCF.out.p2_chrom_vcf_idx_map    
         }
     }
+
+        //plot samples on world map
+        
+    if( params.geo_plot_yml != "none" && params.tile_yml != "none" && params.f_pop_cord != "none" ){
+
+        geo_yml = Channel.fromPath(params.geo_plot_yml)
+        tile_yml = Channel.fromPath(params.tile_yml)
+
+        PLOT_GEO_MAP(
+            geo_yml,
+            tile_yml,
+            GENERATE_POP_COLOR_MAP.out.m_pop_sc_colr
+        )
+    }
     
     // in case of pca and admixture, convert filtered vcf to bed (if input is vcf)
     // the main rationale is that all plink dependent analysis should be covered in this "if" block
@@ -227,7 +234,8 @@ workflow{
             n4_bed = n3_bed
             }
         EXPLORE_GENETIC_STRUCTURE(
-            n4_bed
+            n4_bed,
+            GENERATE_POP_COLOR_MAP.out.m_pop_sc_colr
         )
     }
     

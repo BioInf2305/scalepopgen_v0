@@ -18,6 +18,10 @@ def print_help() {
 
     --tile_yml [file]         Path to the yaml file containing parameters for the geographical map to be used for plotting (for example, see: parameters/plot_on_map/tiles_info.yaml). Refer to doc/plot_map.md for description of this yaml file
 
+    --f_pop_cord [file]       Path to the file containing population name as first column and its latitude, longitude as second column (for example, see: parameters/plot_on_map/f_pop_cord.txt"
+
+    --f_pop_color [file]      Path to the file containing population name as first column and color in hex codes as second column (for example, see: parameters/plot_on_map/f_pop_color.txt". If not provided, random colors will be chosen to represent each population. 
+
     --fasta [file]            If the inputs are plink binary files, fasta file is needed to set the reference allele in the converted vcf files. If not provided, the major allele will be set as the reference allele for all positions for all analyses
 
     --chrm_map [file]         If the inputs are plink binary files, map file is needed to set the chromosome id and its respective size in the vcf header (for example, see: examples/chrm_size.map). If not provided, the greatest coordinate for each chromosome will be considered its total size.

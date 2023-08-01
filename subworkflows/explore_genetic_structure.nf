@@ -6,15 +6,20 @@ include { REMOVE_CUSTOM_INDI as REMOVE_INDI_STRUCTURE } from '../modules/plink/r
 include { APPLY_LD_FILTERS as LD_FILTER_STRUCTURE } from '../modules/plink/apply_ld_filters'
 include { RUN_SMARTPCA } from '../modules/pca/run_smartpca'
 include { RUN_SNPGDSPCA } from '../modules/pca/run_snpgdspca'
+include { PLOT_INTERACTIVE_PCA as PLOT_SMARTPCA } from '../modules/pca/plot_interactive_pca'
+include { PLOT_INTERACTIVE_PCA as PLOT_SNPGDSPCA } from '../modules/pca/plot_interactive_pca'
 include { RUN_ADMIXTURE_DEFAULT } from '../modules/admixture/run_admixture_default'
 include { EST_BESTK_PLOT } from '../modules/admixture/est_bestk_plot'
 include { GENERATE_PONG_INPUT } from '../modules/admixture/generate_pong_input'
 include { UPDATE_CHROM_IDS } from '../modules/plink/update_chrom_ids'
+include { CALC_PAIRWISE_FST } from '../modules/plink/calc_pairwise_fst'
 
 
 workflow EXPLORE_GENETIC_STRUCTURE{
     take:
         bed
+        m_pop_sc_color
+
     main:
 	if ( params.structure_remove_indi != "none" ){
 		indi_list = Channel.fromPath( params.structure_remove_indi, checkIfExists: true)
@@ -40,9 +45,25 @@ workflow EXPLORE_GENETIC_STRUCTURE{
         }
         if( params.run_smartpca ){
                 RUN_SMARTPCA(n1_ld_filt_bed)
+                PLOT_SMARTPCA(
+                    RUN_SMARTPCA.out.evecfile,
+                    RUN_SMARTPCA.out.evalfile,
+                    m_pop_sc_color
+                )
             }
         if( params.run_gds_pca ){
                 RUN_SNPGDSPCA(n1_ld_filt_bed)		
+                PLOT_SNPGDSPCA(
+                    RUN_SNPGDSPCA.out.eigenvect,
+                    RUN_SNPGDSPCA.out.varprop,
+                    m_pop_sc_color
+                )
+        }
+        if( params.fst_based_nj_tree ){
+            CALC_PAIRWISE_FST(
+                bed,
+                m_pop_sc_color
+            )
         }
         if( params.admixture ){
            k_val = Channel.from( params.starting_k_value..params.ending_k_value )
