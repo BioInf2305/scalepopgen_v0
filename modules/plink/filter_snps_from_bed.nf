@@ -10,7 +10,7 @@ process FILTER_SNPS_FROM_BED{
         file(bed)
 
     output:
-        path("${prefix}_filt_sites*"), emit: filt_sites_bed
+        path("${prefix}_filt_site*.{bed,bim,fam}"), emit: filt_sites_bed
         path("*.log" ), emit: log_file
 
     when:

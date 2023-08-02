@@ -13,8 +13,8 @@ process CALC_PAIRWISE_FST{
 
     output:
         path("*.log")
-        path("*.intree")
-        path("*.nj.tree")
+        //path("*.intree")
+        //path("*.nj.tree")
         path("*.fst.summary")
 
     when:
@@ -40,6 +40,8 @@ process CALC_PAIRWISE_FST{
         awk '{print \$1,\$2,\$1}' ${new_prefix}.fam > ${new_prefix}.cluster
 
         plink2 --bfile ${new_prefix} ${opt_arg}
+
+        cp .command.log ${new_prefix}.log
 
 
         """ 

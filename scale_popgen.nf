@@ -176,9 +176,9 @@ workflow{
     else{
         if( params.apply_indi_filters ){
             
-            f_bed = prefix_bed.map{ prefix, bed -> bed }
+            //f_bed = prefix_bed.map{ prefix, bed -> bed }
 
-            EXTRACT_UNRELATED_SAMPLE_LIST( f_bed )
+            EXTRACT_UNRELATED_SAMPLE_LIST( prefix_bed )
 
             n2_bed = EXTRACT_UNRELATED_SAMPLE_LIST.out.indi_filt_bed
             
