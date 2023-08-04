@@ -13,6 +13,7 @@ include { EST_BESTK_PLOT } from '../modules/admixture/est_bestk_plot'
 include { GENERATE_PONG_INPUT } from '../modules/admixture/generate_pong_input'
 include { UPDATE_CHROM_IDS } from '../modules/plink/update_chrom_ids'
 include { CALC_PAIRWISE_FST } from '../modules/plink/calc_pairwise_fst'
+include { CALC_1_MIN_IBS_DIST } from '../modules/plink/calc_1_min_ibs_dist'
 
 
 workflow EXPLORE_GENETIC_STRUCTURE{
@@ -61,7 +62,13 @@ workflow EXPLORE_GENETIC_STRUCTURE{
         }
         if( params.fst_based_nj_tree ){
             CALC_PAIRWISE_FST(
-                bed,
+                params.ld_filt ? LD_FILTER_STRUCTURE.out.ld_filt_bed : bed,
+                m_pop_sc_color
+            )
+        }
+        if ( params.est_1_min_ibs_based_nj_tree){
+            CALC_1_MIN_IBS_DIST(
+                params.ld_filt ? LD_FILTER_STRUCTURE.out.ld_filt_bed : bed,
                 m_pop_sc_color
             )
         }

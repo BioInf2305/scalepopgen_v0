@@ -30,16 +30,17 @@ run_pca=function(stem,chr,colr){
     pop.id=read.gdsn(index.gdsn(genofile,"sample.annot/family"))
     unique.pop.id = unique(pop.id)
     if(colr == "NA"){
-	n_col = length(unique.pop.id)
-    	qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
+	#n_col = length(unique.pop.id)
+    	write.table(tab,eigenvect_out,sep="\t",row.names=FALSE,quote=FALSE)
+    	write.table(tab1,varprop_out,sep="\t",row.names=FALSE,quote=FALSE)
+    	#qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
 	##generate random color vector
-	col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
-	pop.colors=sample(col_vector, n_col)
+	#col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
+	#pop.colors=sample(col_vector, n_col)
     }
     else{
 	    ##take colour names from the user provided file
 	    pop.colors = file_to_col_map(colr)
-    }
     jpeg(jpg_out,width=6,height=6,unit='in',res=300)
     print({ggplot(tab,aes(x=EV1,y=EV2,colour=pop.id))+geom_point(size=1)+scale_colour_manual(values=pop.colors)+theme(legend.key.height= unit(0.05, 'in'),
         legend.key.width= unit(0.05, 'in'),legend.text = element_text(size=4))+guides(colour = guide_legend(ncol = 1))})
@@ -47,6 +48,7 @@ run_pca=function(stem,chr,colr){
     write.table(tab,eigenvect_out,sep="\t",row.names=FALSE,quote=FALSE)
     write.table(tab1,varprop_out,sep="\t",row.names=FALSE,quote=FALSE)
     }
+ }
 
 
 file_to_col_map = function(colr_f){

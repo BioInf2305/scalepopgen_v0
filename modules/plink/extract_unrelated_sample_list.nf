@@ -21,7 +21,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
 
     script:
         new_prefix = vcf[0].baseName
-        is_vcf = vcf[0].endsWith(".vcf") ? true: false
+        is_vcf = vcf[0].getExtension() == "gz" ? true:false
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ params.max_chrom
         if ( params.king_cutoff >= 0 ){

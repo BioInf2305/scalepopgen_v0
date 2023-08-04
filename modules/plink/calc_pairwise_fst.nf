@@ -13,9 +13,11 @@ process CALC_PAIRWISE_FST{
 
     output:
         path("*.log")
-        //path("*.intree")
-        //path("*.nj.tree")
+        path("*.tree")
+        path("*.dist")
         path("*.fst.summary")
+        path("*.html")
+        path("*.svg")
 
     when:
         task.ext.when == null || task.ext.when
@@ -34,6 +36,8 @@ process CALC_PAIRWISE_FST{
 
         opt_arg = opt_arg + " --within "+new_prefix+".cluster --fst CATPHENO method=wc --out "+new_prefix
 
+        nj_yml = params.nj_yml
+
 	
         """
 
@@ -42,6 +46,8 @@ process CALC_PAIRWISE_FST{
         plink2 --bfile ${new_prefix} ${opt_arg}
 
         cp .command.log ${new_prefix}.log
+
+        python3 ${baseDir}/bin/make_fst_dist_nj_tree.py -i ${new_prefix}.fst.summary -o ${new_prefix} -y ${nj_yml} -c ${m_pop_sc_col}
 
 
         """ 

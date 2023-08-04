@@ -2,10 +2,15 @@ import sys
 from Bio.Phylo.TreeConstruction import DistanceMatrix
 from Bio.Phylo.TreeConstruction import DistanceTreeConstructor
 from Bio import Phylo
+import toytree
+import toyplot
+import toyplot.svg
+import yaml
+from yaml.loader import SafeLoader
 import argparse
 
 
-def make_fst_tree(in_file, tree, outgroup, out_prefix):
+def read_dist_file(in_file):
     pairwise_fst_dict = {}
     pop_list = []
     header = 0
@@ -24,8 +29,56 @@ def make_fst_tree(in_file, tree, outgroup, out_prefix):
                     pop_list.append(pop2)
                 pairwise_fst_dict[pop1 + "_" + pop2] = fst
     pop_list.sort()
+    return pairwise_fst_dict, pop_list
+
+
+def plot_interactive_tree(newickfile, pop_color_file, plot_yml):
+    newick = ""
+    pop_color_dict = {}
+    color_list = []
+    with open(plot_yml, "r") as p:
+        params = yaml.load(p, Loader=SafeLoader)
+    hgt = params["height"]
+    wth = params["width"]
+    layo = params["layout"]
+    tla = params["tip_label_align"]
+    tlf = params["tip_label_font_size"]
+    ns = params["node_sizes"]
+    nh = params["node_hover"]
+    tas = params["toyplot-anchor-shift"]
+    with open(pop_color_file) as source:
+        for line in source:
+            line = line.rstrip().split()
+            pop_color_dict[line[0]] = line[2]
+    with open(newickfile) as source:
+        for line in source:
+            line = line.rstrip()
+            newick = line
+    tre1 = toytree.tree(newick, tree_format=1)
+    pop_list = tre1.get_tip_labels()
+    for pop in pop_list:
+        color_list.append(pop_color_dict[pop])
+    canvas, axes, mark = tre1.draw(
+        height=hgt,
+        width=wth,
+        layout=layo,
+        node_hover=nh,
+        node_sizes=ns,
+        tip_labels_align=tla,
+        tip_labels_colors=color_list,
+        tip_labels_style={
+            "font-size": tlf,
+            "-toyplot-anchor-shift": tas,
+        },
+    )
+    toyplot.html.render(canvas, newickfile + ".html")
+    toyplot.svg.render(canvas, newickfile + ".svg")
+
+
+def make_fst_tree(in_file, tree, outgroup, f_pop_color, plot_yml, out_prefix):
+    pairwise_fst_dict, pop_list = read_dist_file(in_file)
     distance_list = []
-    dest = open(out_prefix + ".fst.intree", "w")
+    dest = open(out_prefix + ".fst.dist", "w")
     dest.write(" " + str(len(pop_list)) + "\n")
     for i, v in enumerate(pop_list):
         tmp_list = []
@@ -50,7 +103,8 @@ def make_fst_tree(in_file, tree, outgroup, out_prefix):
         tree = constructor.nj(dm)
     if outgroup != "none":
         tree.root_with_outgroup({"name": outgroup})
-    Phylo.write(tree, out_prefix, "newick")
+    Phylo.write(tree, out_prefix + ".tree", "newick")
+    plot_interactive_tree(out_prefix + ".tree", f_pop_color, plot_yml)
     dest.close()
 
 
@@ -85,6 +139,21 @@ if __name__ == "__main__":
         required=False,
     )
     parser.add_argument(
+        "-c",
+        "--pop_color",
+        metavar="String",
+        default="none",
+        help="path to the text file containing pop id as first column and hex id of a color in the second column",
+        required=False,
+    )
+    parser.add_argument(
+        "-y",
+        "--plot_nj_yml",
+        metavar="String",
+        help="path to the yml file containing parameters to plot interactive nj tree. Refer to ./paramteres/plot_nj_tree/plot_nj.yml",
+        required=True,
+    )
+    parser.add_argument(
         "-o", "--out_prefix", metavar="File", help="output prefix", required=True
     )
 
@@ -96,4 +165,11 @@ if __name__ == "__main__":
     elif args.tree not in ["NJ", "UPGMA"]:
         print("ERROR: the tree option should either be NJ or UPGMA")
     else:
-        make_fst_tree(args.in_file, args.tree, args.outgroup, args.out_prefix)
+        make_fst_tree(
+            args.in_file,
+            args.tree,
+            args.outgroup,
+            args.pop_color,
+            args.plot_nj_yml,
+            args.out_prefix,
+        )

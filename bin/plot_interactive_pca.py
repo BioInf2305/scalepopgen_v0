@@ -4,8 +4,8 @@ import random
 import yaml
 from yaml.loader import SafeLoader
 from bokeh.plotting import figure, save, output_file
-from bokeh.models import HoverTool
-from bokeh.models import ColumnDataSource
+from bokeh.core.enums import LegendLocation
+from bokeh.models import HoverTool, ColumnDataSource, Legend, LinearAxis
 
 
 class PlotInteractivePca:
@@ -17,6 +17,7 @@ class PlotInteractivePca:
         self.yaml_file = yaml_file
         self.evec_dict = {}
         self.pop_color_dict = {}
+        self.legend_loc_list = []
         self.shape_method_dict = {
             "circle_default": self.plot_circle_default,
             "asterisk_default": self.plot_aserisk_default,
@@ -46,304 +47,329 @@ class PlotInteractivePca:
         }
 
     def plot_circle_default(self, source, pop):
-        self.p.circle(
+        fc = self.p.circle(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             source=source,
         )
+        return fc
 
     def plot_aserisk_default(self, source, pop):
-        self.p.asterisk(
+        fc = self.p.asterisk(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_circle_cross(self, source, pop):
-        self.p.circle_cross(
+        fc = self.p.circle_cross(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_circle_dot(self, source, pop):
-        self.p.circle_dot(
+        fc = self.p.circle_dot(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_circle_xp(self, source, pop):
-        self.p.circle_x(
+        fc = self.p.circle_x(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_circle_y(self, source, pop):
-        self.p.circle_y(
+        fc = self.p.circle_y(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_cross_default(self, source, pop):
-        self.p.cross(
+        fc = self.p.cross(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_diamond_default(self, source, pop):
-        self.p.diamond(
+        fc = self.p.diamond(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_diamond_cross(self, source, pop):
-        self.p.diamond_cross(
+        fc = self.p.diamond_cross(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_diamond_dot(self, source, pop):
-        self.p.diamond_dot(
+        fc = self.p.diamond_dot(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_dot_default(self, source, pop):
-        self.p.dot(
+        fc = self.p.dot(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_hex_default(self, source, pop):
-        self.p.hex(
+        fc = self.p.hex(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_hex_dot(self, source, pop):
-        self.p.hex_dot(
+        fc = self.p.hex_dot(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_invertedtriangle_default(self, source, pop):
-        self.p.inverted_triangle(
+        fc = self.p.inverted_triangle(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_plus_default(self, source, pop):
-        self.p.plus(
+        fc = self.p.plus(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_square_default(self, source, pop):
-        self.p.square(
+        fc = self.p.square(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_square_cross(self, source, pop):
-        self.p.square_cross(
+        fc = self.p.square_cross(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_square_dot(self, source, pop):
-        self.p.square_dot(
+        fc = self.p.square_dot(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_square_pin(self, source, pop):
-        self.p.square_pin(
+        fc = self.p.square_pin(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_square_x(self, source, pop):
-        self.p.square_x(
+        fc = self.p.square_x(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_star_default(self, source, pop):
-        self.p.star(
+        fc = self.p.star(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_star_dot(self, source, pop):
-        self.p.star_dot(
+        fc = self.p.star_dot(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_triangle_default(self, source, pop):
-        self.p.triangle(
+        fc = self.p.triangle(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_triangle_dot(self, source, pop):
-        self.p.triangle_dot(
+        fc = self.p.triangle_dot(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def plot_triangle_pin(self, source, pop):
-        self.p.triangle_pin(
+        fc = self.p.triangle_pin(
             "x_values",
             "y_values",
             size="size_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            legend_label=pop,
+            # legend_label=pop,
             source=source,
         )
+        return fc
 
     def read_pop_color_map(self):
         with open(self.pop_color_map) as source:
@@ -430,13 +456,28 @@ class PlotInteractivePca:
         self.eval_to_list()
         self.p = figure(width=self.width, height=self.height)
         output_file(self.outprefix + ".html")
+        legend_count = 0
+        legend_list = []
+        shift = 0
         for pop in self.evec_dict:
+            legend_count += 1
             source = ColumnDataSource(data=self.evec_dict[pop])
             shape = self.pop_color_dict[pop][1]
             if self.show_sample_label:
                 hover = HoverTool(tooltips=[("sample_id:", "@sample_id")])
                 self.p.add_tools(hover)
-            self.shape_method_dict[shape](source, pop)
+            # self.shape_method_dict[shape](source, pop)
+            if legend_count >= 30:
+                self.legend_loc_list.append(legend_list[:])
+                legend_list = []
+                legend_count = 0
+            legend_list.append((pop, [self.shape_method_dict[shape](source, pop)]))
+        if len(legend_list) > 0:
+            self.legend_loc_list.append(legend_list[:])
+        for l_loc in self.legend_loc_list:
+            shift += 3
+            legend = Legend(items=l_loc, location=(0 - shift, -30 - shift))
+            self.p.add_layout(legend, "right")
         self.p.legend.click_policy = "hide"
         self.p.legend.title = "population_id"
         self.p.xaxis.axis_label = (

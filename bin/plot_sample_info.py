@@ -6,8 +6,10 @@ import folium
 import folium.plugins
 import folium.map
 from geopy.geocoders import Nominatim
-from folium import plugins
+
+# from folium import plugins
 from branca.element import Template, MacroElement
+from folium.features import DivIcon
 
 
 template = """
@@ -97,16 +99,22 @@ color: #777;
 
 
 def plot_sample_map(sample_map, param_yaml, tile_yaml):
+    cc_tiles = ["Stamen Terrain","OpenStreetMap"]
     with open(param_yaml, "r") as p:
         params = yaml.load(p, Loader=SafeLoader)
     with open(tile_yaml, "r") as t:
         tiles = yaml.load(t, Loader=SafeLoader)
     output_file = params["output_prefix"] + ".html"
-    tile = tiles[params["tile"]]["address"]
-    attr_1 = tiles[params["tile"]]["attr"]
+    tile = tiles[params["tile"]]["address"] if params["tile"] not in cc_tiles else params["tile"]
+    attr_1 = tiles[params["tile"]]["attr"] if params["tile"] not in cc_tiles else "none"
     display_size = params["display_sample_size"]
     overlap_cordi = params["overlap_cordi"]
     display_popup = params["display_popup"]
+    shift_cordi = params["shift_cordi"]
+    show_legend = params["show_legend"]
+    show_label = params["show_label"]
+    label_loc = params["label_loc"]
+    label_size = params["label_size"]
     sample_map_dict = {
         "pop": [],
         "lat": [],
@@ -135,12 +143,19 @@ def plot_sample_map(sample_map, param_yaml, tile_yaml):
             sample_map_dict["pheno"].append(line[2])
             sample_map_dict["colr"].append(line[4])
             col_list.append([line[2] + " " + line[3], line[4]])
-    mapit = folium.Map(
-        tiles=tile,
-        attr=attr_1,
-        location=[10, 30],
-        zoom_start=3,
-    )
+    if tile in cc_tiles:
+        mapit = folium.Map(
+            tiles=tile,
+            location=[10, 30],
+            zoom_start=3,
+        )
+    else:
+        mapit = folium.Map(
+            tiles=tile,
+            attr=attr_1,
+            location=[10, 30],
+            zoom_start=3,
+        )
     for i in range(len(sample_map_dict["pop"])):
         popup_label = (
             (sample_map_dict["pop"][i] + " " + str(sample_map_dict["sample_size"][i]))
@@ -151,12 +166,12 @@ def plot_sample_map(sample_map, param_yaml, tile_yaml):
             new_lat = (
                 sample_map_dict["lat"][i]
                 + np.random.uniform(0.001, 10 ** (-20))
-                - 0.00005
+                - shift_cordi
             )
             new_lon = (
                 sample_map_dict["lon"][i]
                 + np.random.uniform(0.001, 10 ** (-20))
-                - 0.00005
+                - shift_cordi
             )
         else:
             new_lat, new_lon = sample_map_dict["lat"][i], sample_map_dict["lon"][i]
@@ -169,22 +184,32 @@ def plot_sample_map(sample_map, param_yaml, tile_yaml):
             location=[new_lat, new_lon],
             popup=folium.Popup(popup_label, show=True if display_popup else False),
             radius=radius_size,
-            color="black",
+            color=sample_map_dict["colr"][i],
             fill=True,
             fill_color=sample_map_dict["colr"][i],
             fill_opacity=0.7,
         ).add_to(mapit)
-
-    legend_line = "<li><span style='background:{};opacity:0.7;'></span>{}</li>"
-    legend_line_collect = ""
-    for pop, color in col_list:
-        new_legend = legend_line.format(color, pop)
-        legend_line_collect = legend_line_collect + " " + new_legend
-    new_template = template.replace("color_lines", legend_line_collect)
-    macro = MacroElement()
-    macro._template = Template(new_template)
-    mapit.get_root().add_child(macro)
-    mapit.get_root().html.add_child(macro)
+        if show_label:
+            folium.map.Marker(
+                [new_lat + label_loc, new_lon - label_loc],
+                icon=DivIcon(
+                    icon_size=(15, 3.6),
+                    icon_anchor=(0, 0),
+                    html='<div style="font-size: %s">%s</div>' % (label_size, popup_label),
+                    #html='<div style="font-size: '+label_size+'>%s</div>' % popup_label,
+                ),
+            ).add_to(mapit)
+    if show_legend:
+        legend_line = "<li><span style='background:{};opacity:0.7;'></span>{}</li>"
+        legend_line_collect = ""
+        for pop, color in col_list:
+            new_legend = legend_line.format(color, pop)
+            legend_line_collect = legend_line_collect + " " + new_legend
+        new_template = template.replace("color_lines", legend_line_collect)
+        macro = MacroElement()
+        macro._template = Template(new_template)
+        mapit.get_root().add_child(macro)
+        mapit.get_root().html.add_child(macro)
     mapit.save(output_file)
 
 

@@ -1,0 +1,14 @@
+---
+  tile: "Stamen Terrain"
+  marker_prop: 0
+  const_radius : 2
+  zoom_level: 16
+  overlap_cordi: True
+  shift_cordi: 0.00005
+  show_label : True
+  label_loc : 0.00005
+  label_size: "6pt"
+  show_legend: False
+  display_sample_size: False
+  display_popup: False
+  output_prefix: cattle_260

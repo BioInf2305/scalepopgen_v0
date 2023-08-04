@@ -7,12 +7,17 @@ process CALC_1_MIN_IBS_DIST{
     publishDir("${params.outDir}/plink/1_min_ibs_clustering/", mode:"copy")
 
     input:
-        file(bed)
+        path(bed)
+        path(pop_sc_color)
 
     output:
-        path("${new_prefix}_ld_filtered.{bed,bim,fam}"), emit: ld_filt_bed
-        path("*.log")
-        path("*prune*")
+        path("*.mdist")
+        path("*.mdist.id")
+        path("*.html")
+        path("*.svg")
+        path("polyphyletic_pop_list.txt")
+        path("*.ibs.dist")
+
 
     when:
         task.ext.when == null || task.ext.when
@@ -29,15 +34,17 @@ process CALC_1_MIN_IBS_DIST{
 
             }
 
-        opt_arg1 = opt_arg + " --indep-pairwise "+params.ld_window_size+" "+params.ld_step_size+" "+params.r2_value
-        opt_arg2 = opt_arg + " --extract plink2.prune.in --make-bed --out "+new_prefix+"_ld_filtered"
+        opt_arg = opt_arg + " --distance square 1-ibs --out "+new_prefix+"_1_min_ibs"
+
+        ibs_nj_yml = params.ibs_nj_yml
 
 	
         """
+    
+        plink --bfile ${new_prefix} ${opt_arg}
 
-        plink2 --bfile ${new_prefix} ${opt_arg1}
+        python ${baseDir}/bin/make_ibs_dist_nj_tree.py -i *.mdist -m *.mdist.id -c ${pop_sc_color} -y ${ibs_nj_yml} -o ${new_prefix}
 
-        plink2 --bfile ${new_prefix} ${opt_arg2}
 
         """ 
 

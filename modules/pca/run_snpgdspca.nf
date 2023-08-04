@@ -10,7 +10,8 @@ process RUN_SNPGDSPCA{
         file(bed)
 
     output:
-        path("${new_prefix}.{eigenvect,jpeg,varprop}")
+        path("${new_prefix}.{eigenvect,varprop}")
+        path("*.jpeg"), emit: plot optional true
         path("*.log")
         path("*.gds")
         path("*snprelate.eigenvect"), emit: eigenvect
