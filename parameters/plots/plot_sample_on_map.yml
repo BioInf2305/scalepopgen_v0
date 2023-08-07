@@ -1,5 +1,5 @@
 ---
-  tile: "Stamen Terrain"
+  tile: "world_gray_canvas"
   marker_prop: 0
   const_radius : 2
   zoom_level: 16
@@ -11,4 +11,4 @@
   show_legend: False
   display_sample_size: False
   display_popup: False
-  output_prefix: cattle_260
+  output_prefix: "goat_test"
