@@ -16,7 +16,7 @@ process RUN_ADMIXTURE_DEFAULT{
      	task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName()
         def opt_args = ""
         opt_args = opt_args + " -m "+params.method+ " -C "+ params.termination_criteria + " -j"+ task.cpus
         if ( params.cross_validation > 0 ){

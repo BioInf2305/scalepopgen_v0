@@ -17,24 +17,24 @@ process UPDATE_CHROM_IDS{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName()
         def max_chrom = params.max_chrom
-        def opt_arg = ""
-        opt_arg = opt_arg + " --chr-set "+ max_chrom
+        def opt_args = ""
+        opt_args = opt_args + " --chr-set "+ max_chrom
 	if( params.allow_extra_chrom ){
                 
-            opt_arg = opt_arg + " --allow-extra-chr "
+            opt_args = opt_args + " --allow-extra-chr "
 
         }
 
-        opt_arg = opt_arg + " --make-bed --out " +new_prefix+"_update_chrm_ids"
+        opt_args = opt_args + " --make-bed --out " +new_prefix+"_update_chrm_ids"
 
 
 
 	"""
 	    awk -v cnt=0 '{if(!(\$1 not in a)){a[\$1];cnt++;print \$1,cnt}}' ${new_prefix}.bim > old_new_ids.txt
 
-	    plink2 -bfile ${new_prefix} ${opt_arg}
+	    plink2 -bfile ${new_prefix} ${opt_args}
 
             awk 'NR==FNR{a[\$1]=\$2;next}{print a[\$1],\$2,\$3,\$4,\$5,\$6}' old_new_ids.txt ${new_prefix}_update_chrm_ids.bim>${new_prefix}_update_chrm_ids.1.bim
         

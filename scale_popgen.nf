@@ -93,20 +93,9 @@ workflow{
             params.input
         )
 
-        // check sample map file i.e. if map file exists //
-
-        //if ( params.sample_map.endsWith("*.map") ){
-
         samplesheet = Channel.fromPath( params.sample_map )
         map_file = samplesheet.map{ samplesheet -> if(!file(samplesheet).exists() ){ exit 1, "ERROR: file does not exit or sample map does not end with .map -> ${samplesheet}" }else{samplesheet} }
 
-        //}
-        /*
-        else{
-          println("the sample map file should end with suffix .map")
-          exit 1 
-        }
-        */
     
         // combine channel for vcf and sample map file //
 

@@ -7,7 +7,7 @@ process CONVERT_BED_TO_VCF{
     publishDir("${params.outDir}/plink/bed_to_vcf/", mode:"copy")
 
     input:
-        file(bed)
+        path(bed)
 
     output:
         path("${prefix}.vcf"), emit:vcf
@@ -18,25 +18,25 @@ process CONVERT_BED_TO_VCF{
 
     script:
         prefix = bed[0].baseName
-        def opt_arg = ""
+        def opt_args = ""
         def fasta = params.fasta
         def chrm_map = params.chrm_map
-        opt_arg = opt_arg + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom
 	if( params.allow_extra_chrom ){
                 
-            opt_arg = opt_arg + " --allow-extra-chr "
+            opt_args = opt_args + " --allow-extra-chr "
 
             }
 
         if( params.fasta != "none"){
-            opt_arg = opt_arg + " --ref-from-fa --fa "+fasta
+            opt_args = opt_args + " --ref-from-fa --fa "+fasta
         }
         
-        opt_arg = opt_arg + " --recode vcf --out plink"
+        opt_args = opt_args + " --recode vcf --out plink"
         
         
         """
-	plink2 --bfile ${prefix} ${opt_arg}
+	plink2 --bfile ${prefix} ${opt_args}
 
         awk '{print \$1"_"\$2,\$1}' ${prefix}.fam > sample_family.map
 

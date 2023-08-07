@@ -15,7 +15,7 @@ process CALC_TAJIMA_D{
     script:
         
         
-        pop = sample_id.baseName
+        pop = sample_id.getSimpleName
 
         window_size = params.tajimasd_window_size
 

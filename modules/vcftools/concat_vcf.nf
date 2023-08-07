@@ -10,10 +10,10 @@ process CONCAT_VCF{
         path(vcf)
 
     output:
-        tuple val("${file_prefix}"), path ("all_chrm_concatenated.vcf.gz"), emit: concatenatedvcf
+        tuple val("${file_prefix}"), path ("${file_prefix}.vcf.gz"), emit: concatenatedvcf
 
     script:
-        file_prefix = params.concate_vcf_file_prefix
+        file_prefix = params.concate_vcf_prefix
 
         """
         vcf-concat $vcf|bgzip -c > ${file_prefix}.vcf.gz

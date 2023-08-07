@@ -15,7 +15,7 @@ process FILTER_SITES{
     
     script:
         def opt_arg = ""
-        prefix = f_vcf.baseName
+        prefix = f_vcf.getSimpleName()
         if(params.maf >= 0){
             opt_arg = opt_arg + " --maf "+params.maf
         }

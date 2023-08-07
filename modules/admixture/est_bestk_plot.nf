@@ -8,7 +8,7 @@ process EST_BESTK_PLOT {
     errorStrategy 'ignore'
 
     input:
-	    path(k_cv_log_files)
+	path(k_cv_log_files)
         path(pq_files)
         path(bed)
 
@@ -20,13 +20,12 @@ process EST_BESTK_PLOT {
 
     script:
 
-	    def best_kval_method = params.best_kval_method
-        def bed_prefix = bed[0].baseName
+        def bed_prefix = bed[0].getSimpleName()
         def pop_labels = params.pop_labels
         
         """
 	
-	python3 ${baseDir}/bin/est_best_k_and_plot.py ${best_kval_method} ${k_cv_log_files}
+	python3 ${baseDir}/bin/est_best_k_and_plot.py "global" ${k_cv_log_files}
 
 	k_array=(`find ./ -maxdepth 1 -name "best_k*.png"`)
 

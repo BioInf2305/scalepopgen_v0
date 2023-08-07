@@ -18,7 +18,7 @@ process RUN_SMARTPCA {
      task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName()
         def smartpca_param = params.smartpca_param
         def max_chrom = params.max_chrom
         def opt_arg = ""

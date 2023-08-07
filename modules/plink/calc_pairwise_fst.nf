@@ -4,7 +4,7 @@ process CALC_PAIRWISE_FST{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.2"
-    publishDir("${params.outDir}/plink/fst_summary/", mode:"copy")
+    publishDir("${params.outDir}/genetic_structure/interactive_plots/fst/", mode:"copy")
 
     input:
         path(bed)
@@ -23,18 +23,18 @@ process CALC_PAIRWISE_FST{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName()
         def max_chrom = params.max_chrom
-        def opt_arg = ""
-        opt_arg = opt_arg + " --chr-set "+ max_chrom
+        def opt_args = ""
+        opt_args = opt_args + " --chr-set "+ max_chrom
         
 	if( params.allow_extra_chrom ){
                 
-            opt_arg = opt_arg + " --allow-extra-chr "
+            opt_args = opt_args + " --allow-extra-chr "
 
             }
 
-        opt_arg = opt_arg + " --within "+new_prefix+".cluster --fst CATPHENO method=wc --out "+new_prefix
+        opt_args = opt_args + " --within "+new_prefix+".cluster --fst CATPHENO method=wc --out "+new_prefix
 
         nj_yml = params.nj_yml
 
@@ -43,7 +43,7 @@ process CALC_PAIRWISE_FST{
 
         awk '{print \$1,\$2,\$1}' ${new_prefix}.fam > ${new_prefix}.cluster
 
-        plink2 --bfile ${new_prefix} ${opt_arg}
+        plink2 --bfile ${new_prefix} ${opt_args}
 
         cp .command.log ${new_prefix}.log
 

@@ -4,7 +4,7 @@ process PLOT_INTERACTIVE_PCA{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.2"
-    publishDir("${params.outDir}/genetic_structure/pca/html_plots/", mode:"copy")
+    publishDir("${params.outDir}/genetic_structure/interactive_plots/pca/", mode:"copy")
 
     input:
         path(eigenvect)
@@ -22,7 +22,7 @@ process PLOT_INTERACTIVE_PCA{
 
     script:
         
-        prefix = eigenvect.baseName
+        prefix = eigenvect.getSimpleName()
 
         pca_plot_params = params.pca_plot_params
 

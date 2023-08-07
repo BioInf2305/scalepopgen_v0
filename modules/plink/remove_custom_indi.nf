@@ -18,22 +18,22 @@ process REMOVE_CUSTOM_INDI{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
-        def opt_arg = ""
-        opt_arg = opt_arg + " --chr-set "+ params.max_chrom
-        opt_arg = opt_arg + " --remove " + params.structure_remove_indi
+        new_prefix = bed[0].getSimpleName
+        def opt_args = ""
+        opt_args = opt_args + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --remove " + params.structure_remove_indi
         
 	if( params.allow_extra_chrom ){
                 
-            opt_arg = opt_arg + " --allow-extra-chr "
+            opt_args = opt_args + " --allow-extra-chr "
 
             }
 
-        opt_arg = opt_arg + " --make-bed --out " +new_prefix+"_rem_indi"
+        opt_args = opt_args + " --make-bed --out " +new_prefix+"_rem_indi"
         
         """
         
-        plink2 --bfile ${new_prefix} ${opt_arg}
+        plink2 --bfile ${new_prefix} ${opt_args}
 
 
         """ 

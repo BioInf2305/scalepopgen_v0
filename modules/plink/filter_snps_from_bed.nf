@@ -1,6 +1,6 @@
 process FILTER_SNPS_FROM_BED{
 
-    tag { "filter_snps_${prefix}" }
+    tag { "filter_snps_${new_prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.2"
@@ -10,48 +10,48 @@ process FILTER_SNPS_FROM_BED{
         file(bed)
 
     output:
-        path("${prefix}_filt_site*.{bed,bim,fam}"), emit: filt_sites_bed
+        path("${new_prefix}_filt_site*.{bed,bim,fam}"), emit: filt_sites_bed
         path("*.log" ), emit: log_file
 
     when:
         task.ext.when == null || task.ext.when
 
     script:
-        prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName
         def max_chrom = params.max_chrom
-        def opt_arg = ""
-        opt_arg = opt_arg + " --chr-set "+ max_chrom
+        def opt_args = ""
+        opt_args = opt_args + " --chr-set "+ max_chrom
 	if( params.allow_extra_chrom ){
                 
-            opt_arg = opt_arg + " --allow-extra-chr "
+            opt_args = opt_args + " --allow-extra-chr "
 
             }
 
         if ( params.remove_snps != "none" ){
         
-            opt_arg = opt_arg + " --exclude " + params.remove_snps
+            opt_args = opt_args + " --exclude " + params.remove_snps
         }
         
         if ( params.max_missing > 0 ){
         
-            opt_arg = opt_arg + " --geno " + params.max_missing
+            opt_args = opt_args + " --geno " + params.max_missing
         }
 
         if ( params.hwe > 0 ){
         
-            opt_arg = opt_arg + " --hwe " + params.hwe
+            opt_args = opt_args + " --hwe " + params.hwe
         }
 
         if ( params.maf > 0 ){
         
-            opt_arg = opt_arg + " --maf " + params.maf
+            opt_args = opt_args + " --maf " + params.maf
         }
 
-        opt_arg = opt_arg + " --make-bed --out " + prefix +"_filt_sites"
+        opt_args = opt_args + " --make-bed --out " + new_prefix +"_filt_sites"
         
         """
 	
-        plink2 --bfile ${prefix} ${opt_arg}
+        plink2 --bfile ${new_prefix} ${opt_args}
             
 
         """ 

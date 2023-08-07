@@ -1,6 +1,6 @@
 process MERGE_BED{
 
-    tag { "merging_bed_${prefix}" }
+    tag { "merging_bed_${new_prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.2"
@@ -11,14 +11,14 @@ process MERGE_BED{
         file(m_sample)
 
     output:
-        path("${prefix}.{bed,bim,fam}"), emit: merged_bed
+        path("${new_prefix}.{bed,bim,fam}"), emit: merged_bed
         path("*.log"), emit: merged_bed_log
 
     when:
         task.ext.when == null || task.ext.when
 
     script:
-        prefix = "merged_all_chrom_"+bed[0].baseName.split("__")[1]
+        new_prefix = params.concate_vcf_prefix
         def max_chrom = params.max_chrom
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ max_chrom
@@ -32,13 +32,13 @@ process MERGE_BED{
 
         ls *.fam|sed 's/\\.fam//g' > prefix_list.txt
 
-	plink2 ${opt_args} --pmerge-list prefix_list.txt bfile --make-bed --out ${prefix}
+	plink2 ${opt_args} --pmerge-list prefix_list.txt bfile --make-bed --out ${new_prefix}
 
-        awk 'NR==FNR{pop[\$1]=\$2;next}{\$1=pop[\$2];print}' ${m_sample} ${prefix}.fam > ${prefix}.1.fam
+        awk 'NR==FNR{pop[\$1]=\$2;next}{\$1=pop[\$2];print}' ${m_sample} ${new_prefix}.fam > ${new_prefix}.1.fam
 
-        rm ${prefix}.fam
+        rm ${new_prefix}.fam
 
-        mv ${prefix}.1.fam ${prefix}.fam
+        mv ${new_prefix}.1.fam ${new_prefix}.fam
 
         """ 
 }

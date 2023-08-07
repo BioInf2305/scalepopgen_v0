@@ -15,7 +15,7 @@ process CONVERT_VCF_TO_BED{
         task.ext.when == null || task.ext.when
 
     script:
-        def prefix = chrom +"__"+ f_vcf.baseName
+        new_prefix = chrom +"__"+ f_vcf.getSimpleName()
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ params.max_chrom
 
@@ -28,13 +28,13 @@ process CONVERT_VCF_TO_BED{
         opt_args = opt_args + " --const-fid --make-bed "
 
         """
-	plink2 --vcf ${f_vcf} ${opt_args} --out ${prefix}
+	plink2 --vcf ${f_vcf} ${opt_args} --out ${new_prefix}
 
         #new SNP id was created so that the same positions on multiple chromosome does not break the merge-bed command 
 
-        awk 'BEGIN{OFS="\t"}{\$2=\$1"_"\$4;print}' ${prefix}.bim > ${prefix}.1.bim
+        awk 'BEGIN{OFS="\t"}{\$2=\$1"_"\$4;print}' ${new_prefix}.bim > ${new_prefix}.1.bim
 
-        mv ${prefix}.1.bim ${prefix}.bim
+        mv ${new_prefix}.1.bim ${new_prefix}.bim
 
         """ 
 }

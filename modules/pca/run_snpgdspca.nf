@@ -22,17 +22,17 @@ process RUN_SNPGDSPCA{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].baseName
+        new_prefix = bed[0].getSimpleName()
         def max_chrom = params.max_chrom
-        def opt_arg = ""
+        def opt_args = ""
 	if( params.pop_color_file != "none"){
-                opt_arg = opt_arg + " -c "+ params.pop_color_file
+                opt_args = opt_args + " -c "+ params.pop_color_file
         }
             
 
 	"""
 
-	Rscript ${baseDir}/bin/pca.r -b ${new_prefix} -C ${max_chrom} ${opt_arg}
+	Rscript ${baseDir}/bin/pca.r -b ${new_prefix} -C ${max_chrom} ${opt_args}
 
         cp .command.log ${new_prefix}_snpgdspca.log
 

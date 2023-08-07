@@ -23,8 +23,8 @@ process CALC_WFST_ONE_VS_REMAINING{
         
         }
         
-        pop1 = pop1_file.baseName
-        pop2 = pop2_file.baseName
+        pop1 = pop1_file.getSimpleName
+        pop2 = pop2_file.getSimpleName
         
 
 

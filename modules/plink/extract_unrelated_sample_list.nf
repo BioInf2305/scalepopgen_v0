@@ -20,7 +20,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = vcf[0].baseName
+        new_prefix = vcf[0].getSimpleName()
         is_vcf = vcf[0].getExtension() == "gz" ? true:false
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ params.max_chrom
