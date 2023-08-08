@@ -154,33 +154,35 @@ At the beginning of the parameter file ***/parameters/process/general_params.con
 ```outgroup```: the population ID of the outgroup
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
-After that, we need to change **globalfilt_params.config** according to filters we want to use.
+After that, we need to set ***/parameters/process/globalfilt_params.config** according to filters we want to use.
 
 **// general parameters**
 
     input                     = "test_files/test_input_vcf.csv"
     outDir                    = "${baseDir}/../Filter/"
-    prefix                    = "filter"
     sample_map                = "/data/trial/sample.map"
+    concate_vcf_prefix        = "goats"
+    geo_plot_yml              = "${baseDir}/parameters/plots/plot_sample_on_map.yml"
+    tile_yml                  = "${baseDir}/parameters/plots/tiles_info.yml"
+    f_pop_cord                = "test_files/geo_data.txt"
+    f_pop_color               = "test_files/geo_color.txt"
     fasta                     = "none"
     chrm_map                  = "none"
     allow_extra_chrom         = true 
     max_chrom                 = 2
     outgroup                  = "Urial"
-    cm_to_bp                   = 0
+    cm_to_bp                  = 1000000
 
-**//sample filtering parameters**
+**//filtering parameters**
 
     apply_indi_filters     = true
     king_cutoff            = 0.20
-    rem_indi               = "/data/trial/remove_vcf_samples.txt"
+    rem_indi               = "test_files/remove_samples.txt"
     mind                   = 0.1
     indiv_summary          = true
 
-**//sites filtering parameters**
-
     apply_snp_filters      = true
-    remove_snps            = "/data/trial/remove_vcf_snps.txt"
+    remove_snps            = "test_files/remove_sites.txt"
     maf                    = 0.01
     min_meanDP             = -9
     max_meanDP             = -9
@@ -188,7 +190,7 @@ After that, we need to change **globalfilt_params.config** according to filters 
     max_missing            = -9
     minQ                   = -9
 
-After all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. The command looks like this:
+After all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
 ```
 nextflow run scale_popgen.nf -qs 10 -profile conda
 ```
