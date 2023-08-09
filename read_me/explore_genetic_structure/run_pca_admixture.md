@@ -1,34 +1,45 @@
-﻿## scalepopgen: PCA and ADMIXTURE
+## scalepopgen: PCA and ADMIXTURE
 
-This module combines Admixture analysis and two different Principal Component Analyses. The first PCA can be done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```. 
+This module combines Admixture analysis, two different Principal Component Analyses and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
 
 The above-mentioned analyses consist of the following steps:
 
 **1.** converting vcf to bed file format using Plink 
-**2.** merging converted bed files (separated by chromosomes) into one with Plink
+**2.** merging converted bed files (separated by chromosomes) with Plink
 **3.** removing listed individuals and updating the family IDs with Plink 
-**4.** applying Linkage Disequilibrium based filtering of bed files with Plink  
-**5.** running both types of PCA analyses with plotting the results  
-**6.** running admixture from the starting and ending k-value selected by the user  
-**7.** performing block cross-validation of k-values  
-**8.** selecting the optimal number of clusters (K) regarding the lowest cross validation error and plotting the results
+**4.** applying LD-based filtering of bed files with Plink  
+**5.** updating chromosome names from strings to integer numbers   
+**6.** running PCA with SmartPCA
+**7.** plotting the results of SmartPCA
+**8.** running PCA with snpgdsPCA 
+**9.** plotting the results of snpgdsPCA 
+**10.** calculating pairwise Fst
+**11.** calculating IBS distances
+**12.** running admixture from the starting and ending k-value selected by the user  
+**13.** selecting the optimal number of clusters (K) regarding the lowest cross validation error  
+**14.**  plotting the admixture results and generating Pong input
 
 > **Note:** If your input files are already in Plink format, it will skip the first step.
 ## Description of the parameters:
-```ld_filt```: an option to use LD-based filtering according to parameters specified below (default: true), meaning to include or skip step 4;
-```ld_window_size```: a window size (default: 50) in variant count or kilobases (step 4);
-```step_size```: number of variants (default: 10) to shift the window at the end of each step (step 4);
-```r2_value```: squared correlation threshold (default: 0.1); at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4);
-```structure_remove_indi```: the name of a file in which you specified samples you do not want to use for admixture and PCA (step 5);
-```smartpca_param```: the name of a parameter file that will be used for the SmartPCA (step 5);
-```pop_color_file```: a name of a tab-delimited text file with specified R colors for each population; the Family IDs are in the first column and R-color code in the second (step 5);
-```starting_k_value```: starting number of clusters (step 6);
-```ending_k_value```: maximal number of clusters (step 6);
-```method```: type of the method (default: "block") to select the optimal number of clusters (step 7), option "-m" in program Admixture - alternative to "block" relaxation algorithm is "EM" algorithm;
-```cross_validation```: the number of folds (default: 10) for cross-validation (step 7);
-```termination_criteria```: the lowest limit of the log-likelihood change (default: 0.0001) between iterations to stop the process (step 7), option "-C" in program Admixture - based on integer or floating number this argument is interpreted as a delta or an iteration count;
-```best_kval_method```: the procedure (default: "global") for choosing the optimal K value (step 8)
-```pop_labes```: the name of the text file; you use this option, if you want to change population IDs for the admixture graph (step 8)
+```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4;
+```ld_window_size```: a window size in variant count or kilo bases (step 4);
+```ld_step_size```: number of variants to shift the window at the end of each step (step 4);
+```r2_value```: squared correlation threshold; at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4);
+```structure_remove_indi```: the name of a file with listed samples that will not be used for admixture and PCA (steps 6, 8 and 12);
+```smartpca_param```: the path to the file with additional parameters for SmartPCA (step 6);
+```pop_color_file```: the path to the text file with specified color codes for each population (steps 7 and 9);
+```f_pop_marker```: the path to the text file with specified mark shape for each population (steps 7 and 9);
+```pca_plot_params```: the path to the yml file containing the parameters to plot interactive PCA results (steps 7 and 9);
+```starting_k_value```: starting number of clusters for Admixture analysis (step 12);
+```ending_k_value```: maximal number of clusters for Admixture analysis (step 12);
+```cross_validation```: the number of folds for cross-validation (step 13);
+```termination_criteria```: the lowest limit of the log-likelihood change between iterations to stop the process of cross-validation (step 13), option "-C" in program Admixture;
+```pop_labes```: the path to the text file with population IDs that should be plotted on admixture graph (step 14)
+```fst_based_nj_tree```: an option to estimate NJ tree based on pairwise Fst distances between each pair of populations (step 10)
+```nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 10)
+```est_1_min_ibs_based_nj_tree```: an option to estimate NJ tree based on 1-ibs distance between each pair of samples in the dataset (step 11)
+```ibs_nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 11)
+
 ## Description of the output files generated by this sub-workflow:
 If the pipeline has completed successfully, all these output files will be stored in **${output directory}/genetic_structure/**.
 
@@ -49,123 +60,234 @@ You will find the admixture results in a sub-folder **./admixture**:
 **\best_k_\${K}\.png** : the plot of CV errors for determinating optimal K value
 **pongInput.map** : the input file for the program Pong.
 
-## Validation of the sub-workflow:
-### 1. Required input data files
-For workflow validation, we have downloaded publicly available samples with whole genome sequences from NCBI database. We included domestic goats (*Capra hircus*) represented by various breeds from Morocco and Switzerland (geo_map). In addition to them, we also included some wild *Capra* members that are: Alpine ibex (*C. ibex*), Iberian ibex (*C. pyrenaica*) and Siberian ibex (*C. sibirica*). Since we need an outgroup when performing some analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 39 animals.
 
+## Validation of the sub-workflow:
+For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
+
+		!Here will be the workflow picture!
+Geographic map of samples used for this trial
+
+ <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y\
+Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1\
+Henkel et al. (2019). Selection signatures in goats reveal copy number variants underlying breed-defining coat color phenotypes. *PLoS genetics*, https://doi.org/10.1371/journal.pgen.1008536
+ </font>
+### 1. Required input data files
 The input data should be in the **VCF** or **PLINK binary** format files. 
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files. Each row is corresponding to one chromosome and each row has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
+All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check *test_input_vcf.csv*. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
 ```
-Chr28,/data/trial/NC_030835.1.vcf.gz,/data/trial/NC_030835.1.vcf.gz.tbi
-Chr29,/data/trial/NC_030836.1.vcf.gz,/data/trial/NC_030836.1.vcf.gz.tbi
+chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
+chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
 ```
-In addition to the VCF input format, it is also necessary to prepare a sample map file of individuals and populations. Sample map has two tab-delimited columns: in the first column are individual IDs and in the second are population IDs as demonstrated on the example below.
+In addition to the VCF input format, it is also necessary to prepare a sample map file of individuals and populations. Sample map has two tab-delimited columns: in the first column are individual IDs and in the second are population IDs as demonstrated on the example below. It is also important that the name of the file ends with ".map".
 ```
-AfrGoat10 AfricaGoat
-AfrGoat1 AfricaGoat
-AfrGoat2 AfricaGoat
-AfrGoat3 AfricaGoat
-AfrGoat4 AfricaGoat
-AfrGoat5 AfricaGoat
-AfrGoat6 AfricaGoat
-AfrGoat7 AfricaGoat
-AfrGoat8 AfricaGoat
-AfrGoat9 AfricaGoat
-AlpIbex1 AlpineIbex
-AlpIbex2 AlpineIbex
-AlpIbex3 AlpineIbex
-AlpIbex4 AlpineIbex
-AlpIbex5 AlpineIbex
-AlpIbex6 AlpineIbex
-AlpIbex7 AlpineIbex
-AlpIbex8 AlpineIbex
-AlpIbex9 AlpineIbex
-IbrIbex1 IberianIbex
-IbrIbex2 IberianIbex
-IbrIbex3 IberianIbex
-IbrIbex4 IberianIbex
-SibIbex1 SiberianIbex
-SibIbex2 SiberianIbex
-SwiGoat10 SwissGoat
-SwiGoat11 SwissGoat
-SwiGoat12 SwissGoat
-SwiGoat1 SwissGoat
-SwiGoat2 SwissGoat
-SwiGoat3 SwissGoat
-SwiGoat4 SwissGoat
-SwiGoat5 SwissGoat
-SwiGoat6 SwissGoat
-SwiGoat7 SwissGoat
-SwiGoat8 SwissGoat
-SwiGoat9 SwissGoat
-UriShep1 Urial
-UriShep2 Urial
+SRR8437780ibex	AlpineIbex
+SRR8437782ibex	AlpineIbex
+SRR8437783ibex	AlpineIbex
+SRR8437791ibex	AlpineIbex
+SRR8437793ibex	AlpineIbex
+SRR8437799ibex	AlpineIbex
+SRR8437809ibex	AlpineIbex
+SRR8437810ibex	AlpineIbex
+SRR8437811ibex	AlpineIbex
+SRX5250055_SRR8442974	Appenzell
+SRX5250057_SRR8442972	Appenzell
+SRX5250124_SRR8442905	Appenzell
+SRX5250148_SRR8442881	Appenzell
+SRX5250150_SRR8442879	Appenzell
+SRX5250151_SRR8442878	Appenzell
+SRX5250153_SRR8442876	Appenzell
+SRX5250155_SRR8442874	Appenzell
+SRX5250156_SRR8442873	Appenzell
+SRX5250157_SRR8442872	Appenzell
+340330_T1	Bezoar
+340331_T1	Bezoar
+340334_T1	Bezoar
+340340_T1	Bezoar
+340345_T1	Bezoar
+340347_T1	Bezoar
+340426_T1	Bezoar
+470100_T1	Bezoar
+470104_T1	Bezoar
+470106_T1	Bezoar
+...
+454948_T1	Urial
+ERR454947urial	Urial
+SRR12396950urial	Urial
 ```
-For the Plink binary input, you need to specified the path to the BED/BIM/FAM files in the section of general parameters:
+For the Plink binary input, user need to specify the path to the BED/BIM/FAM files in the section of general parameters:
 ```input= "path/to/the/files/*.{bed,bim,fam}"```
 ### 2. Optional input data files
-This module allows you to remove samples, like the outgroup, that you want to exclude in given analyses (```structure_remove_indi```). You have to prepare a space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column as stated by [PLINK](https://www.cog-genomics.org/plink/2.0/filter#sample) (option --remove):
+This module allows you to remove samples that you want to exclude in given analyses (```structure_remove_indi```). In our case we will exclude all samples of the outgroup. We prepare a space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column:
 ```
-Urial UriShep1
-Urial UriShep2
+Urial 454948_T1
+Urial ERR454947urial
+Urial SRR12396950urial
 ```
-If you want to provide your file with optional parameters for the program SmartPCA (```smartpca_param```). You can make one according to the [instructions of the EIGENSOFT software](https://github.com/chrchang/eigensoft/tree/master/POPGEN).
+As well, you can specify the desired colors and mark shapes for each population, which will then be considered for the PCA plots. For ```pop_color_file```, we have to prepare a tab-delimited text file, where the population names are in the first column and specified hex color codes in the second:
+```
+AlpineIbex	#008000
+Appenzell	#ff5733
+Booted	#0000FF
+ChamoisColored	#d6b919
+Grigia	#aee716
+Peacock	#16e7cc
+Saanen	#75baf3
+Urial	#A52A2A
+Toggenburg	#da4eed
+Bezoar	#FFA500
+```
+Similar to this one, we also prepare another one for ```f_pop_marker``` with specified mark shapes that are listed in **./extra/markershapes.txt**.
+```
+AlpineIbex	square_default
+Appenzell	circle_default
+Booted	circle_default
+ChamoisColored	circle_default
+Grigia	circle_default
+Peacock	circle_default
+Saanen	circle_default
+Urial	diamond_default
+Toggenburg	circle_default
+Bezoar	triangle_default
+```
+Additionally, we will change population IDs to scientific names (```pop_labels```), which will be considered only for plotting the results of Admixture. We need to prepare a text file with new population IDs in the first column and old ones in the second:
+```
+Capra_ibex	AlpineIbex
+Capra_hircus	Appenzell
+Capra_hircus	Booted
+Capra_hircus	ChamoisColored
+Capra_hircus	Grigia
+Capra_hircus	Peacock
+Capra_hircus	Saanen
+Capra_hircus	Toggenburg
+Capra_aegagrus	Bezoar
+```
+In the case of PCA with the program SmartPCA, you can also provide your own file with optional parameters (```smartpca_param```). Please, make one according to the [instructions of the EIGENSOFT software](https://github.com/chrchang/eigensoft/tree/master/POPGEN).
 
-As well, you can specify the desired colors by population for the final PCA graphs (```pop_color_file```). You have to make a tab-delimited text file, where the population names are in the first column and specified R color codes in the second:
+With this tool we also have an option to draw a geographic map with sample origin. For that we need to provide two files. In the first one we write down population ID in the first column and comma separated latitude and longitude in second column.
+```Bezoar	32.662864436650814,51.64853259116807
+Urial	34.66031157,53.49391737
+AlpineIbex	46.48952713,9.832698605
+ChamoisColored	46.620927266181674,7.345747305114329
+Appenzell	47.33229709563813,9.401363933224248
+Booted	47.426361052956736,9.384330852599533
+Peacock	46.321661051197026,8.804738507288173
+Toggenburg	47.358160245764715,9.01070577172017
+Grigia	46.24935612558498,8.700996940189137
+Saanen	46.9570926960748,8.205509946726016
+```
+In the second file, we will specified the hex codes of colors that will represent each population.
 
-Additional you can also change population names (```pop_labels```), which will be considered only for plotting the results. You need to prepare a text file...to be continued... 
+```AlpineIbex	#008000
+Appenzell	#ff5733
+Booted	#0000FF
+ChamoisColored	#d6b919
+Grigia	#aee716
+Peacock	#16e7cc
+Saanen	#75baf3
+Urial	#A52A2A
+Toggenburg	#da4eed
+Bezoar	#FFA500
+```
+The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 
 ### 3. Setting the parameters
-At the beginning of the parameter file ***/parameters/scale_popgen.config**, we have to specified some of the general things first. 
-```input```: name of the .csv input file for the VCF format or names of the PLINK binary files
+At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specified some of the general things first:
+```input```: path to the .csv input file for the VCF format or names of the PLINK binary files
 ```outDir```: the name of the output folder
-```prefix```: prefix of the output files
-```sample_map```: the name of the file with individuals and populations as addition to VCF input
-```fasta```: the name of the reference genome fasta file that will be used for converting from VCF to PLINK format 
+```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input
+```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files 
+```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map 
+```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting
+``` f_pop_cord```: path to the file with geographical locations for map plotting
+```f_pop_color```: path to the file with specified colors for map plotting
+```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input
  ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string
 ```max_chrom```: maximum number of chromosomes
-```outgroup```: the population ID of the outgroup (optimal)
-```cm_to_bp```: the number of base pairs that corresponds to one centimorgan (optimal)
+```outgroup```: the population ID of the outgroup
+```cm_to_bp```: the number of base pairs that corresponds to one cM
 
-After that, there are two parts dedicated to the PCA and ADMIXTURE analyses. 
+After that, there is a parameter file dedicated to the PCA, Admixture and both NJ clustering analyses (***/parameters/process/genstruct_params.config**). 
 
 **// general parameters**
 
-    input                     = "/data/trial/input.csv"
-    outDir                    = "${baseDir}/../PCA_Admix/"
-    prefix                    = "PCA_Admix"
-    sample_map                = "/data/trial/sample.map"
-    fasta                     = "/data/trial/goat_ref.fasta"
+    input                     = "test_files/test_input_vcf.csv"
+    outDir                    = "${baseDir}/../Filter/"
+    sample_map                = "test_files/sample.map"
+    concate_vcf_prefix        = "goats"
+    geo_plot_yml              = "${baseDir}/parameters/plots/plot_sample_on_map.yml"
+    tile_yml                  = "${baseDir}/parameters/plots/tiles_info.yml"
+    f_pop_cord                = "test_files/geo_data.txt"
+    f_pop_color               = "test_files/pop_color.txt"
+    fasta                     = "none"
     chrm_map                  = "none"
     allow_extra_chrom         = true 
     max_chrom                 = 2
     outgroup                  = "Urial"
-    cm_to_bp                   = 0
+    cm_to_bp                  = 1000000
 
-**//ld filter for PCA and ADMIXTURE analysis**
+**//genetic structure parameters**
 
-    run_smartpca             = true
-    run_gds_pca              = true
-    ld_filt                  = true
-    ld_window_size           = 50
-    step_size                = 10
-    r2_value                 = 0.01
+    genetic_structure           = true
+    run_smartpca                = true
+    run_gds_pca                 = true
+    ld_filt                     = true
+    ld_window_size              = 50
+    step_size                   = 10
+    r2_value                    = 0.01
+    structure_remove_indi       = "test_files/remove_outgroup.txt"
+    smartpca_param              = "none"
+    pop_color_file              = "test_files/pop_color.txt"
+    f_pop_marker                = "test_files/pop_shape.txt"
+    pca_plot_params             = "${baseDir}/parameters/plots/pca.yml"
+    admixture                   = true
+    starting_k_value            = 2
+    ending_k_value              = 10
+    cross_validation            = 5
+    termination_criteria        = 0.0001
+    pop_labels                  = "test_files/pop_labels.txt"
+    fst_based_nj_tree           = true
+    nj_yml                      = "${baseDir}/parameters/plots/fst_nj.yml"
+    est_1_min_ibs_based_nj_tree = true
+    ibs_nj_yml                  = "${baseDir}/parameters/plots/ibs_nj.yml"
+When all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
+```
+nextflow run scalepopgen.nf -qs 10 -profile conda
+```
+You can check all the other command running options with the option help :
+```
+nextflow run scalepopgen.nf -help
+```
+If the module analyses are processed successfully, the command line output is looking like this:
+```
+N E X T F L O W  ~  version 23.04.1
+Launching `scalepopgen.nf` [big_swirles] DSL2 - revision: 9f9aaad1d2
+executor >  slurm (10)
+[26/3c186e] process > GENERATE_POP_COLOR_MAP (generating pop color map)                                          [100%] 1 of 1 ✔
+[33/cca7ac] process > PLOT_GEO_MAP (plotting_sample_on_map)                                                      [100%] 1 of 1 ✔
+[27/5137ac] process > CONVERT_FILTERED_VCF_TO_PLINK:CONVERT_VCF_TO_BED (converting_vcf_to_bed_CHR29)             [100%] 2 of 2 ✔
+[0c/af2851] process > CONVERT_FILTERED_VCF_TO_PLINK:MERGE_BED (merging_bed_goats)                                [100%] 1 of 1 ✔
+[d8/740abc] process > EXPLORE_GENETIC_STRUCTURE:REMOVE_INDI_STRUCTURE (remove_indi_pca_goats)                    [100%] 1 of 1 ✔
+[2d/1ba3a8] process > EXPLORE_GENETIC_STRUCTURE:LD_FILTER_STRUCTURE (ld_filtering_goats_rem_indi)                [100%] 1 of 1 ✔
+[56/e7e488] process > EXPLORE_GENETIC_STRUCTURE:UPDATE_CHROM_IDS (updating_chrom_ids)                            [100%] 1 of 1 ✔
+[7d/fceb05] process > EXPLORE_GENETIC_STRUCTURE:RUN_SMARTPCA (running_smartpca_goats_rem_indi_ld_filtered_upd... [100%] 1 of 1 ✔
+[66/231574] process > EXPLORE_GENETIC_STRUCTURE:PLOT_SMARTPCA (plot_interactive_pca)                             [100%] 1 of 1 ✔
+[7b/2561e0] process > EXPLORE_GENETIC_STRUCTURE:RUN_SNPGDSPCA (running_snpgdspca_goats_rem_indi_ld_filtered_u... [100%] 1 of 1 ✔
+[6e/5c3380] process > EXPLORE_GENETIC_STRUCTURE:PLOT_SNPGDSPCA (plot_interactive_pca)                            [100%] 1 of 1 ✔
+[75/0f8471] process > EXPLORE_GENETIC_STRUCTURE:CALC_PAIRWISE_FST (ld_filtering_goats_rem_indi_ld_filtered)      [100%] 1 of 1 ✔
+[cd/67a405] process > EXPLORE_GENETIC_STRUCTURE:CALC_1_MIN_IBS_DIST (1_min_ibs_distance_goats_rem_indi_ld_fil... [100%] 1 of 1 ✔
+[01/dfc42f] process > EXPLORE_GENETIC_STRUCTURE:RUN_ADMIXTURE_DEFAULT (run_admixture_5)                          [100%] 9 of 9 ✔
+[7a/ae5112] process > EXPLORE_GENETIC_STRUCTURE:EST_BESTK_PLOT (estimating_bestK)                                [100%] 1 of 1 ✔
+[44/e127c9] process > EXPLORE_GENETIC_STRUCTURE:GENERATE_PONG_INPUT (generating_pong_input)                      [100%] 1 of 1 ✔
+Completed at: 09-Aug-2023 13:56:31
+Duration    : 5m 52s
+CPU hours   : 2.8
+Succeeded   : 25
+```
 
-    structure_remove_indi    = "remov_outgroup.txt"
-    smartpca_param           = "none"
-    pop_color_file           = "none"
 
-**//admixture analysis parameters**
 
-    admixture                 = true
-    starting_k_value          = 2
-    ending_k_value            = 10
-    method                    = "block"
-    cross_validation          = 5
-    termination_criteria      = 0.0001
-    best_kval_method          = "global"
-    pop_labels                = "none"
+
 ## References
 Please cite the following papers if you use this sub-workflow in your study:
 
