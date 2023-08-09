@@ -455,6 +455,7 @@ class PlotInteractivePca:
         self.evec_to_cord_dict()
         self.eval_to_list()
         self.p = figure(width=self.width, height=self.height)
+        self.p.output_backend = "svg"
         output_file(self.outprefix + ".html")
         legend_count = 0
         legend_list = []
