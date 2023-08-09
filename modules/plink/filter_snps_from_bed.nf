@@ -17,7 +17,7 @@ process FILTER_SNPS_FROM_BED{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].getSimpleName
+        new_prefix = bed[0].getSimpleName()
         def max_chrom = params.max_chrom
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ max_chrom
