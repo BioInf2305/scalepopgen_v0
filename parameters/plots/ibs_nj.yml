@@ -1,9 +1,9 @@
 ---
- width: 1000
- height: 800
+ width: 1400
+ height: 1000
  layout: 'c'
  tip_label_align: True
- tip_label_font_size: "12px"
- node_sizes: 8
+ tip_label_font_size: "8px"
+ node_sizes: 6
  node_hover: True
  toyplot-anchor-shift: "15px"
