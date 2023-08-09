@@ -57,6 +57,10 @@ def plot_interactive_tree(newickfile, pop_color_file, plot_yml):
     tre1 = toytree.tree(newick, tree_format=1)
     pop_list = tre1.get_tip_labels()
     for pop in pop_list:
+        if pop not in pop_color_dict:
+            pop = pop[
+                1:
+            ]  ## if within cluster id starts with the number then plink2 by default add "C" to each cateogry
         color_list.append(pop_color_dict[pop])
     canvas, axes, mark = tre1.draw(
         height=hgt,
