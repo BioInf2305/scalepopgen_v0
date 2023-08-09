@@ -18,6 +18,7 @@ process CALC_1_MIN_IBS_DIST{
         path("polyphyletic_pop_list.txt")
         path("*.ibs.dist")
         path("*.log")
+        path("*_monophyletic_subtrees.txt"), emit: popsubtree optional true
 
 
     when:
