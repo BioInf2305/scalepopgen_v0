@@ -97,6 +97,7 @@ def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
 
 
 def check_monophyly(newick_f, sample_color_dict):
+    sample_pop_dict = {}
     dest = open("polyphyletic_pop_list.txt", "w")
     with open(newick_f) as source:
         for line in source:
@@ -106,13 +107,26 @@ def check_monophyly(newick_f, sample_color_dict):
     pop_sample_dict = {}
     for sample in sample_color_dict:
         pop = sample_color_dict[sample][0]
+        sample_pop_dict[sample] = pop
         if pop not in pop_sample_dict:
             pop_sample_dict[pop] = []
         pop_sample_dict[pop].append(sample)
+    for leaf in ete3_tree:
+        leaf.add_features(sample_pop=sample_pop_dict.get(leaf.name, "none"))
     for pop in pop_sample_dict:
-        if not ete3_tree.check_monophyly(
-            values=pop_sample_dict[pop], target_attr="name"
-        )[0]:
+        if not ete3_tree.check_monophyly(values=[pop], target_attr="sample_pop")[0]:
+            dest1 = open(pop + "_monophyletic_subtrees.txt", "w")
+            tree_count = 0
+            for node in ete3_tree.get_monophyletic(
+                values=[pop], target_attr="sample_pop"
+            ):
+                tree_count += 1
+                dest1.write("monophyletic nodes count " + str(tree_count) + "\n")
+                dest1.write(
+                    str(node.get_ascii(attributes=["name"], show_internal=True))
+                )
+                dest1.write("\n")
+            dest1.close()
             dest.write(pop + "\n")
     dest.close()
 
