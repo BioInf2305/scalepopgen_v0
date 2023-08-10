@@ -26,7 +26,7 @@
 <h3 id="setup-and-test-the-pipeline">Setup and test the pipeline</h3>
 <p>The pipeline can be run on any Linux operating system and require these three dependencies: Java, nextflow (<a href="https://www.nature.com/articles/nbt.3820">Di Tommaso et al., 2017</a>) and a software container or environment system such as <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">conda</a>, <a href="https://mamba.readthedocs.io/en/latest/installation.html">mamba</a>, <a href="https://sylabs.io">singularity</a>, or <a href="https://www.docker.com">docker</a>. The pipeline can also be run both on local linux system as well as on high performance computing (HPC) clusters. Note that all the software related dependencies of the pipeline will be handled by nextflow after it is installed. scalepopgen was built and tested on nextflow version 22.10.6.5843, conda version 23.1.0 and singularity version 3.8.6.</p>
 <p>To test the pipeline, simply run the following command:</p>
-<pre class=" language-bash"><code class="prism  language-bash">nextflow run scale_popgen.nf -profile mamba,test_genstruct
+<pre class=" language-bash"><code class="prism  language-bash">nextflow run scalepopgen.nf -profile mamba,test_genstruct
 </code></pre>
 <p>The output folder will be created here:"…/test_genstruct_out/". The folder will contain interactive plots for PCA, Fst-based NJ tree, IBS-based NJ tree. It will also contains plots for “ADMIXTURE” analyses. These plots can be customized using the yaml file present inside the ". /parameters/plots/ "folder. Description of the inputs and outputs of the test run can be found here.</p>
 <h3 id="extra-notes">Extra notes</h3>

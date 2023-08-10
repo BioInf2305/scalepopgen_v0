@@ -59,10 +59,10 @@ If your input is in PLINK format, the filtered files will be stored in a folder 
 
 
 ## Validation of the sub-workflow:
-For workflow validation, we have downloaded publicly available samples with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
+For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
 
 		!Here will be the workflow picture!
-
+Geographic map of samples used for this trial
 
  <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y\
 Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1\
@@ -192,12 +192,12 @@ After that, we need to set ***/parameters/process/globalfilt_params.config** acc
 
     input                     = "test_files/test_input_vcf.csv"
     outDir                    = "${baseDir}/../Filter/"
-    sample_map                = "/data/trial/sample.map"
+    sample_map                = "test_files/sample.map"
     concate_vcf_prefix        = "goats"
     geo_plot_yml              = "${baseDir}/parameters/plots/plot_sample_on_map.yml"
     tile_yml                  = "${baseDir}/parameters/plots/tiles_info.yml"
     f_pop_cord                = "test_files/geo_data.txt"
-    f_pop_color               = "test_files/geo_color.txt"
+    f_pop_color               = "test_files/pop_color.txt"
     fasta                     = "none"
     chrm_map                  = "none"
     allow_extra_chrom         = true 
@@ -222,13 +222,13 @@ After that, we need to set ***/parameters/process/globalfilt_params.config** acc
     max_missing            = -9
     minQ                   = -9
 
-After all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
+When all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
 ```
-nextflow run scale_popgen.nf -qs 10 -profile conda
+nextflow run scalepopgen.nf -qs 10 -profile conda
 ```
 You can check all the other command running options with the option help :
 ```
-nextflow run scale_popgen.nf -help
+nextflow run scalepopgen.nf -help
 ```
 After the filtering is done successfully, the command line output is looking like this:
 ```
