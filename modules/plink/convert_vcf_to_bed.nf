@@ -17,7 +17,7 @@ process CONVERT_VCF_TO_BED{
     script:
         new_prefix = chrom +"__"+ f_vcf.getSimpleName()
         def opt_args = ""
-        opt_args = opt_args + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom+" --threads "+task.cpus
 
 	if( params.allow_extra_chrom ){
                 
