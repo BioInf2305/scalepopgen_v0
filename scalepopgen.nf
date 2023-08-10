@@ -27,6 +27,8 @@ include { EXTRACT_UNRELATED_SAMPLE_LIST } from "${baseDir}/modules/plink/extract
 
 include { KEEP_INDI } from "${baseDir}/modules/vcftools/keep_indi"
 
+include { REMOVE_INDI } from "${baseDir}/modules/vcftools/remove_indi"
+
 include { FILTER_SITES } from "${baseDir}/modules/vcftools/filter_sites"
 
 include { PREPARE_NEW_MAP } from "${baseDir}/modules/prepare_new_map"
@@ -117,26 +119,50 @@ workflow{
 
     if ( is_vcf ){
         if( params.apply_indi_filters ){
-
+        
             o_map = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
 
-            vcflist = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> vcf}.collect()
-
-            CONCAT_VCF(vcflist)
-
-            EXTRACT_UNRELATED_SAMPLE_LIST( CONCAT_VCF.out.concatenatedvcf )
+            /* --> king_cutoff and missingness filter should be based on the entire genome therefore vcf file should be concatenated first and then 
+                   supply to plink. From plink module, the list of individuals to be kept is piped out and supply to keep indi module. This module will
+                   then extract these sets of individuals from each chromosome file separately. Note that if custom individuals to be removed are also
+                    supplied then this will be considered in extract_unrelated_sample_list module as well. 
+            */      
     
-            KEEP_INDI( chrom_vcf_idx_map.combine( EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list ))
+            if( params.king_cutoff > 0 || params.mind > 0 ){
 
-            PREPARE_NEW_MAP(
-                o_map,
-                EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list
-            )
-            
-            n0_chrom_vcf_idx_map = KEEP_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
-        }
 
+                vcflist = chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> vcf}.collect()
+
+                CONCAT_VCF(vcflist)
+
+                EXTRACT_UNRELATED_SAMPLE_LIST( CONCAT_VCF.out.concatenatedvcf )
         
+                KEEP_INDI( chrom_vcf_idx_map.combine( EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list ))
+
+                PREPARE_NEW_MAP(
+                    o_map,
+                    EXTRACT_UNRELATED_SAMPLE_LIST.out.keep_indi_list
+                )
+            
+                n0_chrom_vcf_idx_map = KEEP_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
+            }
+
+            /*
+                if only the individuals to be removed are supplied then there is no need to concat the file. 
+            
+            */
+
+            else{
+                rmindilist = Channel.fromPath( params.rem_indi )
+                chrom_vcf = chrom_vcf_idx_map.map{chrom, vcf, idx, map -> tuple(chrom,vcf)}
+                REMOVE_INDI( chrom_vcf )
+                PREPARE_NEW_MAP(
+                    o_map,
+                    rmindilist
+                )
+                n0_chrom_vcf_idx_map = REMOVE_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
+            }
+        }
         else{
             n0_chrom_vcf_idx_map = chrom_vcf_idx_map
         }
@@ -144,12 +170,13 @@ workflow{
 
                 n_map = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> map_f}.unique()
 
-                chrom_vcf = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> tuple(chrom, vcf)}
-
+                chrom_vcf = n0_chrom_vcf_idx_map.map{chrom, vcf, idx, map_f -> tuple(chrom, vcf)}    
+                
+                
                 FILTER_SITES(chrom_vcf)
-            
+        
                 n1_chrom_vcf_idx_map = FILTER_SITES.out.s_chrom_vcf_tbi.combine(n_map)
-
+                    
         }
         else{
                 n1_chrom_vcf_idx_map = n0_chrom_vcf_idx_map
@@ -212,6 +239,7 @@ workflow{
 
     
     if ( params.genetic_structure ) {
+
 
         if( is_vcf ){
             CONVERT_FILTERED_VCF_TO_PLINK(
