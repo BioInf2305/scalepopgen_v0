@@ -21,7 +21,7 @@ process CONVERT_BED_TO_VCF{
         def opt_args = ""
         def fasta = params.fasta
         def chrm_map = params.chrm_map
-        opt_args = opt_args + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom+ " --threads "+task.cpus
 	if( params.allow_extra_chrom ){
                 
             opt_args = opt_args + " --allow-extra-chr "
