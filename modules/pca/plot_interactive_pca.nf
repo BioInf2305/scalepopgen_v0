@@ -24,7 +24,7 @@ process PLOT_INTERACTIVE_PCA{
         
         prefix = eigenvect.getSimpleName()
 
-        pca_plot_params = params.pca_plot_params
+        pca_plot_param = params.pca_plot_params
 
         f_pop_marker = params.f_pop_marker
 
@@ -34,7 +34,7 @@ process PLOT_INTERACTIVE_PCA{
 
         awk 'NR==FNR{markershape[NR]=\$0;next}{col_cnt=int(rand() * 20)+5;print \$1,markershape[col_cnt],\$3}' ${baseDir}/extra/markershapes.txt ${m_pop_sc_col} > pop_markershape_col.txt
 
-        python ${baseDir}/bin/plot_interactive_pca.py ${eigenvect} ${eigenval} pop_markershape_col.txt ${pca_plot_params} ${prefix}
+        python ${baseDir}/bin/plot_interactive_pca.py ${eigenvect} ${eigenval} pop_markershape_col.txt ${pca_plot_param} ${prefix}
 
         cp .command.log plot_interactive_pca_${prefix}.log
 
@@ -47,7 +47,7 @@ process PLOT_INTERACTIVE_PCA{
 
         awk 'NR==FNR{markershape[\$1]=\$2;next}{print \$1,markershape[\$1],\$3}' ${f_pop_marker} ${m_pop_sc_col} > pop_markershape_col.txt
 
-        python ${baseDir}/bin/plot_interactive_pca.py ${eigenvect} ${eigenval} pop_markershape_col.txt ${pca_plot_params} ${prefix}
+        python ${baseDir}/bin/plot_interactive_pca.py ${eigenvect} ${eigenval} pop_markershape_col.txt ${pca_plot_param} ${prefix}
         
         cp .command.log plot_interactive_pca_${prefix}.log
 
