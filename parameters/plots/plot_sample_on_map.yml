@@ -5,10 +5,10 @@
   zoom_level: 16
   overlap_cordi: True
   shift_cordi: 0.00005
-  show_label : True
+  show_label : False
   label_loc : 0.00010
   label_size: "6pt"
   show_legend: True
-  display_sample_size: False
+  display_sample_size: True
   display_popup: False
   output_prefix: "pig_sample_plots"
