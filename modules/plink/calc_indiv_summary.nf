@@ -17,7 +17,7 @@ process CALC_INDIV_SUMMARY{
     script:
 
         def opt_args = ""
-        opt_args = opt_args + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom+" --threads "+task.cpus
 	if( params.allow_extra_chrom ){
                 
             opt_args = opt_args + " --allow-extra-chr "
@@ -26,7 +26,7 @@ process CALC_INDIV_SUMMARY{
         opt_args = opt_args + " --out "+chrom+"_sample_summary"
 
         """
-        plink2 --vcf ${vcf} --threads ${task.cpus} --nonfounders --sample-counts ${opt_args}
+        plink2 --vcf ${vcf} --nonfounders --sample-counts ${opt_args}
 
         vcftools --gzvcf ${vcf} --depth --out ${chrom}_depth_info
 
