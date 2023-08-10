@@ -15,14 +15,12 @@ process PREPARE_NEW_MAP{
         
     
     script:
-        def rem_indi = params.rem_indi
 
-        if ( (params.mind >= 0 || params.king_cutoff >= 0 ) && rem_indi != "none" ){
+        if (params.mind > 0 || params.king_cutoff > 0 ){
 
         """
-        awk 'NR==FNR{sample_id[\$2];next}!(\$1 in sample_id){print \$1}' ${rem_indi} ${unrel_id} > final_kept_indi_list.txt
+        awk 'NR==FNR{sample_id[\$1];next}\$1 in sample_id{print}' ${unrel_id} ${map_f} > new_sample_pop.map
 
-        awk 'NR==FNR{sample_id[\$1];next}\$1 in sample_id{print}' final_kept_indi_list.txt ${map_f} > new_sample_pop.map
 
         """ 
 
@@ -30,24 +28,13 @@ process PREPARE_NEW_MAP{
         
         else{
             
-            if ( (params.mind >= 0 || params.king_cutoff >= 0 ) && rem_indi == "none" ){
                 
-            """
+        """
 
-                awk 'NR==FNR{sample_id[\$1];next}\$1 in sample_id{print}' ${unrel_id} ${map_f} > new_sample_pop.map
+        awk 'NR==FNR{sample_id[\$2];next}!(\$1 in sample_id){print}' ${unrel_id} ${map_f} > new_sample_pop.map
 
 
-            """        
-            
-            }
-
-            else{
-            
-            """
-
-            awk 'NR==FNR{sample[\$1];next}!(\$1 in a){print \$1}' ${rem_indi} ${f_map} > new_sample_pop.map
-
-            """
-            }
+        """        
         }
+            
 }
