@@ -31,14 +31,14 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
         if( is_vcf == "bed" ){
             opt_args = opt_args + " --bfile "+new_prefix
         }
-        if ( params.mind >= 0 ){        
+        if ( params.mind > 0 ){        
             opt_args = opt_args + " --mind "+ params.mind
         }
         if ( params.allow_extra_chrom ){        
             opt_args = opt_args + " --allow-extra-chr "
         }
         opt_args = opt_args + " --make-bed --out "+new_prefix+"_rem_indi"
-        if ( params.king_cutoff >= 0 ){
+        if ( params.king_cutoff > 0 ){
         
             opt_args = opt_args + " --king-cutoff " + params.king_cutoff 
 
@@ -67,11 +67,11 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
         
             """
             
-            if [[ ${rem_indi} == "none"  ]]
+            if [ ${rem_indi} == "none"  ]
                 then
                     plink2 ${opt_args}
             else
-                if [[ ${is_vcf} == "vcf" ]]
+                if [ ${is_vcf} == "vcf" ]
                     then
                         awk '{print \$2}' ${rem_indi} > custom_indi_rem_list.txt
                 else
