@@ -24,9 +24,8 @@ process CALC_PAIRWISE_FST{
 
     script:
         new_prefix = bed[0].getSimpleName()
-        def max_chrom = params.max_chrom
         def opt_args = ""
-        opt_args = opt_args + " --chr-set "+ max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom+" --threads "+task.cpus
         
 	if( params.allow_extra_chrom ){
                 

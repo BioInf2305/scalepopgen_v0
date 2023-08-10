@@ -18,9 +18,8 @@ process FILTER_SNPS_FROM_BED{
 
     script:
         new_prefix = bed[0].getSimpleName()
-        def max_chrom = params.max_chrom
         def opt_args = ""
-        opt_args = opt_args + " --chr-set "+ max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom
 	if( params.allow_extra_chrom ){
                 
             opt_args = opt_args + " --allow-extra-chr "

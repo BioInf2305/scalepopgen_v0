@@ -23,7 +23,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
         new_prefix = vcf[0].getSimpleName()
         is_vcf = vcf[0].getExtension() == "gz" ? "vcf":"bed"
         def opt_args = ""
-        opt_args = opt_args + " --chr-set "+ params.max_chrom
+        opt_args = opt_args + " --chr-set "+ params.max_chrom+" --threads "+task.cpus
         def rem_indi = params.rem_indi
         if( is_vcf == "vcf" ){
             opt_args = opt_args + " --vcf "+vcf
