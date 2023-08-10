@@ -62,6 +62,7 @@ def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
     ns = params["node_sizes"]
     nh = params["node_hover"]
     tas = params["toyplot-anchor-shift"]
+    ew = params["edge_widths"]
     with open(newickfile) as source:
         for line in source:
             line = line.rstrip()
@@ -86,6 +87,7 @@ def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
         node_hover=nh,
         node_sizes=ns,
         tip_labels_align=tla,
+        edge_widths=ew,
         tip_labels_colors=color_list,
         tip_labels_style={
             "font-size": tlf,
@@ -132,40 +134,44 @@ def check_monophyly(newick_f, sample_color_dict):
 
 
 def make_ibs_dist_nj_tree(
-    ibs_dist, sample_map, tree, outgroup, f_pop_color, plot_yml, out_prefix
+    ibs_dist, sample_map, newick, tree, outgroup, f_pop_color, plot_yml, out_prefix
 ):
-    pairwise_ibs_dict, sample_list = read_dist_file(ibs_dist, sample_map)
-    distance_list = []
-    dest = open(out_prefix + ".ibs.dist", "w")
-    dest.write(" " + str(len(sample_list)) + "\n")
-    for i, v in enumerate(sample_list):
-        tmp_list = []
-        col1 = v + " " * (10 - len(v)) if len(v) < 10 else v[:10] + " "
-        dest.write(col1)
-        for it, vt in enumerate(sample_list[:i]):
-            fst = (
-                pairwise_ibs_dict[v + "_" + vt]
-                if v + "_" + vt in pairwise_ibs_dict
-                else pairwise_ibs_dict[vt + "_" + v]
-            )
-            tmp_list.append(round(fst, 4))
-        tmp_list.append(0)
-        tmp_list_w = ["{:.4f}".format(x) for x in tmp_list]
-        dest.write(" ".join(tmp_list_w) + "\n")
-        distance_list.append(tmp_list[:])
-    dm = DistanceMatrix(sample_list, distance_list)
-    constructor = DistanceTreeConstructor()
-    if tree == "UPGMA":
-        tree = constructor.upgma(dm)
-    else:
-        tree = constructor.nj(dm)
-    if outgroup != "none":
-        tree.root_with_outgroup({"name": outgroup})
-    Phylo.write(tree, out_prefix + ".tree", "newick")
     sample_color_dict = make_sample_color_dict(sample_map, f_pop_color)
-    plot_interactive_tree(out_prefix + ".tree", sample_color_dict, plot_yml)
-    check_monophyly(out_prefix + ".tree", sample_color_dict)
-    dest.close()
+    if newick == "none":
+        pairwise_ibs_dict, sample_list = read_dist_file(ibs_dist, sample_map)
+        distance_list = []
+        dest = open(out_prefix + ".ibs.dist", "w")
+        dest.write(" " + str(len(sample_list)) + "\n")
+        for i, v in enumerate(sample_list):
+            tmp_list = []
+            col1 = v + " " * (10 - len(v)) if len(v) < 10 else v[:10] + " "
+            dest.write(col1)
+            for it, vt in enumerate(sample_list[:i]):
+                fst = (
+                    pairwise_ibs_dict[v + "_" + vt]
+                    if v + "_" + vt in pairwise_ibs_dict
+                    else pairwise_ibs_dict[vt + "_" + v]
+                )
+                tmp_list.append(round(fst, 4))
+            tmp_list.append(0)
+            tmp_list_w = ["{:.4f}".format(x) for x in tmp_list]
+            dest.write(" ".join(tmp_list_w) + "\n")
+            distance_list.append(tmp_list[:])
+        dm = DistanceMatrix(sample_list, distance_list)
+        constructor = DistanceTreeConstructor()
+        if tree == "UPGMA":
+            tree = constructor.upgma(dm)
+        else:
+            tree = constructor.nj(dm)
+        if outgroup != "none":
+            tree.root_with_outgroup({"name": outgroup})
+        Phylo.write(tree, out_prefix + ".tree", "newick")
+        plot_interactive_tree(out_prefix + ".tree", sample_color_dict, plot_yml)
+        check_monophyly(out_prefix + ".tree", sample_color_dict)
+        dest.close()
+    else:
+        plot_interactive_tree(newick, sample_color_dict, plot_yml)
+        check_monophyly(newick, sample_color_dict)
 
 
 if __name__ == "__main__":
@@ -178,8 +184,9 @@ if __name__ == "__main__":
         "-i",
         "--ibs_dist_square",
         metavar="String",
+        default="none",
         help="plink1.9 generated square 1-ibs ditance matrices",
-        required=True,
+        required=False,
     )
     parser.add_argument(
         "-m",
@@ -187,6 +194,14 @@ if __name__ == "__main__":
         metavar="String",
         help='sample map file with fist column as fam id and second column as sample id (also generated with --distance command in plink 1.9 with extension "mdist.id"',
         required=True,
+    )
+    parser.add_argument(
+        "-n",
+        "--newick",
+        metavar="String",
+        help="tree file in newick format",
+        default="none",
+        required=False,
     )
     parser.add_argument(
         "-t",
@@ -229,12 +244,19 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         sys.exit(1)
+    elif args.ibs_dist_square == "none" and args.newick == "none":
+        print(
+            "ERROR: --ibs_dist_square, Either square 1-ibs distance matrix generated by Plink1.9, or --newick, tree in newick format is required"
+        )
+        sys.exit(1)
     elif args.tree not in ["NJ", "UPGMA"]:
         print("ERROR: the tree option should either be NJ or UPGMA")
+        sys.exit(1)
     else:
         make_ibs_dist_nj_tree(
             args.ibs_dist_square,
             args.sample_map,
+            args.newick,
             args.tree,
             args.outgroup,
             args.pop_color,
