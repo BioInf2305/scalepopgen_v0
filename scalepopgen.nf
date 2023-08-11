@@ -154,11 +154,12 @@ workflow{
 
             else{
                 rmindilist = Channel.fromPath( params.rem_indi )
+        ril = rmindilist.map{ rmindilist -> if(!file(rmindilist).exists() ){ exit 1,"ERROR: file does not exit -> ${rmindilist}" }else{rmindilist} }
                 chrom_vcf = chrom_vcf_idx_map.map{chrom, vcf, idx, map -> tuple(chrom,vcf)}
                 REMOVE_INDI( chrom_vcf )
                 PREPARE_NEW_MAP(
                     o_map,
-                    rmindilist
+                    ril
                 )
                 n0_chrom_vcf_idx_map = REMOVE_INDI.out.f_chrom_vcf_idx.combine(PREPARE_NEW_MAP.out.n_map)
             }
