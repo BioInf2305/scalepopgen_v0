@@ -1,77 +1,60 @@
-## scalepopgen: Filter
+## scalepopgen: sample and site filtering
+The workflow incorporates plink2 (v 2.00a3.7) and vcftools (v 0.1.16) to carry out sample and site filtering. This can be carried out with the argument ```apply_indi_filters = true```, and ```apply_snp_filters = true```. The filtering process depends on the format of the input files. If the input is plink binary file then both the processes, sample and site filtering,  will be done using [PLINK](https://www.cog-genomics.org/plink/2.0/), if the provided inputs are vcf files, then along with plink2 [VCFtools](https://vcftools.github.io/index.html) will also be used. 
 
-Filtering data is the introductory step before conducting main analyses. The scalepopgen tool offers sample filtering, which can be carried out with the argument ```apply_indi_filters = true```, and SNP based filtering that can be launch with the argument ```apply_snp_filters = true```. The filtering process depends on the format of the input files. The processes of sample and site filtering will be done in [PLINK](https://www.cog-genomics.org/plink/2.0/), if the provided inputs are in program´s binaries. This is only partially true for the VCF inputs, where for the site filtering we implemented [VCFtools](https://vcftools.github.io/index.html), instead. 
-
-For the sample filtering user has the following options:
+options for sample filtering:
  - removing samples according to the threshold of calculated kinship coefficient  
  - removing samples according to the amount of missing genotypes
  - removing user-defined samples
 
-The site filtering options depend on the input format as mentioned before. For the VCF input all listed options are available, while in the case of PLINK input just the first four of them:
+The site filtering options depend on the input format as mentioned before. For the VCF input all listed options are available, while in the case of PLINK binary files the workflow considers only the first four options:
  - filtering based on minor allele frequency threshold
  - filtering according to the Hardy-Weinberg equilibrium exact test
  - filtering SNPs according to the amount of missing information 
  - removing user-defined SNPs
  - filtering SNPs based on min and max average depths
- - filtering SNPs according to the base quality limit
+ - filtering SNPs based on quality score threshold
+
+## Description of the parameters:
+```king_cutoff```: samples with relationship coefficient greater than this will be removed;
+```rem_indi```:  the name of text file containing individuals to be removed;
+```mind```: samples with missing genotypes greater than the threshold selected here will be removed;
+```indiv_summary```: if set to true it will calculate sample-based summary statistics from VCF files, after individual- and site-based filtering;
+```remove_snps```: the name of text file containing names of SNPs that will be removed;
+```maf```: SNPs with minor allele frequencies less than the threshold specified here will be removed;
+```min_meanDP```: SNPs with average depth (across the samples) less than the threshold specified here will be removed (only for the VCF inputs);
+```max_meanDP```: SNPs with average depth (across the samples) greater than the threshold specified here will be removed (only for the VCF inputs);
+```hwe```: SNPs with HWE p-values of less than the threshold specified here will be removed;
+```max_missing```: SNPs, for which the proportion of missing genotypes exceeded this threshold, will be removed;
+```minQ```: SNPs with base quality less than specified here will be removed (only for the VCF inputs)
+
+## Overview of the filtering processes:
+First, samples filtering will be carried out followed by site fitlering. In case of vcf input, the processes run as follows:
+1). input vcf files are concatenated using vcf_concat of vcftools
+2). concatenated vcf file is supplied to plink2 to get the list of individuals that satisfy the missing genotypes and kinship coefficient threshold.
+3). using vcftools, the new vcf files are created keeping the individuals from the step 2. 
+4). a new sample map file is also created keeping the individuals from the step 2.
+5). vcftool is used to filter the sites based on the user-defined options
+
+Note that in order to optimize the workflow, if only the list of individuals to be removed is supplied disabling the other two options of sample filtering (```--king_cutoff 0 --mind 0```), then step 1, 2 and 3 will not be carried out instead vcftools will directly be used to remove these samples. 
+In case of plink binary input, plink2 is first used to filter samples followed by sites filtering. 
 
 		!Here will be the workflow picture!
-## Description of the parameters:
-```king_cutoff```: samples with relationship coefficient greater than this will be removed;\
-```rem_indi```:  the name of text file containing individuals to be removed;\
-```mind```: samples with missing genotypes greater than the threshold selected here will be removed;\
-```indiv_summary```: if set to true it will calculate sample-based summary statistics from VCF files, after individual- and site-based filtering;\
-```remove_snps```: the name of text file containing names of SNPs that will be removed;\
-```maf```: SNPs with minor allele frequencies less than the threshold specified here will be removed;\
-```min_meanDP```: SNPs with average depth (across the samples) less than the threshold specified here will be removed (only for the VCF input);\
-```max_meanDP```: SNPs with average depth (across the samples) greater than the threshold specified here will be removed (only for the VCF input);\
-```hwe```: SNPs with HWE p-values of less than the threshold specified here will be removed;\
-```max_missing```: SNPs which proportion of missing genotypes will exceeded the threshold selected here will be removed;\
-```minQ```: SNPs with base quality less than specified here will be removed (only for the VCF input)
-## Description of the output files generated by this sub-workflow:
-The scheme of output files differs according to the input formats. Lets take a look of the output structure for the VCF input. If the pipeline has completed successfully, it will generate three different subfolders in the specified output folder. 
-
-->**\${output directory}/plink/**:\
----->**./indi_filtered/**: sample-based filtering\
--------->**\*.king.cutoff.out.id**: list of related samples that will be excluded\
--------->**\*.bim, \*bed, \*.fam**: filtered PLINK format files\
--------->**indi_kept.txt**: file with listed samples that will be kept after sample-based filtering
-
-->**\${output directory}/vcftools/**:\
----->**./indi_filtered/**: sample filtering with VCFtools based on list (indi_kept.txt) generated before\
--------->**\*_filt_samples.vcf.gz**: sample filtered VCF files\
--------->**\*_filt_samples.vcf.gz.tbi**:indexed VCF files\
----->**./sites_filtered/**: site-based filtering\
--------->**\*_filt_samples_filt_sites.vcf.gz**: sample and site filtered VCF files\
--------->**\*_filt_samples_filt_sites.vcf.gz.tbi**:indexed VCF files 
-
-->**\${output directory}/summary_stats/indiv_stats/**:\
----->**\*_depth_info.idepth**: mean depth per sample for each chromosome\
----->**\*_sample_summary.scount**: different variant counts per sample for each chromosome\
----->**genomewide_sample_stats.tsv**: summary statistics of all chromosome-wise files
-
-If your input is in PLINK format, the filtered files will be stored in a folder **\${output directory}/plink/**. Similar as with VCF, inside you will find a subfolder **./indi_filtered/**, in which is the same content as specified above. In addition, there is also a subfolder **./sites_filtered/**, where you will find final sample and site filtered PLINK binary files:
----->**\*_indi_kept_filt_sites.bed**\
----->**\*_indi_kept_filt_sites.bim**\
----->**\*_indi_kept_filt_sites.fam**\
-
-> **Note:** The output folders also contains the  **\*.log** files of the programs PLINK and VCFtools.
-
 
 ## Validation of the sub-workflow:
 For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
 
-		!Here will be the Geographic map picture!
+		!Here will be the workflow picture!
 Geographic map of samples used for this trial
 
- <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y \
-Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1 \
+ <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y\
+Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1\
 Henkel et al. (2019). Selection signatures in goats reveal copy number variants underlying breed-defining coat color phenotypes. *PLoS genetics*, https://doi.org/10.1371/journal.pgen.1008536
  </font>
+
 ### 1. Required input data files
 The input data should be in the **VCF** or **PLINK binary** format files. 
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check *test_input_vcf.csv*. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
+All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, the first information in each row is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
@@ -114,8 +97,9 @@ SRR12396950urial	Urial
 ```
 For the Plink binary input, user need to specify the path to the BED/BIM/FAM files in the section of general parameters:
 ```input= "path/to/the/files/*.{bed,bim,fam}"```
+
 ### 2. Optional input data files
-This module allows you to remove samples that you want to exclude in given analyses (```rem_indi```). You have to prepare a space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column as stated by [PLINK](https://www.cog-genomics.org/plink/2.0/filter#sample) (option --remove):
+This module allows you to remove samples that you want to exclude in given analyses (```--rem_indi```). You have to prepare a space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column as stated in [PLINK](https://www.cog-genomics.org/plink/2.0/filter#sample) (option --remove) documentation:
 ```
 Grigia SRX7715567_SRR11076301
 Grigia SRX7715568_SRR11076300
@@ -144,7 +128,8 @@ NC_030836.1	51331185
 NC_030836.1	51331237
 NC_030836.1	51331522
 ```
-With this tool, we also have an option to draw a geographic map with samples' origin. For that we need to provide two files. In the first one we write down population ID in the first column and comma separated latitude and longitude in second column.
+With this tool we also have an option to draw a geographic map with sample origin. For that we need to provide two files. In the first one we write down population ID in the first column and comma separated latitude and longitude in second column.
+
 ```Bezoar	32.662864436650814,51.64853259116807
 Urial	34.66031157,53.49391737
 AlpineIbex	46.48952713,9.832698605
@@ -156,7 +141,7 @@ Toggenburg	47.358160245764715,9.01070577172017
 Grigia	46.24935612558498,8.700996940189137
 Saanen	46.9570926960748,8.205509946726016
 ```
-In the second file, we will specified the hex codes of colors that will represent each population.
+In the second file, we will specify the hex codes of colors that will represent each population.
 
 ```AlpineIbex	#008000
 Appenzell	#ff5733
@@ -170,20 +155,21 @@ Toggenburg	#da4eed
 Bezoar	#FFA500
 ```
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
+
 ### 3. Setting the parameters
 At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specified some of the general things first:
-```input```: path to the .csv input file for the VCF format or names of the PLINK binary files;\
-```outDir```: the name of the output folder;\
-```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input;\
-```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files;\
-```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map;\
-```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting;\
-``` f_pop_cord```: path to the file with geographical locations for map plotting;\
-```f_pop_color```: path to the file with specified colors for map plotting;\
-```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input;\
- ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string;\
-```max_chrom```: maximum number of chromosomes;\
-```outgroup```: the population ID of the outgroup;\
+```input```: path to the .csv input file for the VCF format or names of the PLINK binary files
+```outDir```: the name of the output folder
+```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input
+```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files 
+```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map 
+```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting
+``` f_pop_cord```: path to the file with geographical locations for map plotting
+```f_pop_color```: path to the file with specified colors for map plotting
+```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input
+ ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string
+```max_chrom```: maximum number of chromosomes
+```outgroup```: the population ID of the outgroup
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
 After that, we need to set ***/parameters/process/globalfilt_params.config** according to filters we want to use.
@@ -222,7 +208,7 @@ After that, we need to set ***/parameters/process/globalfilt_params.config** acc
     max_missing            = -9
     minQ                   = -9
 
-When all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
+After setting the parameter file, choose any profile, we prefer, mamba, and set maximum 10 processes that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
 ```
 nextflow run scalepopgen.nf -qs 10 -profile conda
 ```
@@ -251,6 +237,37 @@ Succeeded   : 12
 ```
 As you can see according to steps above, the tool will start with sample-based filtering. After that it will take the sample-filtered files and perform SNP-based filtering. We can find the final filtered files in the folder **./filter/vcftools/sites_filtered**. Based on the remaining samples this tool will also update the sample map file: **./filter/new_sample_pop.map**. 
 In the general parameters we customize fields for plotting the geographic map that is also placed at the beginning of this section. We can found it in the output folder as **goats.html**, which can be opened with the internet browser as an interactive map.
+
+## Description of the outputs generated by this sub-workflow:
+The scheme of output files differs according to the input formats. If the pipeline has completed successfully, it will generate three different subfolders in the specified output folder. 
+
+->**\${output directory}/plink/**:\
+---->**./indi_filtered/**: sample-based filtering\
+-------->**\*.king.cutoff.out.id**: list of related samples that are excluded\
+-------->**\*.bim, \*bed, \*.fam**: filtered PLINK format files\
+-------->**indi_kept.txt**: file with listed samples that will be kept after sample-based filtering. 
+
+->**\${output directory}/vcftools/**:\
+---->**./indi_filtered/**: sample filtering with VCFtools based on list (indi_kept.txt) generated before\
+-------->**\*_filt_samples.vcf.gz**: sample filtered VCF files\
+-------->**\*_filt_samples.vcf.gz.tbi**:indexed VCF files\
+---->**./sites_filtered/**: site-based filtering\
+-------->**\*_filt_samples_filt_sites.vcf.gz**: sample and site filtered VCF files\
+-------->**\*_filt_samples_filt_sites.vcf.gz.tbi**:indexed VCF files 
+
+->**\${output directory}/summary_stats/indiv_stats/**:\
+---->**\*_depth_info.idepth**: mean depth per sample for each chromosome\
+---->**\*_sample_summary.scount**: different variant counts per sample for each chromosome\
+---->**genomewide_sample_stats.tsv**: summary statistics of all chromosome-wise files
+
+If your input is in PLINK format, the filtered files will be stored in a folder **\${output directory}/plink/**. Similar as with VCF, inside you will find a subfolder **./indi_filtered/**, in which is the same content as specified above. In addition, there is also a subfolder **./sites_filtered/**, where you will find final sample and site filtered PLINK binary files:
+---->**\*_indi_kept_filt_sites.bed**\
+---->**\*_indi_kept_filt_sites.bim**\
+---->**\*_indi_kept_filt_sites.fam**\
+
+> **Note:** The output folders also contains the  **\*.log** files of the programs PLINK and VCFtools.
+
+
 ## References
 Please cite the following papers if you use this sub-workflow in your study:
 
@@ -260,5 +277,3 @@ Please cite the following papers if you use this sub-workflow in your study:
 ## License
 
 MIT
-
-
