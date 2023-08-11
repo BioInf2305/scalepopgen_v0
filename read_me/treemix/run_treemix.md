@@ -167,7 +167,23 @@ You can check all the other command running options with the option help :
 nextflow run scalepopgen.nf -help
 ```
 If the module analyses are processed successfully, the command line output is looking like this:
-
+```N E X T F L O W  ~  version 23.04.1
+Launching `scalepopgen.nf` [shrivelled_sinoussi] DSL2 - revision: 9f9aaad1d2
+executor >  local (24)
+[71/4cd550] process > GENERATE_POP_COLOR_MAP (generating pop color map)                          [100%] 1 of 1 ✔
+[2e/17a834] process > RUN_TREEMIX:PREPARE_POP_FILE (preparing_pop_file)                          [100%] 1 of 1 ✔
+[ec/8f62b9] process > RUN_TREEMIX:VCF_TO_TREEMIX_INPUT (convert_vcf_to_treemix_input_CHR29)      [100%] 2 of 2 ✔
+[18/54cea1] process > RUN_TREEMIX:MERGE_TREEMIX_INPUTS (merging_treemix_inputs)                  [100%] 1 of 1 ✔
+[91/42f1bc] process > RUN_TREEMIX:RUN_TREEMIX_DEFAULT (run_treemix_default_merged_treemix_input) [100%] 1 of 1 ✔
+[d0/f49d21] process > RUN_TREEMIX:RUN_TREEMIX_WITH_BOOTSTRAP (run_treemix_13895)                 [100%] 10 of 10 ✔
+[6a/14795b] process > RUN_TREEMIX:RUN_CONSENSE (run_phylip_consensus)                            [100%] 1 of 1 ✔
+[59/cac6d4] process > RUN_TREEMIX:ADD_MIGRATION_EDGES (adding_edge_3_2_treemix)                  [100%] 6 of 6 ✔
+[ea/d5d5da] process > RUN_TREEMIX:EST_OPT_MIGRATION_EDGE (estimate_optimal_mig_edge)             [100%] 1 of 1 ✔
+Completed at: 11-Aug-2023 16:00:16
+Duration    : 7m 19s
+CPU hours   : 0.7
+Succeeded   : 24
+```
 
 ### 4. Results
 Our results are stored in output folder **/Phylogeny** and inside we have five subfolders as we run the program in different ways.
