@@ -1,4 +1,4 @@
-## scalepopgen: sample and site filtering
+## scalepopgen: sample and site filtering, vcf statistics, plotting samples' location on geographical map
 The workflow incorporates plink2 (v 2.00a3.7) and vcftools (v 0.1.16) to carry out sample and site filtering. This can be carried out with the argument ```apply_indi_filters = true```, and ```apply_snp_filters = true```. The filtering process depends on the format of the input files. If the input is plink binary file then both the processes, sample and site filtering,  will be done using [PLINK](https://www.cog-genomics.org/plink/2.0/), if the provided inputs are vcf files, then along with plink2 [VCFtools](https://vcftools.github.io/index.html) will also be used. 
 
 options for sample filtering:
@@ -15,36 +15,37 @@ The site filtering options depend on the input format as mentioned before. For t
  - filtering SNPs based on quality score threshold
 
 ## Description of the parameters:
-```king_cutoff```: samples with relationship coefficient greater than this will be removed;
-```rem_indi```:  the name of text file containing individuals to be removed;
-```mind```: samples with missing genotypes greater than the threshold selected here will be removed;
-```indiv_summary```: if set to true it will calculate sample-based summary statistics from VCF files, after individual- and site-based filtering;
-```remove_snps```: the name of text file containing names of SNPs that will be removed;
-```maf```: SNPs with minor allele frequencies less than the threshold specified here will be removed;
-```min_meanDP```: SNPs with average depth (across the samples) less than the threshold specified here will be removed (only for the VCF inputs);
-```max_meanDP```: SNPs with average depth (across the samples) greater than the threshold specified here will be removed (only for the VCF inputs);
-```hwe```: SNPs with HWE p-values of less than the threshold specified here will be removed;
-```max_missing```: SNPs, for which the proportion of missing genotypes exceeded this threshold, will be removed;
-```minQ```: SNPs with base quality less than specified here will be removed (only for the VCF inputs)
+```king_cutoff```: samples with relationship coefficient greater than this will be removed \
+```rem_indi```:  the name of text file containing individuals to be removed \
+```mind```: samples with missing genotypes greater than the threshold selected here will be removed \
+```indiv_summary```: if set to true it will calculate sample-based summary statistics from VCF files, after individual- and site-based filtering \
+```remove_snps```: the name of text file containing names of SNPs that will be removed \
+```maf```: SNPs with minor allele frequencies less than the threshold specified here will be removed \
+```min_meanDP```: SNPs with average depth (across the samples) less than the threshold specified here will be removed (only for the VCF inputs) \
+```max_meanDP```: SNPs with average depth (across the samples) greater than the threshold specified here will be removed (only for the VCF inputs) \
+```hwe```: SNPs with HWE p-values of less than the threshold specified here will be removed \
+```max_missing```: SNPs, for which the proportion of missing genotypes exceeded this threshold, will be removed \
+```minQ```: SNPs with base quality less than specified here will be removed (only for the VCF inputs) \
 
 ## Overview of the filtering processes:
-First, samples filtering will be carried out followed by site fitlering. In case of vcf input, the processes run as follows:
-1). input vcf files are concatenated using vcf_concat of vcftools
-2). concatenated vcf file is supplied to plink2 to get the list of individuals that satisfy the missing genotypes and kinship coefficient threshold.
-3). using vcftools, the new vcf files are created keeping the individuals from the step 2. 
-4). a new sample map file is also created keeping the individuals from the step 2.
-5). vcftool is used to filter the sites based on the user-defined options
+First, samples filtering will be carried out followed by site fitlering. In case of vcf input, the processes run as follows
+1) input vcf files are concatenated using vcf_concat of vcftools
+2) concatenated vcf file is supplied to plink2 to get the list of individuals that satisfy the missing genotypes and kinship coefficient threshold
+3) using vcftools, the new vcf files are created keeping the individuals from the step 2
+4) a new sample map file is also created keeping the individuals from the step 2
+5) vcftool is used to filter the sites based on the user-defined options
 
 Note that in order to optimize the workflow, if only the list of individuals to be removed is supplied disabling the other two options of sample filtering (```--king_cutoff 0 --mind 0```), then step 1, 2 and 3 will not be carried out instead vcftools will directly be used to remove these samples. 
 In case of plink binary input, plink2 is first used to filter samples followed by sites filtering. 
 
 		!Here will be the workflow picture!
 
-## Validation of the sub-workflow:
+## Validation and test-run of the sub-workflow:
 For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
 
-		!Here will be the workflow picture!
-Geographic map of samples used for this trial
+![plot](../../images/Sample_info.png)
+
+Geographic map of samples used for the testing and validation purpose
 
  <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y\
 Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1\
@@ -172,7 +173,7 @@ At the beginning of the parameter file ***/parameters/process/general_params.con
 ```outgroup```: the population ID of the outgroup
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
-After that, we need to set ***/parameters/process/globalfilt_params.config** according to filters we want to use.
+After that, we need to set the parameters in ***/parameters/test/globalfilt_params.config** according to filters we want to use.
 
 **// general parameters**
 
@@ -210,7 +211,7 @@ After that, we need to set ***/parameters/process/globalfilt_params.config** acc
 
 After setting the parameter file, choose any profile, we prefer, mamba, and set maximum 10 processes that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
 ```
-nextflow run scalepopgen.nf -qs 10 -profile conda
+nextflow run scalepopgen.nf -profile mamba,test_filt -resume -qs 10
 ```
 You can check all the other command running options with the option help :
 ```
@@ -238,8 +239,12 @@ Succeeded   : 12
 As you can see according to steps above, the tool will start with sample-based filtering. After that it will take the sample-filtered files and perform SNP-based filtering. We can find the final filtered files in the folder **./filter/vcftools/sites_filtered**. Based on the remaining samples this tool will also update the sample map file: **./filter/new_sample_pop.map**. 
 In the general parameters we customize fields for plotting the geographic map that is also placed at the beginning of this section. We can found it in the output folder as **goats.html**, which can be opened with the internet browser as an interactive map.
 
-## Description of the outputs generated by this sub-workflow:
+### 4. Description of the outputs generated by this sub-workflow:
 The scheme of output files differs according to the input formats. If the pipeline has completed successfully, it will generate three different subfolders in the specified output folder. 
+->**\${output_directory}/**:\
+-->**pop_sc_color.map**: text file containing pop id in the first column, sample count per pop in the second column and color code in third column \-->**geo_map_file.txt**: text file containing information required to generate geographical map plot \
+-->**new_sample_pop.map** : a new sample map file used for the analysis after filtering the samples
+-->**.html** : an interactive html file of geographical map
 
 ->**\${output directory}/plink/**:\
 ---->**./indi_filtered/**: sample-based filtering\
@@ -267,7 +272,30 @@ If your input is in PLINK format, the filtered files will be stored in a folder 
 
 > **Note:** The output folders also contains the  **\*.log** files of the programs PLINK and VCFtools.
 
+### 5. Regenerating the geographical map without running the workflow
+For generating the sampling location only (withut re-running the workflow), one can either use **geo_map_file.txt** generated by the workflow or preprepare a tab-delimited file in the similar format. Using the following command 
 
+```
+python3 plot_sample_info.py geo_map_file.txt plot_sample_on_map.yml tiles_info.yml
+```
+
+The python script is located in the bin folder of scalepopge. The yaml files are located in "/parameters/plots/" folder. The parameters of the yaml files are described below:
+
+```
+tile: the name of the tiles to be used for plotting. Default: "world_gray_canvas". Note that the attributes of this tile should be present in tiles_info.yml 
+marker_prop: in case you want to plot the area of the circle proportional to the sample size, specify the value here 
+const_radius : radius of the circle to be plotted 
+zoom_level : zoom level of the map to be plotted 
+overlap_cordi: if the coordinates of the samples are overlappin, the value should be boolean, True or False
+shift_cordi: if the coordinates are overlapping, shift the coordinates by this value. 
+show_label: whether or not the label should be shown in the map, the value should be boolean, True or False 
+label_loc : if the label to be displayed near the circle set to be true, specify the location from the circle 
+label_size: size of the label to be plotted 
+show_legend: Whether or not to plot the legend 
+display_sample_size: whether or not to display the sample size along with the pop label in the legend, the value should be boolean 
+display_popup: Whether or not to pop-up the information, the value should be boolean 
+output_prefix: prefix of the output html file
+```
 ## References
 Please cite the following papers if you use this sub-workflow in your study:
 
