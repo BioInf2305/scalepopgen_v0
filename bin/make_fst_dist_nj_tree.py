@@ -32,7 +32,7 @@ def read_dist_file(in_file):
     return pairwise_fst_dict, pop_list
 
 
-def plot_interactive_tree(newickfile, pop_color_file, plot_yml):
+def plot_interactive_tree(newickfile, pop_color_file, plot_yml, outgroup):
     newick = ""
     pop_color_dict = {}
     color_list = []
@@ -55,6 +55,8 @@ def plot_interactive_tree(newickfile, pop_color_file, plot_yml):
             line = line.rstrip()
             newick = line
     tre1 = toytree.tree(newick, tree_format=1)
+    if outgroup != "none":
+        tre1 = tre1.root(names=[outgroup])
     pop_list = tre1.get_tip_labels()
     for pop in pop_list:
         if pop not in pop_color_dict:
@@ -107,8 +109,8 @@ def make_fst_tree(in_file, tree, outgroup, f_pop_color, plot_yml, out_prefix):
         tree = constructor.nj(dm)
     if outgroup != "none":
         tree.root_with_outgroup({"name": outgroup})
-    Phylo.write(tree, out_prefix + ".tree", "newick")
-    plot_interactive_tree(out_prefix + ".tree", f_pop_color, plot_yml)
+    Phylo.write(tree, out_prefix + "_fst.tree", "newick")
+    plot_interactive_tree(out_prefix + "_fst.tree", f_pop_color, plot_yml, outgroup)
     dest.close()
 
 
