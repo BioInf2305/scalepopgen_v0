@@ -1,0 +1,77 @@
+<svg class="toyplot-canvas-Canvas" xmlns:toyplot="http://www.sandia.gov/toyplot" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="1400.0px" height="1400.0px" viewBox="0 0 1400.0 1400.0" preserveAspectRatio="xMidYMid meet" style="background-color:transparent;border-color:#292724;border-style:none;border-width:1.0;fill:rgb(16.1%,15.3%,14.1%);fill-opacity:1.0;font-family:Helvetica;font-size:12px;opacity:1.0;stroke:rgb(16.1%,15.3%,14.1%);stroke-opacity:1.0;stroke-width:1.0" id="tae513600e3f547b0a012b587ad7e0716"><g class="toyplot-coordinates-Cartesian" id="tbabc7ed25b794c83bcdb056113e1a779"><clipPath id="t8b566795d8c344978d0c7d6cf9e2f53f"><rect x="30.0" y="30.0" width="1340.0" height="1340.0" /></clipPath><g clip-path="url(#t8b566795d8c344978d0c7d6cf9e2f53f)"><g class="toytree-mark-Toytree" id="te510b33dde554126bfde9c13e38d124b"><g class="toytree-Edges" style="fill:none;stroke:rgb(14.9%,14.9%,14.9%);stroke-linecap:round;stroke-opacity:1;stroke-width:2"><path d="M 511.0 811.4 L 700.0 700.0 A -0.0 -0.0 0 0 0 700.0 700.0" id="18,17" /><path d="M 700.0 916.4 L 700.0 923.0 A 223.0 223.0 0 0 1 511.0 811.4" id="17,16" /><path d="M 467.9 594.0 L 497.1 607.4 A 223.0 223.0 0 0 0 511.0 811.4" id="17,15" /><path d="M 453.0 775.5 L 453.3 775.5 A 258.0 258.0 0 0 1 467.9 594.0" id="15,14" /><path d="M 609.4 468.9 L 605.8 459.8 A 258.0 258.0 0 0 0 467.9 594.0" id="15,13" /><path d="M 762.0 457.1 L 764.7 446.4 A 261.7 261.7 0 0 0 609.4 468.9" id="13,12" /><path d="M 890.3 520.9 L 893.3 518.1 A 265.4 265.4 0 0 0 762.0 457.1" id="12,11" /><path d="M 961.7 620.0 L 957.3 621.3 A 269.1 269.1 0 0 0 890.3 520.9" id="11,10" /><path d="M 700.0 700.0 L 700.0 700.0 A -0.0 -0.0 0 0 1 700.0 700.0" id="18,9" /><path d="M 788.6 956.6 L 775.0 917.4 A 230.0 230.0 0 0 1 700.0 916.4" id="16,8" /><path d="M 535.5 1176.4 L 625.0 917.4 A 230.0 230.0 0 0 0 700.0 916.4" id="16,7" /><path d="M 449.0 871.7 L 485.6 846.6 A 259.7 259.7 0 0 1 453.0 775.5" id="14,6" /><path d="M 400.4 700.0 L 440.3 700.0 A 259.7 259.7 0 0 0 453.0 775.5" id="14,5" /><path d="M 462.7 537.8 L 484.0 552.3 A 261.7 261.7 0 0 1 609.4 468.9" id="13,4" /><path d="M 607.9 433.2 L 613.4 449.1 A 265.4 265.4 0 0 1 762.0 457.1" id="12,3" /><path d="M 786.6 449.1 L 787.8 445.7 A 269.1 269.1 0 0 1 890.3 520.9" id="11,2" /><path d="M 940.2 535.7 L 927.2 544.7 A 275.2 275.2 0 0 1 961.7 620.0" id="10,1" /><path d="M 987.4 700.0 L 975.2 700.0 A 275.2 275.2 0 0 0 961.7 620.0" id="10,0" /></g><g class="toytree-AlignEdges" style="stroke:rgb(66.3%,66.3%,66.3%);stroke-dasharray:2, 4;stroke-linecap:round;stroke-opacity:1.0;stroke-width:2"><path d="M 1232.3 700.0 L 987.4 700.0" /><path d="M 1130.6 405.5 L 940.2 535.7" /><path d="M 864.5 223.6 L 786.6 449.1" /><path d="M 535.5 223.6 L 607.9 433.2" /><path d="M 269.4 405.5 L 462.7 537.8" /><path d="M 167.7 700.0 L 400.4 700.0" /><path d="M 269.4 994.5 L 449.0 871.7" /><path d="M 535.5 1176.4 L 535.5 1176.4" /><path d="M 864.5 1176.4 L 788.6 956.6" /><path d="M 1130.6 994.5 L 700.0 700.0" /></g><g class="toytree-Nodes" style="fill:rgb(40%,76.1%,64.7%);fill-opacity:1.0;stroke:None;stroke-width:1"><g id="node-0" transform="translate(987.423,700.000)"><title>idx: 0
+dist: 0.0203
+support: 0.0000
+height: 0.4068
+name: Grigia</title><circle r="4.0" /></g><g id="node-1" transform="translate(940.243,535.723)"><title>idx: 1
+dist: 0.0361
+support: 0.0000
+height: 0.3910
+name: Peacock</title><circle r="4.0" /></g><g id="node-2" transform="translate(786.607,449.134)"><title>idx: 2
+dist: 0.0186
+support: 0.0000
+height: 0.4187
+name: ChamoisColored</title><circle r="4.0" /></g><g id="node-3" transform="translate(607.908,433.246)"><title>idx: 3
+dist: 0.0541
+support: 0.0000
+height: 0.3892
+name: Saanen</title><circle r="4.0" /></g><g id="node-4" transform="translate(462.732,537.758)"><title>idx: 4
+dist: 0.0525
+support: 0.0000
+height: 0.3971
+name: Booted</title><circle r="4.0" /></g><g id="node-5" transform="translate(400.395,700.000)"><title>idx: 5
+dist: 0.0663
+support: 0.0000
+height: 0.3866
+name: Toggenburg</title><circle r="4.0" /></g><g id="node-6" transform="translate(448.967,871.655)"><title>idx: 6
+dist: 0.0841
+support: 0.0000
+height: 0.3688
+name: Appenzell</title><circle r="4.0" /></g><g id="node-7" transform="translate(535.519,1176.434)"><title>idx: 7
+dist: 0.5023
+support: 0.0000
+height: 0.0000
+name: AlpineIbex</title><circle r="4.0" /></g><g id="node-8" transform="translate(788.594,956.620)"><title>idx: 8
+dist: 0.0942
+support: 0.0000
+height: 0.4080
+name: Bezoar</title><circle r="4.0" /></g><g id="node-9" transform="translate(700.000,700.000)"><title>idx: 9
+dist: 0.0000
+support: 0.0000
+height: 0.8844
+name: Urial</title><circle r="4.0" /></g><g id="node-10" transform="translate(961.747,619.957)"><title>idx: 10
+dist: 0.0102
+support: 0.0000
+height: 0.4271
+name: Inner3</title><circle r="4.0" /></g><g id="node-11" transform="translate(890.254,520.940)"><title>idx: 11
+dist: 0.0060
+support: 0.0000
+height: 0.4373
+name: Inner4</title><circle r="4.0" /></g><g id="node-12" transform="translate(761.965,457.084)"><title>idx: 12
+dist: 0.0062
+support: 0.0000
+height: 0.4433
+name: Inner5</title><circle r="4.0" /></g><g id="node-13" transform="translate(609.419,468.917)"><title>idx: 13
+dist: 0.0061
+support: 0.0000
+height: 0.4495
+name: Inner6</title><circle r="4.0" /></g><g id="node-14" transform="translate(453.021,775.527)"><title>idx: 14
+dist: 0.0028
+support: 0.0000
+height: 0.4529
+name: Inner8</title><circle r="4.0" /></g><g id="node-15" transform="translate(467.851,594.025)"><title>idx: 15
+dist: 0.0581
+support: 0.0000
+height: 0.4557
+name: Inner7</title><circle r="4.0" /></g><g id="node-16" transform="translate(700.000,916.443)"><title>idx: 16
+dist: 0.0115
+support: 0.0000
+height: 0.5023
+name: Inner1</title><circle r="4.0" /></g><g id="node-17" transform="translate(510.995,811.425)"><title>idx: 17
+dist: 0.3705
+support: 0.0000
+height: 0.5138
+name: Inner2</title><circle r="4.0" /></g><g id="node-18" transform="translate(700.000,700.000)"><title>idx: 18
+dist: 0.0000
+support: 0.0000
+height: 0.8844
+name: 18</title><circle r="4.0" /></g></g><g class="toytree-TipLabels" style="fill:rgb(14.9%,14.9%,14.9%);fill-opacity:1.0;font-family:helvetica;font-size:12px;font-weight:normal;stroke:none;white-space:pre"><g transform="translate(1232.27,700.00)rotate(-0)"><text x="15.00" y="3.07" style="fill:rgb(68.2%,90.6%,8.63%);fill-opacity:1.0">Grigia</text></g><g transform="translate(1130.62,405.55)rotate(-36)"><text x="15.00" y="3.07" style="fill:rgb(8.63%,90.6%,80%);fill-opacity:1.0">Peacock</text></g><g transform="translate(864.48,223.57)rotate(-72)"><text x="15.00" y="3.07" style="fill:rgb(83.9%,72.5%,9.8%);fill-opacity:1.0">ChamoisColored</text></g><g transform="translate(535.52,223.57)rotate(72)"><text x="-56.36" y="3.07" style="fill:rgb(45.9%,72.9%,95.3%);fill-opacity:1.0">Saanen</text></g><g transform="translate(269.38,405.55)rotate(36)"><text x="-53.03" y="3.07" style="fill:rgb(0%,0%,100%);fill-opacity:1.0">Booted</text></g><g transform="translate(167.73,700.00)rotate(0)"><text x="-79.70" y="3.07" style="fill:rgb(85.5%,30.6%,92.9%);fill-opacity:1.0">Toggenburg</text></g><g transform="translate(269.38,994.45)rotate(-36)"><text x="-67.69" y="3.07" style="fill:rgb(100%,34.1%,20%);fill-opacity:1.0">Appenzell</text></g><g transform="translate(535.52,1176.43)rotate(-72)"><text x="-71.03" y="3.07" style="fill:rgb(0%,50.2%,0%);fill-opacity:1.0">AlpineIbex</text></g><g transform="translate(864.48,1176.43)rotate(-288)"><text x="15.00" y="3.07" style="fill:rgb(100%,64.7%,0%);fill-opacity:1.0">Bezoar</text></g><g transform="translate(1130.62,994.45)rotate(-324)"><text x="15.00" y="3.07" style="fill:rgb(64.7%,16.5%,16.5%);fill-opacity:1.0">Urial</text></g></g></g></g></g></svg>
