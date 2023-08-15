@@ -323,7 +323,7 @@ The NJ tree of IBS-based (Figure 3) distances positioned the branches of Swiss g
 ![image description](../../images/test_ibs_nj_tree.svg)
 Figure 3: A neighbor-joining tree constructed with matrix of IBS distances between individuals
 
-![image description)(../../images/test_fst_nj_tree.svg)
+![image description](../../images/test_fst_nj_tree.svg)
 Figure 4: A neighbor-joining tree constructed with Fst distances between populations
 
 
