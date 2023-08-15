@@ -49,7 +49,7 @@ def make_sample_color_dict(sample_map, pop_color_file):
     return sample_color_dict
 
 
-def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
+def plot_interactive_tree(newickfile, sample_color_dict, plot_yml, outgroup):
     newick = ""
     color_list = []
     with open(plot_yml, "r") as p:
@@ -68,6 +68,11 @@ def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
             line = line.rstrip()
             newick = line
     tre1 = toytree.tree(newick, tree_format=1)
+    if outgroup != "none":
+        outgroup_sample_list = [
+            k for k, v in sample_color_dict.items() if v[0] == outgroup
+        ]
+        tre1 = tre1.root(names=outgroup_sample_list)
     sample_list = tre1.get_tip_labels()
     nodeidx_sample = tre1.get_node_dict()
     sample_nodeidx = {v: k for k, v in nodeidx_sample.items()}
@@ -80,6 +85,7 @@ def plot_interactive_tree(newickfile, sample_color_dict, plot_yml):
     )
     for sample in sample_list:
         color_list.append(sample_color_dict[sample][1])
+    tre1.write(newickfile + "_rooted.tree")
     canvas, axes, mark = tre1.draw(
         height=hgt,
         width=wth,
@@ -163,14 +169,14 @@ def make_ibs_dist_nj_tree(
             tree = constructor.upgma(dm)
         else:
             tree = constructor.nj(dm)
-        if outgroup != "none":
-            tree.root_with_outgroup({"name": outgroup})
         Phylo.write(tree, out_prefix + ".tree", "newick")
-        plot_interactive_tree(out_prefix + ".tree", sample_color_dict, plot_yml)
+        plot_interactive_tree(
+            out_prefix + ".tree", sample_color_dict, plot_yml, outgroup
+        )
         check_monophyly(out_prefix + ".tree", sample_color_dict)
         dest.close()
     else:
-        plot_interactive_tree(newick, sample_color_dict, plot_yml)
+        plot_interactive_tree(newick, sample_color_dict, plot_yml, outgroup)
         check_monophyly(newick, sample_color_dict)
 
 
