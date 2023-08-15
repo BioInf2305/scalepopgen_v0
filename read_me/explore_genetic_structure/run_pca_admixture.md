@@ -1,96 +1,63 @@
-## scalepopgen: PCA and ADMIXTURE
+## scalepopgen: PCA, IBS-based clustering, Fst and ADMIXTURE analysis
 
-This module combines Admixture analysis, two different Principal Component Analyses and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
+This sub-workflow carried out Admixture analysis, two different Principal Component Analyses, and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
 
-The above-mentioned analyses consist of the following steps:
-
-**1.** converting vcf to bed file format using Plink 
-**2.** merging converted bed files (separated by chromosomes) with Plink
-**3.** removing listed individuals and updating the family IDs with Plink 
-**4.** applying LD-based filtering of bed files with Plink  
-**5.** updating chromosome names from strings to integer numbers   
-**6.** running PCA with SmartPCA
-**7.** plotting the results of SmartPCA
-**8.** running PCA with snpgdsPCA 
-**9.** plotting the results of snpgdsPCA 
-**10.** calculating pairwise Fst
-**11.** calculating IBS distances
-**12.** running admixture from the starting and ending k-value selected by the user  
-**13.** selecting the optimal number of clusters (K) regarding the lowest cross validation error  
-**14.**  plotting the admixture results and generating Pong input
-
-> **Note:** If your input files are already in Plink format, it will skip the first step.
 ## Description of the parameters:
-```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4;\
-```ld_window_size```: a window size in variant count or kilo bases (step 4);\
-```ld_step_size```: number of variants to shift the window at the end of each step (step 4);\
-```r2_value```: squared correlation threshold; at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4);\
-```structure_remove_indi```: the name of a file with listed samples that will not be used for admixture and PCA (steps 6, 8 and 12);\
-```smartpca_param```: the path to the file with additional parameters for SmartPCA (step 6);\
-```pop_color_file```: the path to the text file with specified color codes for each population (steps 7 and 9);\
-```f_pop_marker```: the path to the text file with specified mark shape for each population (steps 7 and 9);\
-```pca_plot_params```: the path to the yml file containing the parameters to plot interactive PCA results (steps 7 and 9);\
-```starting_k_value```: starting number of clusters for Admixture analysis (step 12);\
-```ending_k_value```: maximal number of clusters for Admixture analysis (step 12);\
-```cross_validation```: the number of folds for cross-validation (step 13);\
-```termination_criteria```: the lowest limit of the log-likelihood change between iterations to stop the process of cross-validation (step 13), option "-C" in program Admixture;\
-```pop_labes```: the path to the text file with population IDs that should be plotted on admixture graph (step 14);\
-```fst_based_nj_tree```: an option to estimate NJ tree based on pairwise Fst distances between each pair of populations (step 10);\
-```nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 10);\
-```est_1_min_ibs_based_nj_tree```: an option to estimate NJ tree based on 1-ibs distance between each pair of samples in the dataset (step 11);\
+```genetic_structure```:  setting this to False will not run this workflow
+```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4\
+```ld_window_size```: a window size in variant count or kilo bases (step 4)\
+```ld_step_size```: number of variants to shift the window at the end of each step (step 4)\
+```r2_value```: squared correlation threshold; at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4)\
+```structure_remove_indi```: the name of a file with listed samples that will not be used for any anylsis in this sub-workflow\
+```smartpca_param```: the path to the file with additional parameters for SmartPCA (step 6)\
+```pop_color_file```: the path to the text file with specified color codes for each population (steps 7 and 9)\
+```f_pop_marker```: the path to the text file with specified mark shape for each population (steps 7 and 9)\
+```pca_plot_params```: the path to the yml file containing the parameters to plot interactive PCA results (steps 7 and 9)\
+```starting_k_value```: starting number of clusters for Admixture analysis (step 12)\
+```ending_k_value```: maximal number of clusters for Admixture analysis (step 12)\
+```cross_validation```: the number of folds for cross-validation (step 13)\
+```termination_criteria```: the lowest limit of the log-likelihood change between iterations to stop the process of cross-validation (step 13), option "-C" in program Admixture\
+```pop_labes```: the path to the text file with population IDs that should be plotted on admixture graph (step 14)\
+```fst_based_nj_tree```: an option to estimate NJ tree based on pairwise Fst distances between each pair of populations (step 10)\
+```nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 10)\
+```est_1_min_ibs_based_nj_tree```: an option to estimate NJ tree based on 1-ibs distance between each pair of samples in the dataset (step 11)\
 ```ibs_nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 11)
 
-## Description of the output files generated by this sub-workflow:
-If the pipeline has completed successfully, all these output files will be stored in **${output directory}/genetic_structure/**.
+## Overview of the processed carried out in this sub-workflow: 
 
-->**~/genetic_structure/smartpca/**:\
----->**\*_update_chrm_ids.ped** , **\*_update_chrm_ids.map**, 
-**\*_update_chrm_ids.snp** , **\*_update_chrm_ids.ind** and **\*_update_chrm_ids.eigenstratgeno** : input files used for the program\
----->**\*_update_chrm_ids.smartpca.par** : \
----->**\*_update_chrm_ids.ped_to_eigenstraat.par** : \
----->**\*_update_chrm_ids.evec** : a table of a positions for each individual along with eigenvectors in the header row\
----->**\*_update_chrm_ids.eval** : a column of ordered eigenvalues corresponding to the eigenvectors
+**1.** converting vcf to bed file format using Plink \
+**2.** merging converted bed files (separated by chromosomes) with Plink \
+**3.** removing listed individuals \
+**4.** applying LD-based filtering of bed files with Plink \
+**5.** updating chromosome names from strings to integer numbers \
+**6.** running PCA with SmartPCA \
+**7.** plotting the results of SmartPCA \
+**8.** running PCA with snpgdsPCA \
+**9.** plotting the results of snpgdsPCA \
+**10.** calculating pairwise Fst and plot NJ-based tree\
+**11.** calculating IBS distances and plot NJ-based tree \
+**12.** running admixture from the starting and ending k-value selected by the user  \
+**13.** selecting the optimal number of clusters (K) regarding the lowest cross validation error  \
+**14.**  plotting the admixture results and generating Pong input 
 
-->**~/genetic_structure/gds_pca**/:\
----->**\*_update_chrm_ids.varprop** : proportion of variance for each principal component\
----->**\*_update_chrm_ids.jpeg** : graph of first two eigenvalues\
----->**\*_update_chrm_ids.eigenvect** : a table of eigenvectors for each individual\
----->**\*_update_chrm_ids.gds** :  \
----->**\*_update_chrm_ids_snprelate.eigenvect** :  \
----->**\*_update_chrm_ids_snprelate.varprop** : 
+> **Note:** If your input files are already in Plink format, it will skip step 1) and step 2). Also, if the LD-based filtering is set to true, all the analyses will be carried out using LD-based pruned dataset. 
 
-->**~/genetic_structure/admixture**: \
----->**\*_update_chrm_ids.\${K}\.P** : table of the allele frequencies inferred for each SNP in each population\
----->**\*_update_chrm_ids.\${K}\.Q** : table of inferred individual ancestry proportions from the K ancestral populations, with one row per individual\
----->**best_k_\${K}\.png** : the plot of CV errors for determinating optimal K value\
----->**\*_update_chrm_ids.\${K}\.Q.png** : the admixture plot of the optimal K value\
----->**pong_input.map** : the input file for the program Pong
-
-->**~genetic_structure/interactive_plots/**:
----->**~/pca/**: interactive plots of both PCAs\
----->**~/1_min_ibs_clustering/**: plink output files and plotted IBS-based interactive tree\
----->**~/fst/**: plink output files and plotted Fst-based interactive tree
-
-->**~/plink/**: \
----->**~/update_chrom_ids/**: folder with plink binary files after updating chromosome names\
----->**~/ld_filtering/**: folder with plink binary files after LD filtering\
----->**~/rem_indi_genetic_structure/**: folder with plink binary files after removing samples specified at ```structure_remove_indi```\
----->**~/merged_bed/**: folder with chromosome-merged plink binary files 
-
-## Validation of the sub-workflow:
+## Validation and test-run of the sub-workflow::
 For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
 
-		!Here will be the Geographic map picture!
-Geographic map of samples used for this trial
+![plot](../../images/Sample_info.png)
+
+Geographic map of samples used for the testing and validation purpose
 
  <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y \
 Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1 \
 Henkel et al. (2019). Selection signatures in goats reveal copy number variants underlying breed-defining coat color phenotypes. *PLoS genetics*, https://doi.org/10.1371/journal.pgen.1008536
  </font>
-### 1. Required input data files
-The input data should be in the **VCF** or **PLINK binary** format files. 
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check *test_input_vcf.csv*. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
+### 1. Required input data files
+The input data should be in the VCF or PLINK binary format files.
+
+All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check test_input_vcf.csv. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
@@ -134,13 +101,13 @@ SRR12396950urial	Urial
 For the Plink binary input, user need to specify the path to the BED/BIM/FAM files in the section of general parameters:
 ```input= "path/to/the/files/*.{bed,bim,fam}"```
 ### 2. Optional input data files
-This module allows you to remove samples that you want to exclude in given analyses (```structure_remove_indi```). In the module that is assigned to filtering, we already removed the samples of Grigia goat breed as the sample size is small. For this module, we will additionally exclude all samples of the outgroup. We prepare a space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column:
+In this module, the samples to be removed in given analyses (```structure_remove_indi```) can be provided. For example, during the filtering (in theearlier step of sample filtering), the samples of Grigia goat breed removed from the analyses (```--rem_indi```). Here, for the pca, additionally, all samples of the outgroup will be excluded. A space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column should be provided:
 ```
 Urial 454948_T1
 Urial ERR454947urial
 Urial SRR12396950urial
 ```
-As well, you can specify the desired colors and mark shapes for each population, which will be then considered for the PCA plots. For ```pop_color_file```, we have to prepare a tab-delimited text file, where the population names are in the first column and specified hex color codes in the second:
+The desired colors and mark shapes for each population can also be provided for the plotting purpose. For example, ```pop_color_file```, a tab-delimited text file, where the population names are in the first column and specified hex color codes in the second:
 ```
 AlpineIbex	#008000
 Appenzell	#ff5733
@@ -153,7 +120,7 @@ Urial	#A52A2A
 Toggenburg	#da4eed
 Bezoar	#FFA500
 ```
-Similar to this one, we also prepare another one for ```f_pop_marker``` with specified mark shapes that are listed in **./extra/markershapes.txt**.
+Similarly, prepare another file for ```f_pop_marker``` with specified mark shapes that are listed in **./extra/markershapes.txt**.
 ```
 AlpineIbex	square_default
 Appenzell	circle_default
@@ -208,7 +175,7 @@ Bezoar	#FFA500
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 
 ### 3. Setting the parameters
-At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specified some of the general things first:
+At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specify some of the general things first:
 ```input```: path to the .csv input file for the VCF format or names of the PLINK binary files;\
 ```outDir```: the name of the output folder;\
 ```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input;\
@@ -228,13 +195,13 @@ After that, there is a parameter file dedicated to the PCA, Admixture and both N
 **// general parameters**
 
     input                     = "test_files/test_input_vcf.csv"
-    outDir                    = "${baseDir}/../Cluster/"
+    outDir                    = "${baseDir}/../test_genstruct/"
     sample_map                = "test_files/sample.map"
     concate_vcf_prefix        = "goats"
     geo_plot_yml              = "${baseDir}/parameters/plots/plot_sample_on_map.yml"
     tile_yml                  = "${baseDir}/parameters/plots/tiles_info.yml"
-    f_pop_cord                = "test_files/geo_data.txt"
-    f_pop_color               = "test_files/pop_color.txt"
+    f_pop_cord                = "${baseDir}/test_files/geo_data.txt"
+    f_pop_color               = "${baseDir}/test_files/pop_color.txt"
     fasta                     = "none"
     chrm_map                  = "none"
     allow_extra_chrom         = true 
@@ -251,17 +218,17 @@ After that, there is a parameter file dedicated to the PCA, Admixture and both N
     ld_window_size              = 50
     step_size                   = 10
     r2_value                    = 0.01
-    structure_remove_indi       = "test_files/remove_outgroup.txt"
+    structure_remove_indi       = "${baseDir}/test_files/remove_outgroup.txt"
     smartpca_param              = "none"
-    pop_color_file              = "test_files/pop_color.txt"
-    f_pop_marker                = "test_files/pop_shape.txt"
+    pop_color_file              = "${baseDir}/test_files/pop_color.txt"
+    f_pop_marker                = "${baseDir}/test_files/pop_shape.txt"
     pca_plot_params             = "${baseDir}/parameters/plots/pca.yml"
     admixture                   = true
     starting_k_value            = 2
     ending_k_value              = 10
     cross_validation            = 5
     termination_criteria        = 0.0001
-    pop_labels                  = "test_files/pop_new_labels.map"
+    pop_labels                  = "${baseDir}/test_files/pop_new_labels.map"
     fst_based_nj_tree           = true
     nj_yml                      = "${baseDir}/parameters/plots/fst_nj.yml"
     est_1_min_ibs_based_nj_tree = true
@@ -301,25 +268,66 @@ CPU hours   : 2.8
 Succeeded   : 25
 ```
 
-### 4. Results
-Our results are stored in output folder **/Cluster** and inside we have two subfolders. In subfolder **/plink** are stored files after modifying and filtering steps. In the subfolder **/genetic_structure** we can see the results of each analysis in a separate folders. The tool will provide us interactive plots in the subfolder **/interactive_plots** for both PCAs as well as for IBS- and Fst-based neighbor-joining trees. The admixture plot can be found in **/admixture**.
+### 4. Description of the output files generated by this sub-workflow:
+
+->**~/genetic_structure/smartpca/**:\
+---->**\*_update_chrm_ids.ped** , **\*_update_chrm_ids.map**, 
+**\*_update_chrm_ids.snp** , **\*_update_chrm_ids.ind** and **\*_update_chrm_ids.eigenstratgeno** : input files used for the program\
+---->**\*_update_chrm_ids.smartpca.par** : \
+---->**\*_update_chrm_ids.ped_to_eigenstraat.par** : \
+---->**\*_update_chrm_ids.evec** : a table of a positions for each individual along with eigenvectors in the header row\
+---->**\*_update_chrm_ids.eval** : a column of ordered eigenvalues corresponding to the eigenvectors
+
+->**~/genetic_structure/gds_pca**/:\
+---->**\*_update_chrm_ids.varprop** : proportion of variance for each principal component\
+---->**\*_update_chrm_ids.jpeg** : graph of first two eigenvalues\
+---->**\*_update_chrm_ids.eigenvect** : a table of eigenvectors for each individual\
+---->**\*_update_chrm_ids.gds** :  \
+---->**\*_update_chrm_ids_snprelate.eigenvect** :  \
+---->**\*_update_chrm_ids_snprelate.varprop** : 
+
+->**~/genetic_structure/admixture**: \
+---->**\*_update_chrm_ids.\${K}\.P** : table of the allele frequencies inferred for each SNP in each population\
+---->**\*_update_chrm_ids.\${K}\.Q** : table of inferred individual ancestry proportions from the K ancestral populations, with one row per individual\
+---->**best_k_\${K}\.png** : the plot of CV errors for determinating optimal K value\
+---->**\*_update_chrm_ids.\${K}\.Q.png** : the admixture plot of the optimal K value\
+---->**pong_input.map** : the input file for the program Pong
+
+->**~genetic_structure/interactive_plots/**:
+---->**~/pca/**: interactive plots of both PCAs\
+---->**~/1_min_ibs_clustering/**: plink output files and plotted IBS-based interactive tree\
+---->**~/fst/**: plink output files and plotted Fst-based interactive tree
+
+->**~/plink/**: \
+---->**~/update_chrom_ids/**: folder with plink binary files after updating chromosome names\
+---->**~/ld_filtering/**: folder with plink binary files after LD filtering\
+---->**~/rem_indi_genetic_structure/**: folder with plink binary files after removing samples specified at ```structure_remove_indi```\
+---->**~/merged_bed/**: folder with chromosome-merged plink binary files 
+
+Our results are stored in output folder **/test_genstruct** and inside we have two subfolders. In subfolder **/plink** are stored files after modifying and filtering steps. In the subfolder **/genetic_structure** we can see the results of each analysis in a separate folders. The tool will provide us interactive plots in the subfolder **/interactive_plots** for both PCAs as well as for IBS- and Fst-based neighbor-joining trees. The admixture plot can be found in **/admixture**.
 Let's take a look at the PCA plots first. On both of them our samples cluster into three groups. In the first one we can found all breeds of domestic goats from Switzerland. In another cluster are Alpine ibexes and in the third one are Bezoar wild goats.
 
-		!Here will be both PCA plots!
+![image description](../../images/test_pca_plot.svg)
+
 Figure 1: Interactive plots of both Principal Component Analyses
 
 Program Admixture estimated the optimal number of clusters at five. As we can see on Figure 2, four Swiss goats (Booted, Chamois colored, Peacock and Saanen) are showing very similar genomic structures. Appenzell and Toggenburg goat breeds have distinct and more homogeneous structures with some individual goats that share segments with other breeds from Switzerland. Both wild species, Alpine ibex and Bezoar, have uniform genetic structures.
 
-		!Here will the Admixture plot!
+![plot](../../images/test_admixture.1.png)
+![plot](../../images/test_admixture.2.png)
+
 Figure 2: Population structures of our dataset
 
 The NJ tree of IBS-based (Figure 3) distances positioned the branches of Swiss goats according to their breeds. Alpine ibexes and Bezoar wild goats formed their own clade, inside of which we can see clear distinction between the two species. According to that distribution was also the layout of Fst-based NJ tree (Figure 4), but, unlike the IBS-based tree, here we have population'  divergence.
 
-		!Here will the Admixture plot!
+![image description](../../images/test_ibs_nj_tree.svg)
 Figure 3: A neighbor-joining tree constructed with matrix of IBS distances between individuals
 
-		!Here will the Admixture plot!
+![image description)(../../images/test_fst_nj_tree.svg)
 Figure 4: A neighbor-joining tree constructed with Fst distances between populations
+
+
+### 5. Regenerating the interactive plots without running the workflow
 
 
 ## References
@@ -336,5 +344,3 @@ Please cite the following papers if you use this sub-workflow in your study:
 ## License
 
 MIT
-
-
