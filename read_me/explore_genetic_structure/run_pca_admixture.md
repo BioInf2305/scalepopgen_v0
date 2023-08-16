@@ -3,12 +3,12 @@
 This sub-workflow carried out Admixture analysis, two different Principal Component Analyses, and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
 
 ## Description of the parameters:
-```genetic_structure```:  setting this to False will not run this workflow
+```genetic_structure```:  setting this to False will not run this workflow \
 ```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4\
 ```ld_window_size```: a window size in variant count or kilo bases (step 4)\
 ```ld_step_size```: number of variants to shift the window at the end of each step (step 4)\
 ```r2_value```: squared correlation threshold; at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4)\
-```structure_remove_indi```: the name of a file with listed samples that will not be used for any anylsis in this sub-workflow\
+```structure_remove_indi```: the name of a file with listed samples that will be removed in **all any anylses** in this sub-workflow\
 ```smartpca_param```: the path to the file with additional parameters for SmartPCA (step 6)\
 ```pop_color_file```: the path to the text file with specified color codes for each population (steps 7 and 9)\
 ```f_pop_marker```: the path to the text file with specified mark shape for each population (steps 7 and 9)\
@@ -101,7 +101,7 @@ SRR12396950urial	Urial
 For the Plink binary input, user need to specify the path to the BED/BIM/FAM files in the section of general parameters:
 ```input= "path/to/the/files/*.{bed,bim,fam}"```
 ### 2. Optional input data files
-In this module, the samples to be removed in given analyses (```structure_remove_indi```) can be provided. For example, during the filtering (in theearlier step of sample filtering), the samples of Grigia goat breed removed from the analyses (```--rem_indi```). Here, for the pca, additionally, all samples of the outgroup will be excluded. A space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column should be provided:
+In this module, the samples to be removed in given analyses (```structure_remove_indi```) can be provided. For example, during the filtering (in theearlier step of sample filtering), the samples of Grigia goat breed removed from the analyses (```--rem_indi```). Here, for the pca, all samples of the outgroup will be excluded. A space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column should be provided:
 ```
 Urial 454948_T1
 Urial ERR454947urial
@@ -233,9 +233,9 @@ After that, there is a parameter file dedicated to the PCA, Admixture and both N
     nj_yml                      = "${baseDir}/parameters/plots/fst_nj.yml"
     est_1_min_ibs_based_nj_tree = true
     ibs_nj_yml                  = "${baseDir}/parameters/plots/ibs_nj.yml"
-When all the parameters are set, we can run the tool. In our case we used conda configuration profile and set maximum 10 processes that can be executed in parallel by each executor. After we moved to **scalepopgen** folder, we execute the following command:
+After setting the parameter file, choose any profile, we prefer, mamba, and set maximum 10 processes that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
 ```
-nextflow run scalepopgen.nf -qs 10 -profile conda
+nextflow run scalepopgen.nf -profile mamba,test_genstruct -resume -qs 10
 ```
 You can check all the other command running options with the option help :
 ```
@@ -295,7 +295,7 @@ Succeeded   : 25
 
 ->**~genetic_structure/interactive_plots/**:
 ---->**~/pca/**: interactive plots of both PCAs\
----->**~/1_min_ibs_clustering/**: plink output files and plotted IBS-based interactive tree\
+---->**~/1_min_ibs_clustering/**: plink output files and plotted IBS-based interactive tree,additionally this folder also conatains the list of populations whose samples form polyphyletic patterns in the tree\
 ---->**~/fst/**: plink output files and plotted Fst-based interactive tree
 
 ->**~/plink/**: \
@@ -327,8 +327,51 @@ Figure 3: A neighbor-joining tree constructed with matrix of IBS distances betwe
 Figure 4: A neighbor-joining tree constructed with Fst distances between populations
 
 
-### 5. Regenerating the interactive plots without running the workflow
+### 5. Generating the interactive plots without running the workflow
+For generating the interactive pca plot only (withut re-running the workflow), one can use the following command: 
 
+```
+python3 plot_interactive_pca.py <eigenvect_file> <eigenval_file> pop_markershape_col.txt pca.yml <output_prefix>
+```
+
+The python script is located in the bin folder of scalepopgen. **<eigenvect_file>** and **<eigenval_file>** are located in the respective output folders of smartpca and gds_pca. The yaml file is located in "/parameters/plots/" folder. **pop_markershape_col.txt** is located in the folder of "interactive_plots/pca/" or one can also create this tab-delimited file with this format: the first column is pop_id, the second column is shape_id, the third column is hex color code. Refer to "./extra/markershapes.txt" to see the list of shapes implemented in this bokeh-dependent python script. The parameters of the yaml files are described below:
+
+```
+ plot_width: plot-width size in pixel
+ plot_height: plot-height size in pixel
+ pc_x_to_plot: which pc to plot on the x-axis
+ pc_y_to_plot: which pc to plot on the y-axis
+ fill_alpha: fill-color intensity 
+ line_alpha: line-color intensity
+ marker_size : size of the markers to be plotted; input should be boolean; True or False
+ show_sample_label: whether or not to show the sample label for each dot during hovering. 
+```
+**For plotting the large number of samples and population, increase the plot_width and plot_height size, reduce the marker_size and set show_sample_label to false**
+
+For generating the IBS-dist interactive NJ trees, one can use the following command:
+
+```
+python3 make_ibs_dist_nj_tree.py -r <outgroup> -i <square_mat_mdist_file> -m <mdist.id_file> -c pop_sc_color.map -y ibs_nj.yml -o <output_prefix>
+```
+The python script is located in the bin folder of scalepopgen. **<outgroup>** refers to the population to be used for rooting the tree, **<square_mat_mdist_file>** refers to the sqaure matrix of 1-ibs distance between pairwise samples and generated by plink1.9, **<mdist.id_file>** refers to id file generated along with the square matrix by plink1.9, **pop_sc_color.map* is the tab-delimited file containing the first column as pop_id, second column as sample size and the third column as hex color code. Also generated by the workflow and saved in the output folder as **pop_sc_color.map**. The yml file is located in "parameter/plots/" folder. The parameter of the yml files are described below:
+
+```
+ width: plot-width size in pixel
+ height: plot-height size in pixel
+ layout: the tree layout, valid options: 'c','r','d', for circular, right and down layout of the tree
+ tip_label_align: whether or not to align the tip labels; input should be boolean; True or False
+ tip_label_font_size: the font size of the tip labels, default: "12px"
+ edge_widths: the width of edges, default: 1
+ node_sizes: the size of nodes, default:6
+ node_hover: whether or not to show details info of the node while hovering; input should be boolean; True or False
+```
+The python script can also be run directly using the file containing tree in newick format. For more details run "python3 make_ibs_dist_nj_tree.py -h". As the python script is dependent on Toytree, for more details of these parameters, refer to [Toytree](https://toytree.readthedocs.io/en/latest/) documentation.
+
+For generating the fst-based NJ tree, one can use the following command:
+
+```
+python3 make_fst_dist_nj_tree.py -i <fst_summary_file_generated_by_plink2> -r <outgroup> -o <output_prefix> -y fst_nj.yml -c pop_sc_color.map
+``` 
 
 ## References
 Please cite the following papers if you use this sub-workflow in your study:
