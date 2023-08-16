@@ -1,11 +1,9 @@
 import sys
-import numpy as np
 import random
 import yaml
 from yaml.loader import SafeLoader
 from bokeh.plotting import figure, save, output_file
-from bokeh.core.enums import LegendLocation
-from bokeh.models import HoverTool, ColumnDataSource, Legend, LinearAxis
+from bokeh.models import HoverTool, ColumnDataSource, Legend
 
 
 class PlotInteractivePca:
@@ -46,20 +44,19 @@ class PlotInteractivePca:
             "triangle_pin": self.plot_triangle_pin,
         }
 
-    def plot_circle_default(self, source, pop):
+    def plot_circle_default(self, source):
         fc = self.p.circle(
             "x_values",
             "y_values",
             size="size_list",
             color="color_list",
-            # legend_label=pop,
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             source=source,
         )
         return fc
 
-    def plot_aserisk_default(self, source, pop):
+    def plot_aserisk_default(self, source):
         fc = self.p.asterisk(
             "x_values",
             "y_values",
@@ -67,12 +64,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_circle_cross(self, source, pop):
+    def plot_circle_cross(self, source):
         fc = self.p.circle_cross(
             "x_values",
             "y_values",
@@ -80,12 +76,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_circle_dot(self, source, pop):
+    def plot_circle_dot(self, source):
         fc = self.p.circle_dot(
             "x_values",
             "y_values",
@@ -93,12 +88,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_circle_xp(self, source, pop):
+    def plot_circle_xp(self, source):
         fc = self.p.circle_x(
             "x_values",
             "y_values",
@@ -106,12 +100,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_circle_y(self, source, pop):
+    def plot_circle_y(self, source):
         fc = self.p.circle_y(
             "x_values",
             "y_values",
@@ -119,12 +112,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_cross_default(self, source, pop):
+    def plot_cross_default(self, source):
         fc = self.p.cross(
             "x_values",
             "y_values",
@@ -132,12 +124,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_diamond_default(self, source, pop):
+    def plot_diamond_default(self, source):
         fc = self.p.diamond(
             "x_values",
             "y_values",
@@ -145,12 +136,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_diamond_cross(self, source, pop):
+    def plot_diamond_cross(self, source):
         fc = self.p.diamond_cross(
             "x_values",
             "y_values",
@@ -158,12 +148,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_diamond_dot(self, source, pop):
+    def plot_diamond_dot(self, source):
         fc = self.p.diamond_dot(
             "x_values",
             "y_values",
@@ -171,12 +160,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_dot_default(self, source, pop):
+    def plot_dot_default(self, source):
         fc = self.p.dot(
             "x_values",
             "y_values",
@@ -184,12 +172,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_hex_default(self, source, pop):
+    def plot_hex_default(self, source):
         fc = self.p.hex(
             "x_values",
             "y_values",
@@ -197,12 +184,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_hex_dot(self, source, pop):
+    def plot_hex_dot(self, source):
         fc = self.p.hex_dot(
             "x_values",
             "y_values",
@@ -210,12 +196,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_invertedtriangle_default(self, source, pop):
+    def plot_invertedtriangle_default(self, source):
         fc = self.p.inverted_triangle(
             "x_values",
             "y_values",
@@ -223,12 +208,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_plus_default(self, source, pop):
+    def plot_plus_default(self, source):
         fc = self.p.plus(
             "x_values",
             "y_values",
@@ -236,12 +220,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_square_default(self, source, pop):
+    def plot_square_default(self, source):
         fc = self.p.square(
             "x_values",
             "y_values",
@@ -249,12 +232,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_square_cross(self, source, pop):
+    def plot_square_cross(self, source):
         fc = self.p.square_cross(
             "x_values",
             "y_values",
@@ -262,12 +244,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_square_dot(self, source, pop):
+    def plot_square_dot(self, source):
         fc = self.p.square_dot(
             "x_values",
             "y_values",
@@ -275,12 +256,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_square_pin(self, source, pop):
+    def plot_square_pin(self, source):
         fc = self.p.square_pin(
             "x_values",
             "y_values",
@@ -288,12 +268,11 @@ class PlotInteractivePca:
             color="color_list",
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_square_x(self, source, pop):
+    def plot_square_x(self, source):
         fc = self.p.square_x(
             "x_values",
             "y_values",
@@ -301,12 +280,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_star_default(self, source, pop):
+    def plot_star_default(self, source):
         fc = self.p.star(
             "x_values",
             "y_values",
@@ -314,12 +292,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_star_dot(self, source, pop):
+    def plot_star_dot(self, source):
         fc = self.p.star_dot(
             "x_values",
             "y_values",
@@ -327,12 +304,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_triangle_default(self, source, pop):
+    def plot_triangle_default(self, source):
         fc = self.p.triangle(
             "x_values",
             "y_values",
@@ -340,12 +316,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_triangle_dot(self, source, pop):
+    def plot_triangle_dot(self, source):
         fc = self.p.triangle_dot(
             "x_values",
             "y_values",
@@ -353,12 +328,11 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
-    def plot_triangle_pin(self, source, pop):
+    def plot_triangle_pin(self, source):
         fc = self.p.triangle_pin(
             "x_values",
             "y_values",
@@ -366,12 +340,14 @@ class PlotInteractivePca:
             fill_alpha="fill_alpha_list",
             line_alpha="line_alpha_list",
             color="color_list",
-            # legend_label=pop,
             source=source,
         )
         return fc
 
     def read_pop_color_map(self):
+        """
+        pop color map file contains three column: population id, shape, hex color code
+        """
         with open(self.pop_color_map) as source:
             for line in source:
                 line = line.rstrip().split()
@@ -379,6 +355,9 @@ class PlotInteractivePca:
         return self.pop_color_dict
 
     def generate_random_colr_shape(self):
+        """
+        generate random shape from the list of keys of shape_method_dict directory
+        """
         num_pop = len(self.pop_color_dict)
         shape_list = []
         for i in range(num_pop):
@@ -400,7 +379,9 @@ class PlotInteractivePca:
         line_alpha = params["line_alpha"]
         header = 0
         size = params["marker_size"]
-        color_list = ["none"]
+        color_list = [
+            ""
+        ]  # created just to store the colors so that same color will not be assign to different populations
         with open(self.evec_file) as source:
             for line in source:
                 line = line.rstrip().split()
@@ -409,8 +390,8 @@ class PlotInteractivePca:
                 else:
                     if line[-1] not in self.evec_dict:
                         if self.pop_color_map == "none":
-                            color = "none"
-                            while color in color_list:
+                            color = ""
+                            while color not in color_list:
                                 color = [
                                     "#"
                                     + "".join(
@@ -443,6 +424,9 @@ class PlotInteractivePca:
             self.generate_random_colr_shape()
 
     def eval_to_list(self):
+        """
+        read .eval file or file with the first column as the eigenvalue of each PC
+        """
         self.eval_list = []
         with open(self.eval_file) as source:
             for line in source:
@@ -467,12 +451,11 @@ class PlotInteractivePca:
             if self.show_sample_label:
                 hover = HoverTool(tooltips=[("sample_id:", "@sample_id")])
                 self.p.add_tools(hover)
-            # self.shape_method_dict[shape](source, pop)
             if legend_count >= 30:
                 self.legend_loc_list.append(legend_list[:])
                 legend_list = []
                 legend_count = 0
-            legend_list.append((pop, [self.shape_method_dict[shape](source, pop)]))
+            legend_list.append((pop, [self.shape_method_dict[shape](source)]))
         if len(legend_list) > 0:
             self.legend_loc_list.append(legend_list[:])
         for l_loc in self.legend_loc_list:
