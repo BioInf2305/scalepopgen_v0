@@ -379,9 +379,7 @@ class PlotInteractivePca:
         line_alpha = params["line_alpha"]
         header = 0
         size = params["marker_size"]
-        color_list = [
-            ""
-        ]  # created just to store the colors so that same color will not be assign to different populations
+        color_list = []  # created just to store the colors so that same color will not be assign to different populations
         with open(self.evec_file) as source:
             for line in source:
                 line = line.rstrip().split()
@@ -390,8 +388,8 @@ class PlotInteractivePca:
                 else:
                     if line[-1] not in self.evec_dict:
                         if self.pop_color_map == "none":
-                            color = ""
-                            while color not in color_list:
+                            color = ["#"+ "".join([random.choice("0123456789ABCDEF") for n in range(6)])][0]
+                            while color in color_list:
                                 color = [
                                     "#"
                                     + "".join(
@@ -412,7 +410,7 @@ class PlotInteractivePca:
                             "line_alpha_list": [],
                             "size_list": [],
                         }
-                    p_color = self.pop_color_dict[line[-1]][0]
+                    p_color = self.pop_color_dict[line[-1]][0][:]
                     self.evec_dict[line[-1]]["x_values"].append(float(line[self.pc1]))
                     self.evec_dict[line[-1]]["y_values"].append(float(line[self.pc2]))
                     self.evec_dict[line[-1]]["sample_id"].append(line[0])
