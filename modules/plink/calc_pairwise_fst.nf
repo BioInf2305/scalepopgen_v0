@@ -35,7 +35,7 @@ process CALC_PAIRWISE_FST{
 
         opt_args = opt_args + " --within "+new_prefix+".cluster --fst CATPHENO method=wc --out "+new_prefix
 
-        nj_yml = params.nj_yml
+        nj_yml = params.fst_nj_yml
 
         outgroup = params.outgroup
 
