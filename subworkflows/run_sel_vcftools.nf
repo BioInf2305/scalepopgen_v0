@@ -8,14 +8,9 @@ include { CALC_TAJIMA_D } from '../modules/vcftools/calc_tajima_d'
 include { CALC_PI } from '../modules/vcftools/calc_pi'
 include { CALC_WFST } from '../modules/vcftools/calc_wfst'
 include { CALC_WFST_ONE_VS_REMAINING } from '../modules/vcftools/calc_wfst_one_vs_remaining'
-include { CONCAT_WFST } from '../modules/concat_wst'
-include { GENERATE_FST_TREE } from '../modules/generate_fst_tree'
-
-
-/* to do 
-*FWH --> always require outgroup
-*/
-
+include { GENERATE_INTERACTIVE_MANHATTAN_PLOT as MANHATTAN_TAJIMAS_D } from '../modules/selection/generate_interactive_manhattan_plot'
+include { GENERATE_INTERACTIVE_MANHATTAN_PLOT as MANHATTAN_PI } from '../modules/selection/generate_interactive_manhattan_plot'
+include { GENERATE_INTERACTIVE_MANHATTAN_PLOT as MANHATTAN_FST } from '../modules/selection/generate_interactive_manhattan_plot'
 
 
 def PREPARE_DIFFPOP_T( file_list_pop ){
@@ -59,7 +54,7 @@ workflow RUN_SEL_VCFTOOLS{
 
         
         if( params.input.endsWith(".csv") ){
-            if( params.skip_chrmwise && (!params.ihs && !params.clr && !params.xpehh) ){
+            if( params.skip_chrmwise ){
                 CONCAT_VCF(
                     n3_chrom_vcf.map{chrom, vcf -> vcf}.collect()
                 )
@@ -78,10 +73,21 @@ workflow RUN_SEL_VCFTOOLS{
         n4_chrom_vcf_popid = n4_chrom_vcf.combine(pop_idfile)
 
         //following module calculates tajima's d for each chromosome for each pop
+        
 
         if( params.tajima_d ){
 
             CALC_TAJIMA_D( n4_chrom_vcf_popid )
+
+            v1_manhatin = Channel.value('tajimas_d')
+
+            v1_windowsize = Channel.value(params.tajimasd_window_size)
+
+            MANHATTAN_TAJIMAS_D(
+                 CALC_TAJIMA_D.out.tajimasd_out.groupTuple(),
+                 v1_manhatin,
+                 v1_windowsize
+                )
         
         }
 
@@ -91,6 +97,15 @@ workflow RUN_SEL_VCFTOOLS{
 
             CALC_PI( n4_chrom_vcf_popid )
 
+            v2_manhatin = Channel.value('nucl_diversity_pi')
+
+            v2_windowsize = params.pi_window_size > 0 ? Channel.value(params.pi_window_size) : Channel.value(1)
+
+            MANHATTAN_PI(
+                CALC_PI.out.pi_out.groupTuple(),
+                v2_manhatin,
+                v2_windowsize
+            )
         }
 
         
@@ -101,9 +116,6 @@ workflow RUN_SEL_VCFTOOLS{
 
             pop_idfile_collect = pop_idfile.collect()
             
-            //SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.view()
-
-            //pop_idfile_collect.view()
 
             pop1_pop2 = PREPARE_DIFFPOP_T(pop_idfile_collect).unique()
 
@@ -112,18 +124,6 @@ workflow RUN_SEL_VCFTOOLS{
             
             CALC_WFST( n4_chrom_vcf_pop1_pop2 )
             
-            /*
-
-            if( params.fst_nj_tree ){
-                
-                        CONCAT_WFST(
-                            CALC_WFST.out.pairwise_fst_out.groupTuple()
-                            )
-                        concatenated_fst_files = CONCAT_WFST.out.concatenated_fst_files.collect()
-                    
-                GENERATE_FST_TREE(concatenated_fst_files)
-            }
-            */
         }
         if( params.single_vs_all_fst ){
                 
@@ -132,8 +132,16 @@ workflow RUN_SEL_VCFTOOLS{
                 n4_chrom_vcf_pop1_allsample = n4_chrom_vcf.combine(pop1_allsample)
 
                 CALC_WFST_ONE_VS_REMAINING(n4_chrom_vcf_pop1_allsample)
+            
+                v3_manhatin = Channel.value('fst_values')
 
+                v3_windowsize = params.fst_window_size > 0 ? Channel.value(params.fst_window_size) : Channel.value(1)
 
+                MANHATTAN_FST(
+                    CALC_WFST_ONE_VS_REMAINING.out.pairwise_fst_out.groupTuple(),
+                    v3_manhatin,
+                    v3_windowsize
+                )
 
             }
 }

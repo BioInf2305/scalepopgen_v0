@@ -3,6 +3,7 @@
 */
 
 include { PHASING_GENOTYPE_BEAGLE } from '../modules/selection/phasing_genotpyes_beagle'
+include { SPLIT_IDFILE_BY_POP as SPLIT_FOR_SELSCAN } from '../modules/selection/split_idfile_by_pop'
 include { SPLIT_VCF_BY_POP } from '../modules/vcftools/split_vcf_by_pop'
 include { PREPARE_MAP_SELSCAN } from '../modules/selection/prepare_map_selscan'
 include { CALC_iHS } from '../modules/selscan/calc_ihs'
@@ -41,11 +42,32 @@ workflow RUN_SIG_SEL_PHASED_DATA{
 
         f_map = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> map_f }.unique()
 
+        SPLIT_FOR_SELSCAN(
+            f_map
+        )
+
+        isc = SPLIT_FOR_SELSCAN.out.iss
         
         //phase genotypes in vcf files using beagle
         if( !params.skip_phasing ){
+            if( params.ref_vcf != "none" ){
+            Channel
+                    .fromPath( params.ref_vcf )
+                    .splitCsv(sep:",")
+                    .map{ i_chrom, i_vcf -> if(!file(i_vcf).exists() ){ exit 1, 'ERROR: reference vcf file for imputatation does not exist  \
+                        -> ${i_vcf}' }else{tuple(i_chrom, file(i_vcf))} }
+                    .set{ i_chrom_vcf }
+            
+                chrom_vcf_pvcf = chrom_vcf.combine(i_chrom_vcf,by:0)        
+            }
+            else{
+                chrom_vcf_pvcf = chrom_vcf.combine(["none"])
+            }
+            
+            n1_chrom_vcf_pvcf = chrom_vcf_pvcf.map{ chrom, vcf, pvcf ->tuple( chrom, vcf, pvcf == "none" ? []: pvcf)}
+
             PHASING_GENOTYPE_BEAGLE( 
-                chrom_vcf
+                n1_chrom_vcf_pvcf
             )
             p_chrom_vcf_map = PHASING_GENOTYPE_BEAGLE.out.phased_vcf.combine(f_map)
         }
@@ -53,6 +75,7 @@ workflow RUN_SIG_SEL_PHASED_DATA{
             p_chrom_vcf_map = chrom_vcf.combine(f_map)
                 
         }
+        p_chrom_vcf_map_isc = p_chrom_vcf_map.combine(isc)
 
         //preparing map file ihs, nsl and XP-EHH analysis, needed by selscan
 
@@ -66,7 +89,7 @@ workflow RUN_SIG_SEL_PHASED_DATA{
                 .set{ n1_chrom_recombmap }
         }
         else{
-                n1_chrom_recombmap = PREPARE_MAP_SELSCAN( chrom_vcf )
+                n1_chrom_recombmap = PREPARE_MAP_SELSCAN( p_chrom_vcf_map_isc )
         }
 
 
@@ -75,7 +98,7 @@ workflow RUN_SIG_SEL_PHASED_DATA{
         //p_chrom_vcf_map = PHASING_GENOTYPE_BEAGLE.out.phased_vcf.combine(f_map)
 
         SPLIT_VCF_BY_POP(
-            p_chrom_vcf_map
+            p_chrom_vcf_map_isc
         )
 
         // make pairwise tuple of splitted (based on pop id) phased vcf files 

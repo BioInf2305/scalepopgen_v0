@@ -114,6 +114,7 @@ workflow RUN_SEL_SWEEPFINDER2{
             }
         n1_pop_freq_recomb_afs = pop_freq_recomb_afs.map{ pop, freq, recomb, afs -> tuple(pop, freq, \
             recomb == "none" ? [] : recomb, afs == "none" ? [] : afs ) }
+        
         RUN_SWEEPFINDER2(
             n1_pop_freq_recomb_afs
         )
