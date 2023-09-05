@@ -1,7 +1,7 @@
 process CALC_XPEHH{
 
     tag { "calculating_xpehh_${chrom}" }
-    label "oneCpu"
+    label "fourCpus"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/phased/multi_pop/xp-ehh/results/", mode:"copy")
@@ -18,15 +18,15 @@ process CALC_XPEHH{
         
         def args = ""
 
-        if( params.xpehh_params != "none" ){
-                args = args + " "+ params.xpehh_params
+        if( params.xpehh_args != "none" ){
+                args = args + " "+ params.xpehh_args
         }
 
 
         """
 
 
-        selscan --xpehh ${args} --vcf ${t_vcf} --vcf-ref ${r_vcf} --map ${r_map} --out ${prefix}
+        selscan --xpehh ${args} --vcf ${t_vcf} --vcf-ref ${r_vcf} --map ${r_map} --out ${prefix} --threads ${task.cpus}
 
 
         """ 
