@@ -148,10 +148,10 @@ class PlotAdmixture:
         if i == 0:
             self.p.add_tools(HoverTool(tooltips=[("sample", "@sn"), ("pop", "@pn")]))
         if len(self.legend_loc_list[-1]) <= self.num_legend_per_col:
-            self.legend_loc_list[-1].append(("k=" + str(i), [s]))
+            self.legend_loc_list[-1].append(("k=" + str(i+1), [s]))
         else:
             self.legend_loc_list.append([])
-            self.legend_loc_list[-1].append(("k=" + str(i), [s]))
+            self.legend_loc_list[-1].append(("k=" + str(i+1), [s]))
 
     def format_plot(self):
         """
