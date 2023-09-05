@@ -7,7 +7,7 @@ process PHASING_GENOTYPE_BEAGLE {
     publishDir("${params.outDir}/phasing/", mode:"copy")
 
    input:        
-     tuple val(chrom), path(vcfIn)
+     tuple val(chrom), path(vcfIn), path(pvcf)
 
    output:        
      tuple val(chrom), file("*.phased.vcf.gz"), emit: phased_vcf
@@ -17,7 +17,7 @@ process PHASING_GENOTYPE_BEAGLE {
         args = ""
         def mem_per_thread = task.memory.toMega()-300
         if( params.ref_vcf != "none"){
-                args = args +" ref="+params.ref_vcf
+                args = args +" ref="+pvcf
             }
         if( params.cm_map != "none"){
                 args = args+" map="+params.cm_map
