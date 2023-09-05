@@ -21,13 +21,17 @@ Usage:
 
 --structure_remove_indi [file] path to the file containing list of individuals to be removed before running PCA and/or admixture. Note that this file should contain two columns: first column as population_id and second column as sample id to be removed. Default: "none".
 
---smartpca_param [file] path to the file containing additional/optional parameters to apply smartpca. To see the list of these parameters: . Default: "none"
+--smartpca_param [file] path to the file containing additional/optional parameters to apply smartpca. To see the list of these parameters:https://github.com/chrchang/eigensoft/blob/master/POPGEN/README. Default: "none"
 
 --pop_color_file [file] path to the file containing color codes of each population to be plotted. This file should contain data in two columns: first column as pop_id and second column as color name of code. If no such file is provided, random colors will be chosen. Default: "none"
 
 --f_pop_marker [file] path to the file containing first column as population id and second column as marker shape. Available markers shape are listed in "./extra/markershapes.txt" . If no such file is provided, random marker shapes will be selected.
 
---pca_plot_params [file] path to the yaml file containing the paramterers to plot interactive PCA results. Refer to  "./parameters/interactive_pca_plot/pca_params.yml
+--pca_yml [file] path to the yaml file containing the paramterers to plot interactive PCA results. Default:"./parameters/plots/pca_params.yml". 
+
+--fst_nj_yml [file] path to the yaml file containing the paramterers to plot interactive fst-based NJ tree. Default:"./parameters/plots/fst_nj.yml"
+
+--ibs_nj_yml [file] path to the yaml file containing the paramterers to plot interactive ibs distance-based NJ tree. Default:"./parameters/plots/ibs_nj.yml"
 
 --admixture [bool] whether to run admixture analysis. Default: false
 
@@ -39,12 +43,13 @@ Usage:
 
 --termination_criteria [float] termination criteria of admixture tool. Default: 0.0001
 
---pop_labels [file] any additional pop label to be plotted along with provided pop label in admixture results to be plotted. This file should contain data in two columns: first column as additional_pop_id and second column as pop_id, mentioned in the ".map" (in case of vcf input) or ".fam" (in case of plink binary input) file.  Default: "none"
+--admixture_yml [file]  path to the yaml file containing the parameters of plotting interactive Q matrix of optimal value of "K". Default: "./parameters/plots/admixture.yml
 
---fst_based_nj_tree [bool] 
+--fst_based_nj_tree [bool] whether or not to construct NJ tree based on average fst pairwise distance between each pair of population. Default: false
 
+--est_1_min_ibs_based_nj_tree [bool] whether or not to construct NJ tree based on average 1-IBS pairwise distance between each pair of samples. Default: false
 
-For more details (output files and processing) on this module, refer to readme/explore_genetic_structure.md
+For more details (output files and processing) on this module, refer to online documentation
 
     """.stripIndent()
 }
