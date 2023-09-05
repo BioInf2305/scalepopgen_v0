@@ -72,7 +72,7 @@ workflow{
                 PRINT_FILTERING_OPTIONS()
                 exit 0
             }
-            if ( params.explore_genetic_structure ){
+            if ( params.gen_struct ){
                 PRINT_GENSTRUCT_OPTIONS()
                 exit 0
             }
