@@ -18,7 +18,7 @@ process RUN_ADMIXTURE_DEFAULT{
     script:
         new_prefix = bed[0].getSimpleName()
         def opt_args = ""
-        opt_args = opt_args + " -m "+params.method+ " -C "+ params.termination_criteria + " -j"+ task.cpus
+        opt_args = opt_args + " -C "+ params.termination_criteria + " -j"+ task.cpus
         if ( params.cross_validation > 0 ){
                 opt_args = opt_args + " --cv="+params.cross_validation
             }
