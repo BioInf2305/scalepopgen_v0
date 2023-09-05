@@ -10,12 +10,12 @@ process CALC_TAJIMA_D{
         tuple val(prefix), path(vcf), path(sample_id)
 
     output:
-        tuple val(pop), path ("${pop}_${prefix}_${window_size}*"), emit: tajimad_out
+        tuple val(pop), path ("${pop}_${prefix}_${window_size}*"), emit: tajimasd_out
 
     script:
         
         
-        pop = sample_id.getSimpleName
+        pop = sample_id.getSimpleName()
 
         window_size = params.tajimasd_window_size
 

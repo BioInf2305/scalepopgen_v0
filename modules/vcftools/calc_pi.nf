@@ -15,12 +15,12 @@ process CALC_PI{
     script:
 
         def args = ""
-        pop = sample_id.getSimpleName
-        def out_prefix = sample_id.getSimpleName +"_"+prefix
+        pop = sample_id.getSimpleName()
+        out_prefix = pop+"_"+prefix
         args = args +" --keep "+sample_id 
         if( params.pi_window_size > 0 ){
             args = args + " --window-pi "+ params.pi_window_size
-            out_prefix = out_prefix +"_"+params.pi_window_size
+            out_prefix = out_prefix+"_"+params.pi_window_size
             }
         if( params.pi_step_size > 0 ){
                 args = args + " --window-pi-step "+ params.pi_step_size

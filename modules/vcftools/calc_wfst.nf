@@ -23,8 +23,8 @@ process CALC_WFST{
         
         }
         
-        pop1 = pop1_file.getSimpleName
-        pop2 = pop2_file.getSimpleName
+        pop1 = pop1_file.getSimpleName()
+        pop2 = pop2_file.getSimpleName()
         
 
 
