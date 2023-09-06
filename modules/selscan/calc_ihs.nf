@@ -1,10 +1,10 @@
 process CALC_iHS{
 
     tag { "calculating_iHS_${chrom}" }
-    label "oneCpu"
+    label "fourCpus"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/phased/single_pop/iHS/results/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/iHS/${chrom}", mode:"copy")
 
     input:
         tuple val(chrom), path(f_vcf), path(f_map), path(anc)
@@ -15,6 +15,7 @@ process CALC_iHS{
     script:
         
         prefix     = f_vcf.baseName
+        chrom = prefix.split("__")[0]
         f_prefix   = anc==[] ? prefix + "_no_anc" : prefix + "_anc"
         def args = ""
 
@@ -26,7 +27,7 @@ process CALC_iHS{
 
         """
 
-        selscan --ihs ${args} --vcf ${f_vcf} --map ${f_map} --out ${f_prefix}
+        selscan --ihs ${args} --vcf ${f_vcf} --map ${f_map} --out ${f_prefix} --threads ${task.cpus}
 
         """ 
         }
@@ -35,11 +36,10 @@ process CALC_iHS{
 
         """
 
-        selscan --ihs ${args} --vcf ${f_vcf} --map ${f_map} --out ${prefix}
+        selscan --ihs ${args} --vcf ${f_vcf} --map ${f_map} --out ${prefix} --threads ${task.cpus}
 
         awk 'NR==FNR{a[\$2]=\$3;next}{if(a[\$2]==0){iHS=log(\$4/\$5)/log(10)}if(a[\$2]!=0){iHS=log(\$5/\$4)/log(10)}print \$1,\$2,\$3,\$4,\$5,iHS}' ${anc} ${prefix}.ihs.out > ${f_prefix}.ihs.out
 
-        rm ${prefix}.ihs.out
 
         """
 

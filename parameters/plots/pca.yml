@@ -1,6 +1,6 @@
 ---
  title: "results of smartpca"
- plot_width: 1200
+ plot_width: 800
  plot_height: 800
  pc_x_to_plot: 1
  pc_y_to_plot: 2

@@ -4,10 +4,10 @@ process PREPARE_MAP_SELSCAN{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.1"
-    publishDir("${params.outDir}/selection/phased/ihs/input/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/input_files", mode:"copy")
 
     input:
-        tuple val( chrom ), path( vcf )
+        tuple val( chrom ), path( vcf ), path(map), path(isc)
 
     output:
         tuple val( chrom ), path ( "${prefix}.map" ), emit: chrom_selscanmap

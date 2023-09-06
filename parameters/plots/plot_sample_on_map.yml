@@ -1,14 +1,14 @@
 ---
   tile: "world_gray_canvas"
   marker_prop: 0
-  const_radius : 2
+  const_radius : 4
   zoom_level: 16
   overlap_cordi: True
   shift_cordi: 0.00005
-  show_label : False
-  label_loc : 0.00010
+  show_label : True
+  label_loc : 0.00030
   label_size: "6pt"
   show_legend: True
   display_sample_size: True
   display_popup: False
-  output_prefix: "pig_sample_plots"
+  output_prefix: "cattle_sample_plots"

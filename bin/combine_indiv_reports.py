@@ -7,6 +7,7 @@ def combine_indiv_reports(plink_sample_summary_out):
     sample_stat_dict = {}
     dest = open("genomewide_indiv_report.tsv", "w")
     dest_header = [
+        "SAMPLE_ID",
         "HOM_REF_CT",
         "HOM_ALT_SNP_CT",
         "HET_SNP_CT",

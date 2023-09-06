@@ -36,7 +36,7 @@ process GENERATE_POP_COLOR_MAP{
 
         awk '{if(NF==6){pop_count[\$1]++;next}else;pop_count[\$2]++;next}END{for(pop in pop_count){print pop,pop_count[pop]}}' ${map_or_fam_file} > f_pop_count.map
 
-        awk 'NR==FNR{color[\$1]=\$2;next}{print \$1,\$2,color[\$1]}' ${f_pop_color} f_pop_count.map > pop_sc_color.map
+        awk 'NR==FNR{color[\$1]=\$2;next}\$1 in color{print \$1,\$2,color[\$1]}' ${f_pop_color} f_pop_count.map > pop_sc_color.map
 
         """
 

@@ -79,7 +79,8 @@ workflow EXPLORE_GENETIC_STRUCTURE{
            EST_BESTK_PLOT( 
             RUN_ADMIXTURE_DEFAULT.out.log_file.collect(),
             RUN_ADMIXTURE_DEFAULT.out.pq_files.collect(),
-            n1_ld_filt_bed
+            n1_ld_filt_bed,
+            m_pop_sc_color
            )
            GENERATE_PONG_INPUT( RUN_ADMIXTURE_DEFAULT.out.log_file.collect() )
         }

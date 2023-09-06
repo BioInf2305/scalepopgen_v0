@@ -11,9 +11,10 @@ process EST_BESTK_PLOT {
 	path(k_cv_log_files)
         path(pq_files)
         path(bed)
+        path(m_pop_sc_color)
 
     output:
-    	path("*.png")
+    	path("*.html")
 
     when:
      	task.ext.when == null || task.ext.when
@@ -21,17 +22,20 @@ process EST_BESTK_PLOT {
     script:
 
         def bed_prefix = bed[0].getSimpleName()
-        def pop_labels = params.pop_labels
+        def plot_pop_order = params.plot_pop_order
+        def admixture_yml = params.admixture_yml
         
         """
 	
 	python3 ${baseDir}/bin/est_best_k_and_plot.py "global" ${k_cv_log_files}
 
+        awk '{print \$3}' ${m_pop_sc_color} > color.txt
+
 	k_array=(`find ./ -maxdepth 1 -name "best_k*.png"`)
 
-        if [[ ${pop_labels} != "none" ]];then awk 'NR==FNR{fam_id[\$1]=\$2;next}{print \$1,fam_id[\$1]}' $pop_labels ${bed_prefix}.fam > pop_labels.txt;else awk '{print \$1}' ${bed_prefix}.fam > pop_labels.txt;fi
+        if [[ ${plot_pop_order} != "none" ]];then awk '{print \$1}' ${plot_pop_order} > plot_pop_order.txt;else awk '{pop[\$1]}END{for(id in pop){print id}}' ${bed_prefix}.fam > plot_pop_order.txt;fi
         
-        if [ \${#k_array[@]} -gt 0 ];then regex='./best_k_([0-9]+)*'; [[ \${k_array[0]} =~ \${regex} ]];Rscript ${baseDir}/bin/plot_q_matrix.r -q *.\${BASH_REMATCH[1]}.Q  -l pop_labels.txt -k \${BASH_REMATCH[1]}; fi
+        if [ \${#k_array[@]} -gt 0 ];then regex='./best_k_([0-9]+)*'; [[ \${k_array[0]} =~ \${regex} ]];python3 ${baseDir}/bin/plot_interactive_q_mat.py -q *.\${BASH_REMATCH[1]}.Q -f ${bed_prefix}.fam -y ${admixture_yml} -c color.txt -o ${bed_prefix} -s plot_pop_order.txt;fi
         
 	""" 
 

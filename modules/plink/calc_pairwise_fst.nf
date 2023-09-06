@@ -35,7 +35,9 @@ process CALC_PAIRWISE_FST{
 
         opt_args = opt_args + " --within "+new_prefix+".cluster --fst CATPHENO method=wc --out "+new_prefix
 
-        nj_yml = params.nj_yml
+        nj_yml = params.fst_nj_yml
+
+        outgroup = params.outgroup
 
 	
         """
@@ -46,7 +48,11 @@ process CALC_PAIRWISE_FST{
 
         cp .command.log ${new_prefix}.log
 
-        python3 ${baseDir}/bin/make_fst_dist_nj_tree.py -i ${new_prefix}.fst.summary -o ${new_prefix} -y ${nj_yml} -c ${m_pop_sc_col}
+        if grep -qw ${outgroup} ${new_prefix}.fst.summary;then  
+            python3 ${baseDir}/bin/make_fst_dist_nj_tree.py -i ${new_prefix}.fst.summary -r ${outgroup} -o ${new_prefix} -y ${nj_yml} -c ${m_pop_sc_col}
+        else
+            python3 ${baseDir}/bin/make_fst_dist_nj_tree.py -i ${new_prefix}.fst.summary -o ${new_prefix} -y ${nj_yml} -c ${m_pop_sc_col}
+        fi
 
 
         """ 

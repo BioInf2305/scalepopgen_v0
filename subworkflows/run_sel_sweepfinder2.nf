@@ -21,9 +21,12 @@ workflow RUN_SEL_SWEEPFINDER2{
         n1_chrom_vcf_anc = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map, anc -> tuple(chrom, vcf, anc) }
 
         //following module split the map file pop-wise
+        
+        type_analysis = Channel.value('sweepfinder2')
 
         SPLIT_FOR_SWEEPFINDER2(
-            map_f
+            map_f,
+            type_analysis
         )
 
         pop_idfile = SPLIT_FOR_SWEEPFINDER2.out.splitted_samples.flatten()
@@ -44,7 +47,9 @@ workflow RUN_SEL_SWEEPFINDER2{
             n1_chrom_vcf_popid_anc
         )
 
-        // group freq files and recomb files based on "pop" key
+        // group freq files and recomb files based on "pop" key--> this is to be done because
+        // the above function already generates the recombination map file for sweepfinder2 analysis, if needed. 
+        //however based on the user defined option, it will be decided whether or not to use this recomb. map file
 
         pop_freq_M = PREPARE_SWEEPFINDER_INPUT.out.pop_freq.groupTuple()
         
@@ -53,6 +58,7 @@ workflow RUN_SEL_SWEEPFINDER2{
         base_freq = freq.flatten().map{freqF -> tuple(freqF.baseName, freqF ) }
 
         pop_recomb_M = PREPARE_SWEEPFINDER_INPUT.out.pop_recomb.groupTuple()
+
 
 
         /// combine freq and recomb file based on user-set parameters
@@ -66,6 +72,7 @@ workflow RUN_SEL_SWEEPFINDER2{
             base_recomb = recomb.flatten().map{ recombF -> tuple(recombF.baseName, recombF ) }
 
             base_freq_recomb = base_freq.combine( base_recomb, by:0)
+
 
         }
 
@@ -114,6 +121,7 @@ workflow RUN_SEL_SWEEPFINDER2{
             }
         n1_pop_freq_recomb_afs = pop_freq_recomb_afs.map{ pop, freq, recomb, afs -> tuple(pop, freq, \
             recomb == "none" ? [] : recomb, afs == "none" ? [] : afs ) }
+        
         RUN_SWEEPFINDER2(
             n1_pop_freq_recomb_afs
         )

@@ -1,11 +1,13 @@
 import sys
 import re
-import argparse
+import pandas as pd
+from bokeh.models.tools import Tool
 import numpy as np
 from collections import OrderedDict
 from scipy.signal import argrelextrema
-import matplotlib.pyplot as plt
-
+from bokeh.plotting import figure, save, output_file
+from bokeh.models import HoverTool, ColumnDataSource, Legend
+from bokeh.models.tickers import FixedTicker
 
 def main_function(type_minima, file_list):
     cv_value_dict = OrderedDict()
@@ -26,7 +28,6 @@ def main_function(type_minima, file_list):
     ):
         k_value_list_sorted.append(i)
         cv_value_list_sorted.append(cv_value_dict[i])
-
     try:
         local_minima_list = list(
             argrelextrema(np.array(cv_value_list_sorted), np.less)
@@ -39,14 +40,24 @@ def main_function(type_minima, file_list):
             )
         best_k = k_value_list_sorted[minima_idx]
         best_cv = cv_value_list_sorted[minima_idx]
-        plt.plot(k_value_list_sorted, cv_value_list_sorted)
-        plt.plot(best_k, best_cv, "g*")
-        plt.xticks(
-            np.arange(min(k_value_list_sorted), max(k_value_list_sorted) + 1, 1.0)
+        p = figure(width=800, height=800)
+        p.output_backend = "svg"
+        output_file("best_k_" + str(best_k) + ".html")
+        lst_df = [
+            [v, cv_value_list_sorted[i]] for i, v in enumerate(k_value_list_sorted)
+        ]
+        pd1 = pd.DataFrame(lst_df, columns=["k", "cross_validation_error"])
+        source = ColumnDataSource(pd1)
+        p.line("k", "cross_validation_error", source = source)
+        p.circle("k","cross_validation_error", source = source)
+        p.xaxis.ticker = FixedTicker(ticks=k_value_list_sorted)
+        hover = HoverTool(
+            tooltips=[("cross_validation_error", "@cross_validation_error")]
         )
-        plt.xlabel("K-values for admixture analysis")
-        plt.ylabel("CV error values")
-        plt.savefig("best_k_" + str(best_k) + ".png", dpi=300)
+        p.add_tools(hover)
+        p.xaxis.axis_label = "values of K"
+        p.yaxis.axis_label = "cross validation error"
+        save(p)
     except:
         print(
             "the function could not find "

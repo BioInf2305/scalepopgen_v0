@@ -18,7 +18,7 @@ process REMOVE_CUSTOM_INDI{
         task.ext.when == null || task.ext.when
 
     script:
-        new_prefix = bed[0].getSimpleName
+        new_prefix = bed[0].getSimpleName()
         def opt_args = ""
         opt_args = opt_args + " --chr-set "+ params.max_chrom + " --threads "+task.cpus
         opt_args = opt_args + " --remove " + params.structure_remove_indi

@@ -40,12 +40,20 @@ process CALC_1_MIN_IBS_DIST{
 
         ibs_nj_yml = params.ibs_nj_yml
 
+        outgroup = params.outgroup
+
 	
         """
     
         plink --bfile ${new_prefix} ${opt_args}
 
-        python3 ${baseDir}/bin/make_ibs_dist_nj_tree.py -i *.mdist -m *.mdist.id -c ${pop_sc_color} -y ${ibs_nj_yml} -o ${new_prefix}
+        
+        if grep -qw ${outgroup} *.fam;then  
+
+            python3 ${baseDir}/bin/make_ibs_dist_nj_tree.py -r ${outgroup} -i *.mdist -m *.mdist.id -c ${pop_sc_color} -y ${ibs_nj_yml} -o ${new_prefix}
+        else
+            python3 ${baseDir}/bin/make_ibs_dist_nj_tree.py -i *.mdist -m *.mdist.id -c ${pop_sc_color} -y ${ibs_nj_yml} -o ${new_prefix}
+        fi
 
         cp .command.log calc_1_mins_ibs_dist.log
 

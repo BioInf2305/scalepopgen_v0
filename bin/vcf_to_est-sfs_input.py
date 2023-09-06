@@ -4,6 +4,11 @@ from pysam import VariantFile
 
 
 def map_to_dict(sample_map, outgroup_id):
+    """
+    inputs are --> sample map file and file containing outgroup ids in each new line
+    objective --> prepare two dictionaries, sample_dict = {"sample1":"focal","sample2":"outgroup"}; this dict contain info of all samples incl. outgroup
+              --> another dictionary, pop_dict = {"focal":["sample1","sample2","sample3"]}; this dict does contains outgroup samples
+    """
     sample_dict = {}
     pop_dict = {"focal": []}
     outgroup_list = []
@@ -26,6 +31,11 @@ def map_to_dict(sample_map, outgroup_id):
 
 
 def find_consensus_base_outgroup(base_dict):
+    '''
+    est-sfs assumes outgroup as haploid, therefore, the total count for each outgroup allele should be "1"
+    input --> {'A': 0, 'C': 1, 'G': 0, 'T': 5}
+    output -> [0, 0, 0, 1]
+    '''
     max_idx = list(base_dict.values()).index(max(base_dict.values()))
     cons_list = [1 if i == max_idx else 0 for i in range(4)]
     return cons_list
@@ -59,7 +69,10 @@ def vcf_to_est_sfs(chrom, vcf_in, sample_map, outgroup_id, model, n_random):
             missing = 0
             ref_allele_count = 0
             alt_allele_count = 0
-            snps = [rec.ref[0].upper(), rec.alts[0].upper()]
+            snps = [
+                rec.ref[0].upper(),
+                rec.alts[0].upper(),
+            ]  # ref or alt alleles can be in lower case
             pop_base_dict = {}
             for pop in pop_dict:
                 pop_base_dict[pop] = {"A": 0, "C": 0, "G": 0, "T": 0}
@@ -94,16 +107,17 @@ def vcf_to_est_sfs(chrom, vcf_in, sample_map, outgroup_id, model, n_random):
                 else:
                     print("invalid genotypes at " + str(rec.pos) + "\n")
                     sys.exit(1)
-            w_line = ""
+            f_line = ""
+            o_line = ""
             for k in pop_base_dict:
                 if missing == 0:
                     if k == "focal":
-                        w_line += ",".join(map(str, pop_base_dict[k].values())) + " "
+                        f_line += ",".join(map(str, pop_base_dict[k].values())) + " "
                     else:
                         base_count_list = find_consensus_base_outgroup(pop_base_dict[k])
-                        w_line += ",".join(map(str, base_count_list)) + " "
+                        o_line += ",".join(map(str, base_count_list)) + " "
+            w_line = f_line.rstrip() + " " + o_line.rstrip()
             if missing == 0:
-                w_line.rstrip()
                 dest_d.write(w_line + "\n")
                 dest_m.write(
                     str(rec.chrom)

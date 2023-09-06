@@ -24,7 +24,7 @@ process PLOT_INTERACTIVE_PCA{
         
         prefix = eigenvect.getSimpleName()
 
-        pca_plot_param = params.pca_plot_params
+        pca_plot_param = params.pca_yml
 
         f_pop_marker = params.f_pop_marker
 

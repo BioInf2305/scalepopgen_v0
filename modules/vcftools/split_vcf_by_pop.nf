@@ -4,10 +4,10 @@ process SPLIT_VCF_BY_POP{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/inputs/phased/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/input_files/", mode:"copy")
 
     input:
-        tuple val(chrom), file(vcf), file(sample_map)
+        tuple val(chrom), path(vcf), path(sample_map), path(isc)
 
     output:
         path("*phased.vcf.gz"), emit: pop_phased_vcf
@@ -16,8 +16,9 @@ process SPLIT_VCF_BY_POP{
         
     
         """
+        awk 'NR==FNR{sample[\$1];next}\$1 in sample{print}' ${isc} ${sample_map} > ${chrom}_keep_selscan.map 
 
-        awk '{print \$1 >>\$2"_id.txt"}' ${sample_map}
+        awk '{print \$1 >>\$2"_id.txt"}' ${chrom}_keep_selscan.map
 
         for fn in \$(ls *_id.txt);
             do

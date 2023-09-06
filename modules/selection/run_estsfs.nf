@@ -4,7 +4,7 @@ process RUN_ESTSFS{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.2"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/detect_ancestral_alleles/est-sfs/", mode:"copy")
+    publishDir("${params.outDir}/selection/ancestral_alleles_determination/est-sfs/", mode:"copy")
 
     input:
         tuple val(chrom), path(vcf), path(idx), path(sample_map)
