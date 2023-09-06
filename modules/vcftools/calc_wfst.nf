@@ -4,7 +4,7 @@ process CALC_WFST{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/unphased_data/pairwise_fst/${prefix}/", mode:"copy")
+    publishDir("${params.outDir}/selection/vcftools/pairwise_fst/${prefix}/", mode:"copy")
 
     input:
         tuple val(prefix), path(vcf), path(pop1_file), path(pop2_file)

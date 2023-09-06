@@ -4,7 +4,7 @@ process CALC_TAJIMA_D{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/unphased_data/tajima_d/${prefix}/", mode:"copy")
+    publishDir("${params.outDir}/selection/vcftools/tajima_d/${prefix}/", mode:"copy")
 
     input:
         tuple val(prefix), path(vcf), path(sample_id)

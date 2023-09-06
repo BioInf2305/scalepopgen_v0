@@ -4,7 +4,7 @@ process EXTRACT_SITES{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.2"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/vcftools/sites_extracted/", mode:"copy")
+    publishDir("${params.outDir}/selection/ancestral_alleles_determination/est-sfs/", mode:"copy")
 
     input:
         tuple val(chrom), path(vcf), path(idx), path(sample_map), path(anc_file)

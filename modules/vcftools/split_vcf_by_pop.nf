@@ -4,7 +4,7 @@ process SPLIT_VCF_BY_POP{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/inputs/phased/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/input_files/", mode:"copy")
 
     input:
         tuple val(chrom), path(vcf), path(sample_map), path(isc)
