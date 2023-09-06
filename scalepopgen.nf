@@ -154,7 +154,7 @@ workflow{
 
             else{
                 rmindilist = Channel.fromPath( params.rem_indi )
-        ril = rmindilist.map{ rmindilist -> if(!file(rmindilist).exists() ){ exit 1,"ERROR: file does not exit -> ${rmindilist}" }else{rmindilist} }
+            ril = rmindilist.map{ rmindilist -> if(!file(rmindilist).exists() ){ exit 1,"ERROR: file does not exit -> ${rmindilist}" }else{rmindilist} }
                 chrom_vcf = chrom_vcf_idx_map.map{chrom, vcf, idx, map -> tuple(chrom,vcf)}
                 REMOVE_INDI( chrom_vcf )
                 PREPARE_NEW_MAP(
@@ -262,7 +262,8 @@ workflow{
         }
     if( params.sig_sel ){
 
-        if( params.tajima_d || params.pi || params.pairwise_fst || params.single_vs_all_fst ){
+
+        if( params.tajimas_d || params.pi || params.pairwise_fst || params.single_vs_all_fst ){
                 RUN_SEL_VCFTOOLS( n1_chrom_vcf_idx_map )
             }
 
