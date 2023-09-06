@@ -4,7 +4,7 @@ process PREPARE_SWEEPFINDER_INPUT{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.1"
-    publishDir("${params.outDir}/selection/file_preparation/clr/", mode:"copy")
+    publishDir("${params.outDir}/selection/sweepfinder2/input_files/", mode:"copy")
 
     input:
         tuple val( chrom ), path( vcf ), path(pop_id), path(anc)

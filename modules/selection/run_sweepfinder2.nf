@@ -4,7 +4,7 @@ process RUN_SWEEPFINDER2{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     container "maulik23/scalepopgen:0.1.1"
-    publishDir("${params.outDir}/selection/results/clr/", mode:"copy")
+    publishDir("${params.outDir}/selection/sweepfinder2/results/${chrom}/", mode:"copy")
 
     input:
         tuple val( pop ), path( freqs ), path( recomb ), path( afs )
@@ -14,6 +14,7 @@ process RUN_SWEEPFINDER2{
 
     script:
         def args = ""
+        chrom = freqs.baseName.split("__")[0]
         out_prefix = freqs.baseName
         if ( !params.use_precomputed_afs && params.use_recomb_map == "none" ){
             if ( params.grid_points > 0 ){

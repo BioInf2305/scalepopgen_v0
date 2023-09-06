@@ -4,7 +4,7 @@ process PHASING_GENOTYPE_BEAGLE {
    label "fourCpus"
    conda "${baseDir}/environment.yml"
    container "maulik23/scalepopgen:0.1.1"
-    publishDir("${params.outDir}/phasing/", mode:"copy")
+   publishDir("${params.outDir}/selection/phasing/beagle/", mode:"copy")
 
    input:        
      tuple val(chrom), path(vcfIn), path(pvcf)

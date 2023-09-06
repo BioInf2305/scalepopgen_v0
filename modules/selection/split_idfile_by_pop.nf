@@ -3,11 +3,12 @@ process SPLIT_IDFILE_BY_POP{
     tag { "splitting_idfile_by_pop" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/input_pop/", mode:"copy")
+    publishDir("${params.outDir}/selection/input_pop/${type_analysis}", mode:"copy")
     container "maulik23/scalepopgen:0.1.1"
 
     input:
         path(sample_map)
+        val(type_analysis)
 
     output:
         path ("*.txt"), emit: splitted_samples

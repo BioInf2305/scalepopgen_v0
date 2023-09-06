@@ -4,7 +4,7 @@ process GENERATE_INTERACTIVE_MANHATTAN_PLOT{
     label "oneCpu"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/interactive_manhattan_plots/", mode:"copy")
+    publishDir("${params.outDir}/selection/interactive_manhattan_plots/${type_measure}/", mode:"copy")
 
     input:
         tuple val(prefix), path(result_files)
