@@ -45,9 +45,12 @@ workflow RUN_SEL_VCFTOOLS{
         n3_chrom_vcf = chrom_vcf_idx_map.map{ chrom, vcf, idx, map -> tuple(chrom, vcf) }
 
         //following module split the map file pop-wise
+        
+        type_analysis = Channel.value('vcftools')
 
         SPLIT_MAP_FOR_VCFTOOLS(
-            map_f
+            map_f,
+            type_analysis
         )
 
         pop_idfile = SPLIT_MAP_FOR_VCFTOOLS.out.splitted_samples.flatten()
@@ -75,7 +78,7 @@ workflow RUN_SEL_VCFTOOLS{
         //following module calculates tajima's d for each chromosome for each pop
         
 
-        if( params.tajima_d ){
+        if( params.tajimas_d ){
 
             CALC_TAJIMA_D( n4_chrom_vcf_popid )
 

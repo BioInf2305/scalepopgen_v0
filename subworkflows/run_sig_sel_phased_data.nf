@@ -42,8 +42,11 @@ workflow RUN_SIG_SEL_PHASED_DATA{
 
         f_map = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> map_f }.unique()
 
+        type_analysis = Channel.value('selscan')
+
         SPLIT_FOR_SELSCAN(
-            f_map
+            f_map,
+            type_analysis
         )
 
         isc = SPLIT_FOR_SELSCAN.out.iss
