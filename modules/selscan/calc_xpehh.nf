@@ -4,7 +4,7 @@ process CALC_XPEHH{
     label "fourCpus"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/phased/multi_pop/xp-ehh/results/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/xp-ehh/", mode:"copy")
 
     input:
         tuple val(chrom), path(t_vcf), path(r_vcf), path(r_map)

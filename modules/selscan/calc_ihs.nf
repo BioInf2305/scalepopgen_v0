@@ -4,7 +4,7 @@ process CALC_iHS{
     label "fourCpus"
     container "maulik23/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
-    publishDir("${params.outDir}/selection/phased/single_pop/iHS/results/", mode:"copy")
+    publishDir("${params.outDir}/selection/selscan/iHS/${chrom}", mode:"copy")
 
     input:
         tuple val(chrom), path(f_vcf), path(f_map), path(anc)
@@ -15,6 +15,7 @@ process CALC_iHS{
     script:
         
         prefix     = f_vcf.baseName
+        chrom = prefix.split("__")[0]
         f_prefix   = anc==[] ? prefix + "_no_anc" : prefix + "_anc"
         def args = ""
 
