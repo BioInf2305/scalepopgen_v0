@@ -3,7 +3,7 @@
 This sub-workflow carried out Admixture analysis, two different Principal Component Analyses, and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
 
 ## Description of the parameters:
-```genetic_structure```:  setting this to False will not run this workflow \
+```genetic_structure```:  setting this to false will not run this workflow \
 ```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4\
 ```ld_window_size```: a window size in variant count or kilo bases (step 4)\
 ```ld_step_size```: number of variants to shift the window at the end of each step (step 4)\
