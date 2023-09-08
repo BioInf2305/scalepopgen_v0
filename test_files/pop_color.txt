@@ -1,0 +1,10 @@
+AlpineIbex	#008000
+Appenzell	#ff5733
+Booted	#0000FF
+ChamoisColored	#d6b919
+Grigia	#aee716
+Peacock	#16e7cc
+Saanen	#75baf3
+Urial	#A52A2A
+Toggenburg	#da4eed
+Bezoar	#FFA500
