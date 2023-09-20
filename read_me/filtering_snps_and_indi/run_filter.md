@@ -47,15 +47,15 @@ For workflow validation, we have downloaded publicly available samples (see map 
 
 Geographic map of samples used for the testing and validation purpose
 
- <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y\
-Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1\
+ <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y \
+Grossen et al. (2020). Purging of highly deleterious mutations through severe bottlenecks in Alpine ibex. *Nature communications*, https://doi.org/10.1038/s41467-020-14803-1 \
 Henkel et al. (2019). Selection signatures in goats reveal copy number variants underlying breed-defining coat color phenotypes. *PLoS genetics*, https://doi.org/10.1371/journal.pgen.1008536
  </font>
 
 ### 1. Required input data files
 The input data should be in the **VCF** or **PLINK binary** format files. 
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, the first information in each row is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
+All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, where, in our case, we inserted the link to the cloud stored data. The first information in each row of input file is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi. Please note that the chromosome id must not contain any punctuation marks.
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
@@ -158,19 +158,19 @@ Bezoar	#FFA500
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 
 ### 3. Setting the parameters
-At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specified some of the general things first:
-```input```: path to the .csv input file for the VCF format or names of the PLINK binary files
-```outDir```: the name of the output folder
-```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input
-```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files 
-```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map 
-```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting
-``` f_pop_cord```: path to the file with geographical locations for map plotting
-```f_pop_color```: path to the file with specified colors for map plotting
-```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input
- ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string
-```max_chrom```: maximum number of chromosomes
-```outgroup```: the population ID of the outgroup
+At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specified some of the general things first: \
+```input```: path to the .csv input file for the VCF format or names of the PLINK binary files \
+```outDir```: the name of the output folder \
+```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input \
+```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files \
+```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map \
+```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting \
+``` f_pop_cord```: path to the file with geographical locations for map plotting \
+```f_pop_color```: path to the file with specified colors for map plotting \
+```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input \
+ ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string \
+```max_chrom```: maximum number of chromosomes \
+```outgroup```: the population ID of the outgroup \
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
 After that, we need to set the parameters in ***/parameters/test/globalfilt_params.config** according to filters we want to use.

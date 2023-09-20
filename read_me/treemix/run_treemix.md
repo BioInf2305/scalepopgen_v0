@@ -3,13 +3,13 @@
 
 This sub-workflow can be invoked using the argument ```treemix = true```. It consists of the following steps:
 
-**1.** generating a file with samples and populations based on sample map provided by the user 
-**2.** converting vcf to treemix input file format using python script 
-**3.** merging converted treemix files (separated by chromosomes) into one 
-**4.** running the treemix analysis without migration edges
-**5.** running the treemix analysis with bootstraps
-**6.** generating consensus tree out of the bootstrapped trees generated in the previous step
-**7.** the treemix analysis with migration edges
+**1.** generating a file with samples and populations based on sample map provided by the user \
+**2.** converting vcf to treemix input file format using python script \
+**3.** merging converted treemix files (separated by chromosomes) into one \
+**4.** running the treemix analysis without migration edges \
+**5.** running the treemix analysis with bootstraps \
+**6.** generating consensus tree out of the bootstrapped trees generated in the previous step \
+**7.** the treemix analysis with migration edges \
 **8.** identify optimal number of migration edges using the procedure as implemented in [OptM](https://academic.oup.com/biomethods/article/6/1/bpab017/6371180) package
 
 > **Note:** If your input files are in Plink format, it will convert them into VCF before the first step.
@@ -43,7 +43,7 @@ Henkel et al. (2019). Selection signatures in goats reveal copy number variants 
 ### 1. Required input data files
 The input data should be in the **VCF** or **PLINK binary** format files. 
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check *test_input_vcf.csv*. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.  
+All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, where, in our case, we inserted the link to the cloud stored data. The first information in each row of input file is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi. Please note that the chromosome id must not contain any punctuation marks.
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
@@ -114,7 +114,7 @@ Bezoar	#FFA500
 ```
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 ### 3. Setting the parameters
-At the beginning we have to look into ***/parameters/process/general_params.config**, where we will specified some of the general things first:
+At the beginning we have to look into ***/parameters/process/general_params.config**, where we will specified some of the general things first:\
 ```input```: path to the .csv input file for the VCF format or names of the PLINK binary files;\
 ```outDir```: the name of the output folder;\
 ```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input;\
