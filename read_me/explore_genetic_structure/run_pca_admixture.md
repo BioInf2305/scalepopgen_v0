@@ -57,7 +57,8 @@ Henkel et al. (2019). Selection signatures in goats reveal copy number variants 
 ### 1. Required input data files
 The input data should be in the VCF or PLINK binary format files.
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. You will have to prepare csv list of those files, please check test_input_vcf.csv. Each row is corresponding to one chromosome and has three different information separated by the comma. Like in example below, the first information in each row is chromosome name, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi.
+All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, where, in our case, we inserted the link to the cloud stored data. The first information in each row of input file is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi. Please note that the chromosome id must not contain any punctuation marks.
+
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
