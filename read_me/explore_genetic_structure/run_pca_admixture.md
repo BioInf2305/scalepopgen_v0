@@ -259,10 +259,10 @@ Figure 2: Population structures of our dataset
 
 The NJ tree of IBS-based (Figure 3) distances positioned the branches of Swiss goats according to their breeds. Alpine ibexes and Bezoar wild goats formed their own clade, inside of which we can see clear distinction between the two species. According to that distribution was also the layout of Fst-based NJ tree (Figure 4), but, unlike the IBS-based tree, here we have population'  divergence.
 
-![image description](../../images/test_ibs_nj_tree.svg)
+![image description](../../images/ibs_tree.svg)
 Figure 3: A neighbor-joining tree constructed with matrix of IBS distances between individuals
 
-![image description](../../images/test_fst_nj_tree.svg)
+![image description](../../images/fst_tree.svg)
 Figure 4: A neighbor-joining tree constructed with Fst distances between populations
 
 
