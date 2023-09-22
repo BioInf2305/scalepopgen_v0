@@ -174,7 +174,7 @@ Bezoar	#FFA500
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 
 ### 3. Setting the parameters
-At the beginning, we have to specify some of the general parameters, which can be found in the first tab of GUI (**general_param**):\
+At the beginning, we have to specify some of the general parameters, which can be found in the first tab of GUI (**general_param**): \
 ```input```: path to the .csv input file for the VCF format or names of the PLINK binary files;\
 ```outDir```: the name of the output folder;\
 ```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input;\
