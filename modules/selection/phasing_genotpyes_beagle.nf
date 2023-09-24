@@ -1,7 +1,7 @@
 process PHASING_GENOTYPE_BEAGLE {
 
    tag { "phasing_${chrom}" }
-   label "fourCpus"
+   label "eightCpus"
    conda "${baseDir}/environment.yml"
    container "maulik23/scalepopgen:0.1.1"
    publishDir("${params.outDir}/selection/phasing/beagle/", mode:"copy")
