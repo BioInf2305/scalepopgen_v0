@@ -8,6 +8,8 @@ include { SPLIT_VCF_BY_POP } from '../modules/vcftools/split_vcf_by_pop'
 include { PREPARE_MAP_SELSCAN } from '../modules/selection/prepare_map_selscan'
 include { CALC_iHS } from '../modules/selscan/calc_ihs'
 include { CALC_XPEHH } from '../modules/selscan/calc_xpehh'
+include { NORM as NORM_iHS } from '../modules/selscan/norm'
+include { NORM as NORM_XPEHH } from '../modules/selscan/norm'
 
 def PREPARE_PAIRWISE_VCF( file_list_pop ){
 
@@ -28,19 +30,19 @@ def PREPARE_PAIRWISE_VCF( file_list_pop ){
 
 workflow RUN_SIG_SEL_PHASED_DATA{
     take:
-        chrom_vcf_idx_map_anc
+        chrom_vcf_idx_map
 
     main:
 
         //prepare input for phasing_genotpyes_beagle//
 
-        chrom_vcf = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> tuple(chrom, vcf) }
+        chrom_vcf = chrom_vcf_idx_map.map{ chrom, vcf, idx, map_f -> tuple(chrom, vcf) }
 
-        chrom_anc = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> tuple(chrom, anc) }
+        //chrom_anc = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> tuple(chrom, anc) }
 
         // input for split_vcf_by_pop //
 
-        f_map = chrom_vcf_idx_map_anc.map{ chrom, vcf, idx, map_f, anc -> map_f }.unique()
+        f_map = chrom_vcf_idx_map.map{ chrom, vcf, idx, map_f -> map_f }.unique()
 
         type_analysis = Channel.value('selscan')
 
@@ -80,7 +82,7 @@ workflow RUN_SIG_SEL_PHASED_DATA{
         }
         p_chrom_vcf_map_isc = p_chrom_vcf_map.combine(isc)
 
-        //preparing map file ihs, nsl and XP-EHH analysis, needed by selscan
+        //preparing map file ihs and XP-EHH analysis, needed by selscan
 
 
         if( params.selscan_map != "none" ){
@@ -116,11 +118,19 @@ workflow RUN_SIG_SEL_PHASED_DATA{
                 
                 n1_p_chrom_vcf_recombmap = p_chrom_vcf.combine(n1_chrom_recombmap, by:0)
 
-                n1_p_chrom_vcf_recombmap_anc = n1_p_chrom_vcf_recombmap.combine(chrom_anc, by: 0)
+                //n1_p_chrom_vcf_recombmap_anc = n1_p_chrom_vcf_recombmap.combine(chrom_anc, by: 0)
 
 
                 CALC_iHS(
-                    n1_p_chrom_vcf_recombmap_anc.map{chrom, vcf, recomb, anc -> tuple(chrom, vcf, recomb, anc == "none"? []:anc)}
+                    n1_p_chrom_vcf_recombmap
+                )
+                
+                
+               si = Channel.value('ihs') 
+
+                NORM_iHS(
+                    CALC_iHS.out.t_pop_ihsout.groupTuple(),
+                    si
                 )
 
         }
@@ -129,6 +139,13 @@ workflow RUN_SIG_SEL_PHASED_DATA{
                
                 CALC_XPEHH(
                     chrom_tvcf_rvcf_recombmap
+                )
+                
+                sx = Channel.value('ihs') 
+
+                NORM_XPEHH(
+                    CALC_XPEHH.out.t_pop_xpehhout.groupTuple(),
+                    sx
                 )
         }
 }
