@@ -1,27 +1,27 @@
 ## scalepopgen: PCA, IBS-based clustering, Fst and ADMIXTURE analysis
 
-This sub-workflow carried out Admixture analysis, two different Principal Component Analyses, and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument: ``` run_smartpca = true```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument: ``` run_gds_pca = true```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ``` admixture = true```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
+This sub-workflow carried out Admixture analysis, two different Principal Component Analyses, and clustering based on Identity by State distances and Fst . The first PCA is done with the function SmartPCA of the [EIGENSOFT](https://github.com/chrchang/eigensoft/tree/master/POPGEN) software and performed with the argument ```run_smartpca```. The second one is done by using the function snpgdsPCA inside the R package [SNPRelate](https://code.bioconductor.org/browse/SNPRelate/RELEASE_3_17/) and can be invoked with the argument ```run_gds_pca```. Analysis with the program [Admixture](https://dalexander.github.io/admixture/) are carried out with the argument ```admixture```.  Both clustering are done with [Plink](https://www.cog-genomics.org/plink/2.0/) calculations of Fst and IBS.
 
 ## Description of the parameters:
-```genetic_structure```:  setting this to false will not run this workflow \
+```genetic_structure```: setting this to false will not run this sub-workflow \
 ```ld_filt```: an option to use LD-based filtering according to parameters specified below, meaning to include or skip step 4\
 ```ld_window_size```: a window size in variant count or kilo bases (step 4)\
 ```ld_step_size```: number of variants to shift the window at the end of each step (step 4)\
 ```r2_value```: squared correlation threshold; at each step, only pairs of variants with r2 greater than the threshold are recognized (step 4)\
-```structure_remove_indi```: the name of a file with listed samples that will be removed in **all any anylses** in this sub-workflow\
+```structure_remove_indi```: the name of a file with listed samples that will be removed in **all of anylses** in this sub-workflow\
 ```smartpca_param```: the path to the file with additional parameters for SmartPCA (step 6)\
-```pop_color_file```: the path to the text file with specified color codes for each population (steps 7 and 9)\
-```f_pop_marker```: the path to the text file with specified mark shape for each population (steps 7 and 9)\
-```pca_plot_params```: the path to the yml file containing the parameters to plot interactive PCA results (steps 7 and 9)\
+```pop_color_file```: the path to the text file with specified color codes for each population (steps 7, 9, 10 and 11)\
+```f_pop_marker```: the path to the text file with specified marker shapes for each population (steps 7 and 9)\
+```pca_yml```: the path to the yml file containing the parameters to plot interactive PCA results (steps 7 and 9)\
 ```starting_k_value```: starting number of clusters for Admixture analysis (step 12)\
 ```ending_k_value```: maximal number of clusters for Admixture analysis (step 12)\
 ```cross_validation```: the number of folds for cross-validation (step 13)\
 ```termination_criteria```: the lowest limit of the log-likelihood change between iterations to stop the process of cross-validation (step 13), option "-C" in program Admixture\
-```pop_labes```: the path to the text file with population IDs that should be plotted on admixture graph (step 14)\
+```plot_pop_order```: the path to the text file with population IDs in order they should be plotted on admixture graph (step 14)\
 ```fst_based_nj_tree```: an option to estimate NJ tree based on pairwise Fst distances between each pair of populations (step 10)\
-```nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 10)\
+```fst_nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree based on Fst (step 10)\
 ```est_1_min_ibs_based_nj_tree```: an option to estimate NJ tree based on 1-ibs distance between each pair of samples in the dataset (step 11)\
-```ibs_nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree (step 11)
+```ibs_nj_yml```: the path to the yml file containing parameters of plotting interactive NJ tree based on 1-ibs (step 11)
 
 ## Overview of the processed carried out in this sub-workflow: 
 
@@ -46,7 +46,6 @@ This sub-workflow carried out Admixture analysis, two different Principal Compon
 For workflow validation, we have downloaded publicly available samples (see map below) with whole genome sequences from NCBI database (Alberto et al., 2018; Grossen et al., 2020; Henkel et al., 2019). We included domestic goats (*Capra hircus*) represented by various breeds from Switzerland. In addition to them, we also included Alpine ibex (*C. ibex*) and Bezoar wild goat (*C. aegagrus*). Since we need an outgroup when performing some of the analyses, we also added Urial sheep (*Ovis vignei*). We will use variants from chromosome 28 and 29 of, all together, 85 animals.
 
 ![plot](../../images/Sample_info.png)
-
 Geographic map of samples used for the testing and validation purpose
 
  <font size="2">Alberto et al. (2018). Convergent genomic signatures of domestication in sheep and goats. *Nature communications*, https://doi.org/10.1038/s41467-018-03206-y \
@@ -57,8 +56,7 @@ Henkel et al. (2019). Selection signatures in goats reveal copy number variants 
 ### 1. Required input data files
 The input data should be in the VCF or PLINK binary format files.
 
-All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_input_vcf.csv* or the example below, where, in our case, we inserted the link to the cloud stored data. The first information in each row of input file is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi. Please note that the chromosome id must not contain any punctuation marks.
-
+All VCF files need to be splitted by the chromosomes and indexed with tabix. Please check *test_files/test_input_vcf.csv* or the example below, where, in our case, we inserted the link to the cloud stored data. The first information in each row of input file is chromosome id, next is path/to/the/file.vcf.gz and the last is path/to/the/file.vcf.gz.tbi. Please note that the chromosome id must not contain any punctuation marks.
 ```
 chr28,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/28_filt_samples.vcf.gz.tbi
 chr29,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz,https://data.cyverse.org/dav-anon/iplant/home/maulik88/29_filt_samples.vcf.gz.tbi
@@ -102,13 +100,13 @@ SRR12396950urial	Urial
 For the Plink binary input, user need to specify the path to the BED/BIM/FAM files in the section of general parameters:
 ```input= "path/to/the/files/*.{bed,bim,fam}"```
 ### 2. Optional input data files
-In this module, the samples to be removed in given analyses (```structure_remove_indi```) can be provided. For example, during the filtering (in theearlier step of sample filtering), the samples of Grigia goat breed removed from the analyses (```--rem_indi```). Here, for the pca, all samples of the outgroup will be excluded. A space/tab-delimited text file with family IDs in the first column and within-family IDs in the second column should be provided:
+In this module, the samples that should be removed in given analyses (```structure_remove_indi```) can be provided. For example, during the filtering (in the earlier step of sub-workflow), the samples of Grigia goat breed were removed (```rem_indi```). Here, for the PCA and admixture, all samples of the outgroup will be excluded. A space/tab-delimited text file with population IDs in the first column and sample IDs in the second column should be provided (*test_files/remove_outgroup.txt*):
 ```
 Urial 454948_T1
 Urial ERR454947urial
 Urial SRR12396950urial
 ```
-The desired colors and mark shapes for each population can also be provided for the plotting purpose. For example, ```pop_color_file```, a tab-delimited text file, where the population names are in the first column and specified hex color codes in the second:
+The desired colors and mark shapes for each population can also be provided for the plotting. For example, ```pop_color_file```, a tab-delimited text file, where the population names are in the first column and specified hex color codes in the second *test_files/pop_color.txt*:
 ```
 AlpineIbex	#008000
 Appenzell	#ff5733
@@ -121,7 +119,7 @@ Urial	#A52A2A
 Toggenburg	#da4eed
 Bezoar	#FFA500
 ```
-Similarly, prepare another file for ```f_pop_marker``` with specified mark shapes that are listed in **./extra/markershapes.txt**.
+Similarly, prepare another file for ```f_pop_marker``` with specified marker shapes that are listed in **./extra/markershapes.txt**. Here is the example of *test_files/pop_shape.txt*:
 ```
 AlpineIbex	square_default
 Appenzell	circle_default
@@ -134,21 +132,21 @@ Urial	diamond_default
 Toggenburg	circle_default
 Bezoar	triangle_default
 ```
-Additionally, we will change population IDs to scientific names (```pop_labels```), which will be considered only for plotting the results of Admixture. The file name should end with ".map" like the input sample map. We need to prepare a text file with new population IDs in the second column and old ones in the first:
+Additionally, we will like to plot admixture results in a certain order of populations (```plot_pop_order```). For that, we need to prepare a text file with ordered population IDs in one column *test_files/pop_order.txt*:
 ```
-AlpineIbex	Capra_ibex
-Appenzell	Capra_hircus
-Booted	Capra_hircus
-ChamoisColored	Capra_hircus
-Grigia	Capra_hircus
-Peacock	Capra_hircus
-Saanen	Capra_hircus
-Toggenburg	Capra_hircus
-Bezoar	Capra_aegagrus
+Appenzell
+Booted
+ChamoisColored
+Grigia
+Peacock
+Saanen
+Toggenburg
+Bezoar
+AlpineIbex
 ```
 In the case of PCA with the program SmartPCA, you can also provide your own file with optional parameters (```smartpca_param```). Please, make one according to the [instructions of the EIGENSOFT software](https://github.com/chrchang/eigensoft/tree/master/POPGEN).
 
-With this tool, we also have an option to draw a geographic map with samples' origin. For that we need to provide two files. In the first one we write down population ID in the first column and comma separated latitude and longitude in second column.
+This workflow also has an option to draw a geographic map with samples' origin. For that, we need to provide two files with coordinates (```f_pop_cord```) and colors (```f_pop_color```). In the first one (*test_files/geo_data.txt*), we write down population IDs in the first column and comma separated latitudes and longitudes in second column.
 ```Bezoar	32.662864436650814,51.64853259116807
 Urial	34.66031157,53.49391737
 AlpineIbex	46.48952713,9.832698605
@@ -160,7 +158,7 @@ Toggenburg	47.358160245764715,9.01070577172017
 Grigia	46.24935612558498,8.700996940189137
 Saanen	46.9570926960748,8.205509946726016
 ```
-In the second file, we will specified the hex codes of colors that will represent each population.
+In the second file, we specified the hex codes of colors that will represent each population (*test_files/pop_color.txt*).
 
 ```AlpineIbex	#008000
 Appenzell	#ff5733
@@ -176,67 +174,27 @@ Bezoar	#FFA500
 The last file is not obligatory as the tool can choose random colors, while the first one with coordinates is necessary for map plotting.
 
 ### 3. Setting the parameters
-At the beginning of the parameter file ***/parameters/process/general_params.config**, we have to specify some of the general things first:
+At the beginning, we have to specify some of the general parameters, which can be found in the first tab of GUI (**general_param**): \
 ```input```: path to the .csv input file for the VCF format or names of the PLINK binary files;\
 ```outDir```: the name of the output folder;\
 ```sample_map```: path to the file with the suffix ".map" that have listed individuals and populations as addition to VCF input;\
 ```concate_vcf_prefix```: file prefix of the genome-wise merged vcf files;\
-```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a map;\
+```geo_plot_yml```: path to the yaml file containing parameters for plotting the samples on a geographical map;\
 ```tile_yml```: path to the yaml file containing parameters for the geographical map to be used for plotting;\
-``` f_pop_cord```: path to the file with geographical locations for map plotting;\
+```f_chrom_len```: path to the file with chromosomes' length for the Plink binary inputs;\
+```f_pop_cord```: path to the file with geographical locations for map plotting;\
 ```f_pop_color```: path to the file with specified colors for map plotting;\
 ```fasta```: the name of the reference genome fasta file that will be used for converting in case of PLINK input;\
- ```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string;\
+```allow_extra_chrom```: set to true if the input contains chromosome name in the form of string;\
 ```max_chrom```: maximum number of chromosomes;\
 ```outgroup```: the population ID of the outgroup;\
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
-After that, there is a parameter file dedicated to the PCA, Admixture and both NJ clustering analyses (***/parameters/process/genstruct_params.config**). 
+Move forward to the tab named **genstruct_params** dedicated to the PCA, Admixture and both NJ clustering analyses, where we specify parameters described at the begining of this read.me. At the end, save the parameters as yml file. 
 
-**// general parameters**
-
-    input                     = "test_files/test_input_vcf.csv"
-    outDir                    = "${baseDir}/../test_genstruct/"
-    sample_map                = "test_files/sample.map"
-    concate_vcf_prefix        = "goats"
-    geo_plot_yml              = "${baseDir}/parameters/plots/plot_sample_on_map.yml"
-    tile_yml                  = "${baseDir}/parameters/plots/tiles_info.yml"
-    f_pop_cord                = "${baseDir}/test_files/geo_data.txt"
-    f_pop_color               = "${baseDir}/test_files/pop_color.txt"
-    fasta                     = "none"
-    chrm_map                  = "none"
-    allow_extra_chrom         = true 
-    max_chrom                 = 2
-    outgroup                  = "Urial"
-    cm_to_bp                  = 1000000
-
-**//genetic structure parameters**
-
-    genetic_structure           = true
-    run_smartpca                = true
-    run_gds_pca                 = true
-    ld_filt                     = true
-    ld_window_size              = 50
-    step_size                   = 10
-    r2_value                    = 0.01
-    structure_remove_indi       = "${baseDir}/test_files/remove_outgroup.txt"
-    smartpca_param              = "none"
-    pop_color_file              = "${baseDir}/test_files/pop_color.txt"
-    f_pop_marker                = "${baseDir}/test_files/pop_shape.txt"
-    pca_plot_params             = "${baseDir}/parameters/plots/pca.yml"
-    admixture                   = true
-    starting_k_value            = 2
-    ending_k_value              = 10
-    cross_validation            = 5
-    termination_criteria        = 0.0001
-    pop_labels                  = "${baseDir}/test_files/pop_new_labels.map"
-    fst_based_nj_tree           = true
-    nj_yml                      = "${baseDir}/parameters/plots/fst_nj.yml"
-    est_1_min_ibs_based_nj_tree = true
-    ibs_nj_yml                  = "${baseDir}/parameters/plots/ibs_nj.yml"
-After setting the parameter file, choose any profile, we prefer, mamba, and set maximum 10 processes that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
+After setting the parameters, choose any profile, we prefer mamba, and set maximum number of processes, 10 in our case, that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
 ```
-nextflow run scalepopgen.nf -profile mamba,test_genstruct -resume -qs 10
+nextflow run scalepopgen.nf  -params-file gen_struct.yml -profile mamba -qs 10
 ```
 You can check all the other command running options with the option help :
 ```
@@ -270,42 +228,24 @@ Succeeded   : 25
 ```
 
 ### 4. Description of the output files generated by this sub-workflow:
+The results are stored in the folder **./genetic_structure** and inside we have subfolders of each PCA, Admixture and interactiv plots. In subfolder **/plink** are stored files after modifying and filtering steps.
 
-->**~/genetic_structure/smartpca/**:\
----->**\*_update_chrm_ids.ped** , **\*_update_chrm_ids.map**, 
-**\*_update_chrm_ids.snp** , **\*_update_chrm_ids.ind** and **\*_update_chrm_ids.eigenstratgeno** : input files used for the program\
----->**\*_update_chrm_ids.smartpca.par** : \
----->**\*_update_chrm_ids.ped_to_eigenstraat.par** : \
----->**\*_update_chrm_ids.evec** : a table of a positions for each individual along with eigenvectors in the header row\
----->**\*_update_chrm_ids.eval** : a column of ordered eigenvalues corresponding to the eigenvectors
+![folders](../../images/genstruct_dir.PNG)
 
-->**~/genetic_structure/gds_pca**/:\
----->**\*_update_chrm_ids.varprop** : proportion of variance for each principal component\
----->**\*_update_chrm_ids.jpeg** : graph of first two eigenvalues\
----->**\*_update_chrm_ids.eigenvect** : a table of eigenvectors for each individual\
----->**\*_update_chrm_ids.gds** :  \
----->**\*_update_chrm_ids_snprelate.eigenvect** :  \
----->**\*_update_chrm_ids_snprelate.varprop** : 
+Each PCA has its own folder with eigenvectors and eigenvalues:
+![folders](../../images/gds_PCA_dir.PNG)
 
-->**~/genetic_structure/admixture**: \
----->**\*_update_chrm_ids.\${K}\.P** : table of the allele frequencies inferred for each SNP in each population\
----->**\*_update_chrm_ids.\${K}\.Q** : table of inferred individual ancestry proportions from the K ancestral populations, with one row per individual\
----->**best_k_\${K}\.png** : the plot of CV errors for determinating optimal K value\
----->**\*_update_chrm_ids.\${K}\.Q.png** : the admixture plot of the optimal K value\
----->**pong_input.map** : the input file for the program Pong
+![folders](../../images/smartPCA_dir.PNG)
 
-->**~genetic_structure/interactive_plots/**:
----->**~/pca/**: interactive plots of both PCAs\
----->**~/1_min_ibs_clustering/**: plink output files and plotted IBS-based interactive tree,additionally this folder also conatains the list of populations whose samples form polyphyletic patterns in the tree\
----->**~/fst/**: plink output files and plotted Fst-based interactive tree
+Folder admixture contains Q-matrices for each K value together with interactive plot of optimal K:
 
-->**~/plink/**: \
----->**~/update_chrom_ids/**: folder with plink binary files after updating chromosome names\
----->**~/ld_filtering/**: folder with plink binary files after LD filtering\
----->**~/rem_indi_genetic_structure/**: folder with plink binary files after removing samples specified at ```structure_remove_indi```\
----->**~/merged_bed/**: folder with chromosome-merged plink binary files 
+![folders](../../images/admixture_dir.PNG)
 
-Our results are stored in output folder **/test_genstruct** and inside we have two subfolders. In subfolder **/plink** are stored files after modifying and filtering steps. In the subfolder **/genetic_structure** we can see the results of each analysis in a separate folders. The tool will provide us interactive plots in the subfolder **/interactive_plots** for both PCAs as well as for IBS- and Fst-based neighbor-joining trees. The admixture plot can be found in **/admixture**.
+Interactive plots of  PCA and both NJ trees are stored here:
+
+![folders](../../images/genstruct_plots_dir.PNG)
+
+
 Let's take a look at the PCA plots first. On both of them our samples cluster into three groups. In the first one we can found all breeds of domestic goats from Switzerland. In another cluster are Alpine ibexes and in the third one are Bezoar wild goats.
 
 ![image description](../../images/test_pca_plot.svg)
@@ -314,29 +254,24 @@ Figure 1: Interactive plots of both Principal Component Analyses
 
 Program Admixture estimated the optimal number of clusters at five. As we can see on Figure 2, four Swiss goats (Booted, Chamois colored, Peacock and Saanen) are showing very similar genomic structures. Appenzell and Toggenburg goat breeds have distinct and more homogeneous structures with some individual goats that share segments with other breeds from Switzerland. Both wild species, Alpine ibex and Bezoar, have uniform genetic structures.
 
-![plot](../../images/test_admixture.1.png)
-![plot](../../images/test_admixture.2.png)
-
+![plot](../../images/admixture_plot.svg)
 Figure 2: Population structures of our dataset
 
 The NJ tree of IBS-based (Figure 3) distances positioned the branches of Swiss goats according to their breeds. Alpine ibexes and Bezoar wild goats formed their own clade, inside of which we can see clear distinction between the two species. According to that distribution was also the layout of Fst-based NJ tree (Figure 4), but, unlike the IBS-based tree, here we have population'  divergence.
 
-![image description](../../images/test_ibs_nj_tree.svg)
+![image description](../../images/ibs_tree.svg)
 Figure 3: A neighbor-joining tree constructed with matrix of IBS distances between individuals
 
-![image description](../../images/test_fst_nj_tree.svg)
+![image description](../../images/fst_tree.svg)
 Figure 4: A neighbor-joining tree constructed with Fst distances between populations
 
 
 ### 5. Generating the interactive plots without running the workflow
 For generating the interactive pca plot only (withut re-running the workflow), one can use the following command: 
-
 ```
 python3 plot_interactive_pca.py <eigenvect_file> <eigenval_file> pop_markershape_col.txt pca.yml <output_prefix>
 ```
-
 The python script is located in the bin folder of scalepopgen. **<eigenvect_file>** and **<eigenval_file>** are located in the respective output folders of smartpca and gds_pca. The yaml file is located in "/parameters/plots/" folder. **pop_markershape_col.txt** is located in the folder of "interactive_plots/pca/" or one can also create this tab-delimited file with this format: the first column is pop_id, the second column is shape_id, the third column is hex color code. Refer to "./extra/markershapes.txt" to see the list of shapes implemented in this bokeh-dependent python script. The parameters of the yaml files are described below:
-
 ```
  plot_width: plot-width size in pixel
  plot_height: plot-height size in pixel
@@ -349,13 +284,53 @@ The python script is located in the bin folder of scalepopgen. **<eigenvect_file
 ```
 **For plotting the large number of samples and population, increase the plot_width and plot_height size, reduce the marker_size and set show_sample_label to false**
 
-For generating the IBS-dist interactive NJ trees, one can use the following command:
+Next, the admixture plot can be also generated with the following command: 
+```
+python3 plot_interactive_q_mat.py -q <Q_matrix_file> -f <plink_fam_file> -y admixture.yml -c color.txt -o <output_prefix> -s plot_pop_order.txt
+```
+The python script located in the bin folder of scalepopgen. **<Q_matrix_file>** is located in the respective output folder of admixture. The file <plink_fam_file> is located in folder **./plink/update_chrom_ids/*.fam**. Text files **color.txt** and **plot_pop_order.txt** can be created by the user. File **color.txt** has hex color codes listed in one column:
+```
+#FF0000
+#00FF00
+#0000FF
+#FFFF00
+#FF00FF
+#00FFFF
+#FFA500
+#800080
+#008000
+#800000
+```
+Similarly, in file **plot_pop_order.txt** population IDs are listed in one column according to the order they should be plotted:
+```
+Appenzell
+Booted
+ChamoisColored
+Peacock
+Saanen
+Toggenburg
+Bezoar
+AlpineIbex
+```
+The yaml file **admixture.yml** is located in "/parameters/plots/" and it cointains parameters described below:
+```
+ width: plot-width size in pixel
+ height: plot-height size in pixel
+ bar_width: the width of each sample bar
+ sample_label_orientation: degrees of anlge at which the sample labels should be written
+ pop_label_orientation: degrees of anlge at which the population labels should be written
+ space_pop_group: the width of space between populations
+ legend_font_size: font size of the legend
+ num_legend_per_col: number of different K per column
+ label_font_size: font size of the labels
+ fil_alpha: fill-color intensity 
+```
 
+For generating the IBS-dist interactive NJ trees, one can use the following command:
 ```
 python3 make_ibs_dist_nj_tree.py -r <outgroup> -i <square_mat_mdist_file> -m <mdist.id_file> -c pop_sc_color.map -y ibs_nj.yml -o <output_prefix>
 ```
 The python script is located in the bin folder of scalepopgen. **<outgroup>** refers to the population to be used for rooting the tree, **<square_mat_mdist_file>** refers to the sqaure matrix of 1-ibs distance between pairwise samples and generated by plink1.9, **<mdist.id_file>** refers to id file generated along with the square matrix by plink1.9, **pop_sc_color.map* is the tab-delimited file containing the first column as pop_id, second column as sample size and the third column as hex color code. Also generated by the workflow and saved in the output folder as **pop_sc_color.map**. The yml file is located in "parameter/plots/" folder. The parameter of the yml files are described below:
-
 ```
  width: plot-width size in pixel
  height: plot-height size in pixel
@@ -369,7 +344,6 @@ The python script is located in the bin folder of scalepopgen. **<outgroup>** re
 The python script can also be run directly using the file containing tree in newick format. For more details run "python3 make_ibs_dist_nj_tree.py -h". As the python script is dependent on Toytree, for more details of these parameters, refer to [Toytree](https://toytree.readthedocs.io/en/latest/) documentation.
 
 For generating the fst-based NJ tree, one can use the following command:
-
 ```
 python3 make_fst_dist_nj_tree.py -i <fst_summary_file_generated_by_plink2> -r <outgroup> -o <output_prefix> -y fst_nj.yml -c pop_sc_color.map
 ``` 
@@ -390,6 +364,8 @@ Please cite the following papers if you use this sub-workflow in your study:
 [6] Huerta-Cepas, J. et al.,(2016). ETE 3: Reconstruction, Analysis, and Visualization of Phylogenomic Data, Molecular Biology and Evolution, Volume 33, Issue 6, June 2016, Pages 1635–1638, https://doi.org/10.1093/molbev/msw046.
 
 [7] Eaton, Deren. (2019). Toytree: A minimalist tree visualization and manipulation library for Python. Methods in Ecology and Evolution. 11. 10.1111/2041-210X.13313. 
+
+[8] Di Tommaso, P., Chatzou, M., Floden, E. et al. Nextflow enables reproducible computational workflows. Nat Biotechnol 35, 316-319 (2017). https://doi.org/10.1038/nbt.3820
 
 ## License
 

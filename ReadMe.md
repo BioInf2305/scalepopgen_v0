@@ -14,7 +14,7 @@
 <li><a href="#to-do">To do</a></li>
 </ul>
 <h3 id="about-scalepopgen">About scalepopgen</h3>
-<p>scalepopgen is a fully automated nextflow-based pipeline that takes vcf files or plink generated bed files as input and employ a variety of open-source tools to carry out comprehensive population genomic analyses. Additionally, python and R scripts have been developed to combine and (wherever possible) plot the results of various analyses</p>
+<p>scalepopgen is a fully automated nextflow-based pipeline that takes vcf files or plink generated bed files as input and employ a variety of open-source tools to carry out comprehensive population genomic analyses. Additionally, python and R scripts have been developed to combine and (wherever possible) plot the results of various analyses.</p>
 <p>Broadly, the pipeline consists of the following four “sub-workflows”:</p>
 <ul>
 <li><a href="https://github.com/BioInf2305/scalepopgen_v3/blob/main/read_me/filtering_snps_and_indi/run_filter.md">filtering and basic statistics</a></li>
@@ -24,7 +24,7 @@
 </ul>
 <p>These four sub-workflows can be run separately or in combination with each other.</p>
 <h3 id="setup-and-test-the-pipeline">Setup and test the pipeline</h3>
-<p>The pipeline can be run on any Linux operating system and require these three dependencies: Java, nextflow (<a href="https://www.nature.com/articles/nbt.3820">Di Tommaso et al., 2017</a>) and a software container or environment system such as <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">conda</a>, <a href="https://mamba.readthedocs.io/en/latest/installation.html">mamba</a>, <a href="https://sylabs.io">singularity</a>, or <a href="https://www.docker.com">docker</a>. The pipeline can also be run both on local linux system as well as on high performance computing (HPC) clusters. Note that all the software related dependencies of the pipeline will be handled by nextflow after it is installed. scalepopgen was built and tested on nextflow version 22.10.6.5843, conda version 23.1.0 and singularity version 3.8.6.</p>
+<p>The pipeline can be run on any Linux operating system and require these three dependencies: Java, nextflow (<a href="https://www.nature.com/articles/nbt.3820">Di Tommaso et al., 2017</a>) and a software container or environment system such as <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">conda</a>, <a href="https://mamba.readthedocs.io/en/latest/installation.html">mamba</a>, <a href="https://sylabs.io">singularity</a>, or <a href="https://www.docker.com">docker</a>. The pipeline can also be run on both local linux system as well as high performance computing (HPC) clusters. Note that all the software related dependencies of the pipeline will be handled by nextflow after it is installed. Meaning that the user install only the three dependencies listed above, while nextflow automatically downloads the rest of the tools for the analyses. scalepopgen was built and tested on nextflow version 22.10.6.5843, conda version 23.1.0 and singularity version 3.8.6.</p>
 <p>To test the pipeline, simply run the following command:</p>
 <pre class=" language-bash"><code class="prism  language-bash">nextflow run scalepopgen.nf -profile mamba,test_genstruct
 </code></pre>
