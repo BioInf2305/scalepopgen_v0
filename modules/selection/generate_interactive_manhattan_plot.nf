@@ -18,9 +18,9 @@ process GENERATE_INTERACTIVE_MANHATTAN_PLOT{
 
     script:
 
-        def sel_perc_threshold = params.sel_perc_threshold
+        def sel_perc_threshold = params.sel_perc_cutoff
 
-        manhattan_yml = params.manhattan_yml
+        manhattanp_yml = params.manhattplot_yml
 
         def opt_args = ""
         
@@ -43,7 +43,7 @@ process GENERATE_INTERACTIVE_MANHATTAN_PLOT{
 
             co="\$(awk -v v_tl=\$tl 'NR==v_tl{print \$NF}' ${prefix}_${type_measure}_merged_results.2.txt)"
             
-            python3 ${baseDir}/bin/make_manhattan_plot.py ${prefix}_${type_measure}_merged_results.1.txt ${manhattan_yml} \$co ${window_size} ${type_measure} ${prefix}_${type_measure}_merged_results 
+            python3 ${baseDir}/bin/make_manhattan_plot.py ${prefix}_${type_measure}_merged_results.1.txt ${manhattanp_yml} \$co ${window_size} ${type_measure} ${prefix}_${type_measure}_merged_results 
             
 
             """ 
