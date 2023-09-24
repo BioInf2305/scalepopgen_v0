@@ -269,13 +269,13 @@ workflow{
 
         if( params.clr || params.ihs || params.xpehh ){
                 
-                PREPARE_ANC_FILES( n1_chrom_vcf_idx_map )
 
                 if( params.clr ){
+                        PREPARE_ANC_FILES( n1_chrom_vcf_idx_map )
                         RUN_SEL_SWEEPFINDER2( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )
                 }
                 if ( params.ihs || params.xpehh ) {
-                        RUN_SIG_SEL_PHASED_DATA( PREPARE_ANC_FILES.out.n2_chrom_vcf_idx_map_anc )
+                        RUN_SIG_SEL_PHASED_DATA( n1_chrom_vcf_idx_map )
                 }
         }
 
