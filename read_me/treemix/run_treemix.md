@@ -124,9 +124,9 @@ At the beginning, we have to specify some of the general parameters, which can b
 ```outgroup```: the population ID of the outgroup;\
 ```cm_to_bp```: the number of base pairs that corresponds to one cM
 
-Move forward to the tab named **treemix**, where we specify parameters described at the begining of this read.me. At the end, save the parameters as yml file. 
+When we have filled in all the general parameters, we can move to the tab **treemix**, where we specify parameters described at the beginning of this documentation. At the end, save the parameters as yml file. 
 
-After setting the parameters, choose any profile, we prefer mamba, and set maximum number of processes, 10 in our case, that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
+After setting all parameters and exporting them as yml file, we are ready to start the workflow. Choose any profile, we prefer mamba, and set the maximum number of processes, 10 in our case, that can be executed in parallel by each executor. From within the **scalepopgen** folder, execute the following command:
 ```
 nextflow run scalepopgen.nf  -params-file treemix.yml -profile mamba -qs 10
 ```
@@ -161,8 +161,8 @@ According to different options that this tool is offering to run the TreeMix, th
 ![folders](../../images/treemix_dir.png)
 
 ->**/input_files/**: input files for the program TreeMix\
-->**/out_tree_default_m0/**: output files from the TreeMix analysis without bootstraping and migration events (step 4) \
-->**/out_tree_bootstrap/**: output files from the TreeMix analysis with bootstraping (step 5) \
+->**/out_tree_default_m0/**: output files from the TreeMix analysis without bootstrapping and migration events (step 4) \
+->**/out_tree_bootstrap/**: output files from the TreeMix analysis with bootstrapping (step 5) \
 ->**/out_tree_mig/**: output files from the TreeMix analysis with migration events (steps 7 and 8) \
 ->**/consensus_trees/**: output consensus trees (step 6)
 
@@ -185,6 +185,7 @@ Please cite the following papers if you use this sub-workflow in your study:
 ## License
 
 MIT
+
 
 
 
