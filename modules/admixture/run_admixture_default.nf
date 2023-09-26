@@ -3,7 +3,7 @@ process RUN_ADMIXTURE_DEFAULT{
     tag { "run_admixture_${k}" }
     label "sixteenCpus"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/genetic_structure/admixture/", mode:"copy")
 
     input:

@@ -3,7 +3,7 @@ process RUN_TREEMIX_DEFAULT{
     tag { "run_treemix_default_${prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/treemix/out_tree_default_m0", pattern:"*_out*",mode:"copy")
 
     input:

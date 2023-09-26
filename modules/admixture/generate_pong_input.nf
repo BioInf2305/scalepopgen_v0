@@ -3,7 +3,7 @@ process GENERATE_PONG_INPUT{
     tag { "generating_pong_input" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/genetic_structure/admixture/", mode:"copy")
 
     input:

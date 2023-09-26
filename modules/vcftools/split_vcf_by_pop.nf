@@ -2,7 +2,7 @@ process SPLIT_VCF_BY_POP{
 
     tag { "split_vcf_by_pop_${chrom}" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/selscan/input_files/", mode:"copy")
 
@@ -22,7 +22,7 @@ process SPLIT_VCF_BY_POP{
 
         for fn in \$(ls *_id.txt);
             do
-                vcftools --gzvcf ${vcf} --keep \${fn} --recode --stdout |bgzip -c > ${chrom}__\$(basename \$fn _id.txt)_phased.vcf.gz
+                vcftools --gzvcf ${vcf} --keep \${fn} --recode --stdout |bgzip -c > ${chrom}__\$(basename \$fn _id.txt)__phased.vcf.gz
             done
 
         """ 

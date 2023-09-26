@@ -3,7 +3,7 @@ process PREPARE_MAP_SELSCAN{
     tag { "preparing_selscan_map_${chrom}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/selection/selscan/input_files", mode:"copy")
 
     input:

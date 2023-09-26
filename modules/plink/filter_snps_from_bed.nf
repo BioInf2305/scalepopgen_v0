@@ -3,7 +3,7 @@ process FILTER_SNPS_FROM_BED{
     tag { "filter_snps_${new_prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/plink/sites_filtered/", mode:"copy")
 
     input:

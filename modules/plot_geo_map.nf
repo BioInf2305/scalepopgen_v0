@@ -2,7 +2,7 @@ process PLOT_GEO_MAP{
 
     tag { "plotting_sample_on_map" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/", mode:"copy")
 

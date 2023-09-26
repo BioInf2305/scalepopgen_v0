@@ -3,7 +3,7 @@ FROM condaforge/mambaforge:23.1.0-3
 ###Best Practices to prepare Dockerfile is learnt from this paper: https://doi.org/10.1371/journal.pcbi.1008316, although not a large docker file ! ;)
 
 LABEL authors="upadhyay.maulik@gmail.com" \
-      decription="Docker image containing tools requirement to run pedToPopGen nextflow pipeline"
+      decription="Docker image containing tools requirement to run scalepopgen nextflow pipeline"
 
 ###Install the conda environment
 COPY environment.yml /

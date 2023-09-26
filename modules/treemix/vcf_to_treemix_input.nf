@@ -3,7 +3,7 @@ process VCF_TO_TREEMIX_INPUT{
     tag { "convert_vcf_to_treemix_input_${chrom}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/treemix/input_files/chromosomewise_treemix_files", mode:"copy")
 
     input:

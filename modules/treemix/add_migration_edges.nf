@@ -3,7 +3,7 @@ process ADD_MIGRATION_EDGES{
     tag { "adding_edge_${itr}_${mig}_treemix" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container 'maulik23/scalepopgen:0.1.1'
+    container 'popgen48/scalepopgen:0.1.1'
     publishDir("${params.outDir}/treemix/out_tree_mig", mode:"copy")
 
     input:

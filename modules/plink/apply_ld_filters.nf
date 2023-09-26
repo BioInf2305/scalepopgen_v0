@@ -3,7 +3,7 @@ process APPLY_LD_FILTERS{
     tag { "ld_filtering_${new_prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/plink/ld_filtering/", mode:"copy")
 
     input:

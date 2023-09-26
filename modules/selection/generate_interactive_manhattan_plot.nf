@@ -2,7 +2,7 @@ process GENERATE_INTERACTIVE_MANHATTAN_PLOT{
 
     tag { "generating_mahnattan_plot" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/interactive_manhattan_plots/${type_measure}/", mode:"copy")
 

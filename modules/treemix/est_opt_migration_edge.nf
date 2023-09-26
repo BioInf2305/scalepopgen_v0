@@ -3,7 +3,7 @@ process EST_OPT_MIGRATION_EDGE{
     tag { "estimate_optimal_mig_edge" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container 'maulik23/scalepopgen:0.1.1'
+    container 'popgen48/scalepopgen:0.1.1'
     publishDir("${params.outDir}/treemix", pattern:"OptMResults*",mode:"copy")
 
     input:

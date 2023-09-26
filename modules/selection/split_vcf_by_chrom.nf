@@ -2,7 +2,7 @@ process SPLIT_VCF_BY_CHROM{
 
     tag { "splitting_by_chrom" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/vcftools/split_chrom_wise/", mode:"copy")
     conda "${baseDir}/environment.yml"
 

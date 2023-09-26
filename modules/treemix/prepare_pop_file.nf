@@ -3,7 +3,7 @@ process PREPARE_POP_FILE{
     tag { "preparing_pop_file" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/treemix", mode:"copy")
 
     input:

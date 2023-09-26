@@ -2,7 +2,7 @@ process CALC_WFST_ONE_VS_REMAINING{
 
     tag { "calculating_one_vs_remaining_fst" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/vcftools/wfst_one_vs_remaining/${prefix}/", mode:"copy")
 

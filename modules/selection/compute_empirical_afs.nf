@@ -3,7 +3,7 @@ process COMPUTE_EMPIRICAL_AFS{
     tag { "sweepfinder_input_${pop}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/selection/sweepfinder2/input_files/", mode:"copy")
 
     input:

@@ -3,7 +3,7 @@ process CONVERT_VCF_TO_BED{
     tag { "converting_vcf_to_bed_${chrom}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
 
     input:
         tuple val(chrom), file(f_vcf)

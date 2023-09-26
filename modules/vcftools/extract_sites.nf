@@ -2,7 +2,7 @@ process EXTRACT_SITES{
 
     tag { "extract_sites_${chrom}" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/ancestral_alleles_determination/est-sfs/", mode:"copy")
 

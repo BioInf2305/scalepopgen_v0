@@ -3,7 +3,7 @@ process EXTRACT_UNRELATED_SAMPLE_LIST{
     tag { "filter_indi_${prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/plink/indi_filtered/", mode:"copy")
 
     input:

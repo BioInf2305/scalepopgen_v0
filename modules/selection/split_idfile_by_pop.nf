@@ -4,7 +4,7 @@ process SPLIT_IDFILE_BY_POP{
     label "oneCpu"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/selection/input_pop/${type_analysis}", mode:"copy")
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
 
     input:
         path(sample_map)

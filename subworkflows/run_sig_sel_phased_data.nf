@@ -127,11 +127,13 @@ workflow RUN_SIG_SEL_PHASED_DATA{
                 
                 
                si = Channel.value('ihs') 
+        
 
                 NORM_iHS(
                     CALC_iHS.out.t_pop_ihsout.groupTuple(),
                     si
                 )
+
 
         }
         if( params.xpehh ){
@@ -141,7 +143,8 @@ workflow RUN_SIG_SEL_PHASED_DATA{
                     chrom_tvcf_rvcf_recombmap
                 )
                 
-                sx = Channel.value('ihs') 
+                sx = Channel.value('xpehh') 
+
 
                 NORM_XPEHH(
                     CALC_XPEHH.out.t_pop_xpehhout.groupTuple(),

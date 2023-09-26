@@ -3,7 +3,7 @@ process EST_BESTK_PLOT {
     tag { "estimating_bestK" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/genetic_structure/admixture/", mode:"copy")
     errorStrategy 'ignore'
 

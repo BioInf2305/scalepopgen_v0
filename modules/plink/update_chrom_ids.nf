@@ -3,7 +3,7 @@ process UPDATE_CHROM_IDS{
     tag { "updating_chrom_ids" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/plink/update_chrom_ids/", mode:"copy")
 
     input:

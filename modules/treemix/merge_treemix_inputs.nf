@@ -3,7 +3,7 @@ process MERGE_TREEMIX_INPUTS{
     tag { "merging_treemix_inputs" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/treemix/input_files/genomewide_treemix_file/", mode:"copy")
 
     input:

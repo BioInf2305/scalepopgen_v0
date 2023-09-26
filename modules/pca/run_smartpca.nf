@@ -3,7 +3,7 @@ process RUN_SMARTPCA {
     tag { "running_smartpca_${new_prefix}" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/genetic_structure/smartpca/", mode:"copy")
 
     input:

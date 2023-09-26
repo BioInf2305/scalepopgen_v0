@@ -3,7 +3,7 @@ process CONVERT_BED_TO_VCF{
     tag { "convert_plink_bed_to_vcf" }
     label "oneCpu"
     conda "${baseDir}/environment.yml"
-    container "maulik23/scalepopgen:0.1.1"
+    container "popgen48/scalepopgen:0.1.1"
     publishDir("${params.outDir}/plink/bed_to_vcf/", mode:"copy")
 
     input:

@@ -2,7 +2,7 @@ process KEEP_INDI{
 
     tag { "keep_indi_${chrom}" }
     label "oneCpu"
-    container "maulik23/scalepopgen:0.1.2"
+    container "popgen48/scalepopgen:0.1.1"
     conda "${baseDir}/environment.yml"
     publishDir("${params.outDir}/vcftools/indi_filtered/", mode:"copy")
 
