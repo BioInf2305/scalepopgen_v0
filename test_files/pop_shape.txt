@@ -2,9 +2,7 @@ AlpineIbex	square_default
 Appenzell	circle_default
 Booted	circle_default
 ChamoisColored	circle_default
-Grigia	circle_default
 Peacock	circle_default
 Saanen	circle_default
-Urial	diamond_default
 Toggenburg	circle_default
 Bezoar	triangle_default
