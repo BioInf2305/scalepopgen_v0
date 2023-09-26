@@ -8,6 +8,8 @@ Usage:
 
  --apply_indi_filters [bool] Whether or not to perform sample filtering. Note that setting this to false overrides all parameters associated with sample filtering. In other words, sample filtering will not be carried out irrespective of arguments set for --king_cutoff, --rem_indi or --mind. Default: false
 
+--indiv_summary [bool] calculate sample-based summary statistics from vcf files; calculated only after applying individual- and site-based filtering.
+
  --king_cutoff [bool] King relationship coefficient value above which the pairs of individuals are considered to be related and based on these pairwise values, plink2 will output the unrelated samples. Setting this to 0 or any negative value will skip this parameter. Default: -9.
 
  --rem_indi [file] Path to the file containing the list of custom individuals to be removed from all analyses. This file consists of two columns, first column as corresponding population id and second column as individual id. Setting this to "none" will disable this flag. Default:"none". 

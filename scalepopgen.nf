@@ -23,6 +23,10 @@ include { PRINT_FILTERING_OPTIONS } from "${baseDir}/modules/help/print_filterin
 
 include { PRINT_GENSTRUCT_OPTIONS } from "${baseDir}/modules/help/print_genstruct_options"
 
+include { PRINT_TREEMIX_OPTIONS } from "${baseDir}/modules/help/print_treemix_options"
+
+include { PRINT_SIG_SEL_OPTIONS } from "${baseDir}/modules/help/print_sig_sel_options"
+
 include { EXTRACT_UNRELATED_SAMPLE_LIST } from "${baseDir}/modules/plink/extract_unrelated_sample_list"
 
 include { KEEP_INDI } from "${baseDir}/modules/vcftools/keep_indi"
@@ -76,11 +80,21 @@ workflow{
                 PRINT_GENSTRUCT_OPTIONS()
                 exit 0
             }
+            if ( params.phylogeny ){
+                PRINT_TREEMIX_OPTIONS()
+                exit 0
+            }
+            if ( params.signature_selection ){
+                PRINT_SIG_SEL_OPTIONS()
+                exit 0
+            }
             else{
                 PRINT_GENERAL_OPTIONS()
                 exit 0
             }
         }
+
+    else{
 
     // first check if the input parameter contains ".csv"
     //  yes --> input is vcf and sample map files is required
@@ -280,5 +294,5 @@ workflow{
         }
 
     }
-
+    }
 }

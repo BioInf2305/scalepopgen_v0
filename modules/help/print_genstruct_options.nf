@@ -33,7 +33,7 @@ Usage:
 
 --ibs_nj_yml [file] path to the yaml file containing the paramterers to plot interactive ibs distance-based NJ tree. Default:"./parameters/plots/ibs_nj.yml"
 
---admixture [bool] whether to run admixture analysis. Default: false
+--admixture [bool] run admixture analysis. Default: false
 
 --starting_k_value [int] starting range of "k" value to run admixture analysis. Default: 1
 

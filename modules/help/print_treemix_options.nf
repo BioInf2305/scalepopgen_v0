@@ -21,6 +21,6 @@ def print_help() {
     """
 }
 
-workflow PRINT_GENERAL_OPTIONS{
+workflow PRINT_TREEMIX_OPTIONS{
         print_help( )
 }
