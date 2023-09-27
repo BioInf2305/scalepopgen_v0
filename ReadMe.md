@@ -32,11 +32,11 @@
 <h3 id="Setting the parameters with GUI">Extra notes</h3>
 The workflow implement a lot of programs and tools, with the aim of enabling users to perform a wide range of analyses. This also brings with it a large number of parameters that need to be determined for each sub-workflow. In order to make it more easier for user, we developed graphical user interface (GUI). With GUI you can specify analyses and their options by moving through the tabs of each workflow section marked with the arrow.
 
-![GUI](../../images/GUIgeneral.png)
+![GUI](../images/GUIgeneral.png)
 
 Once you select and specify the parameters according to analyses you want to perform, simply click on "File" and "Save as" yml file.
 
-![GUI](../../images/GUIsave.png)
+![GUI](../images/GUIsave.png)
 
 After that run it with the command:
 ```
