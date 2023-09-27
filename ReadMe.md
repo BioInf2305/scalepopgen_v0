@@ -9,15 +9,14 @@
 <ul>
 <li><a href="#about-scalepopgen">About scalepopgen</a></li>
 <li><a href="#setup-and-test-the-pipeline">Setup and test the pipeline</a></li>
-<li><a href="#extra-notes">Extra notes</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#creating a ymal file of the parameters">Extra notes</a></li>
 <li><a href="#to-do">To do</a></li>
 </ul>
 <h3 id="about-scalepopgen">About scalepopgen</h3>
 <p>scalepopgen is a fully automated nextflow-based pipeline that takes vcf files or plink generated bed files as input and employ a variety of open-source tools to carry out comprehensive population genomic analyses. Additionally, python and R scripts have been developed to combine and (wherever possible) plot the results of various analyses.</p>
 <p>Broadly, the pipeline consists of the following four “sub-workflows”:</p>
 <ul>
-<li><a href="https://github.com/BioInf2305/scalepopgen_v3/blob/main/read_me/filtering_snps_and_indi/run_filter.md">filtering and basic statistics</a></li>
+<li><a href="./read_me/filtering_snps_and_indi/run_filter.md">filtering and basic statistics</a></li>
 <li><a href="https://github.com/BioInf2305/scalepopgen_v3/tree/main/read_me/explore_genetic_structure">explore genetic structure</a></li>
 <li><a href="https://github.com/BioInf2305/scalepopgen_v3/blob/main/read_me/treemix/run_treemix.md">population relationship inference</a></li>
 <li>signatures of selection</li>
@@ -42,7 +41,7 @@ After that run it with the command:
 ```
 nextflow run scalepopgen.nf -params-file analyses.yml -profile <conda,mamba,singularity,docker> -qs <number of processes>
 ```
-A great advantage of this workflow are the interactive plots, which are stored in the output folder of the respective analysis. They provide the user with a graphical interpretation of the results, allowing to immediately get an impression about the genomic patterns of the analyzed samples. As an example, please take a look at [the interactive plots](https://bioinf2305.github.io/scalepopgen_results/) created with cattle data in all the different analyzes offered by the workflow.
+A great advantage of this workflow are the interactive plots generated using [bokeh](http://bokeh.org/), which are stored in the output folder of the respective analysis. They provide the user with a graphical interpretation of the results, allowing to immediately get an impression about the genomic patterns of the analyzed samples. As an example, please take a look at [the interactive plots](https://bioinf2305.github.io/scalepopgen_results/) created with cattle data in all the different analyzes offered by the workflow.
 <h3 id="extra-notes">Extra notes</h3>
 <p>Note that read me associated with the workflow will be extensively updated in the coming days. Before using the tiles for your publication do not forget to include the attribution. This package comes with the tile from Esri, therefore, these rules must be followed: <a href="https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/">https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/</a>. The paper to cites have been mentioned in the respective read me documentation.</p>
 <h3 id="to-do">To do</h3>
