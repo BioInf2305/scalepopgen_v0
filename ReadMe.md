@@ -9,7 +9,7 @@
 <ul>
 <li><a href="#about-scalepopgen">About scalepopgen</a></li>
 <li><a href="#setup-and-test-the-pipeline">Setup and test the pipeline</a></li>
-<li><a href="#creating a ymal file of the parameters">Extra notes</a></li>
+<li><a href="#creating a yaml file of the parameters">Creating a yaml file of the parameters</a></li>
 <li><a href="#to-do">To do</a></li>
 </ul>
 <h3 id="about-scalepopgen">About scalepopgen</h3>
@@ -17,9 +17,9 @@
 <p>Broadly, the pipeline consists of the following four “sub-workflows”:</p>
 <ul>
 <li><a href="./read_me/filtering_snps_and_indi/run_filter.md">filtering and basic statistics</a></li>
-<li><a href="https://github.com/BioInf2305/scalepopgen_v3/tree/main/read_me/explore_genetic_structure">explore genetic structure</a></li>
-<li><a href="https://github.com/BioInf2305/scalepopgen_v3/blob/main/read_me/treemix/run_treemix.md">population relationship inference</a></li>
-<li>signatures of selection</li>
+<li><a href="./read_me/explore_genetic_structure/run_pca_admixture.md">explore genetic structure</a></li>
+<li><a href="./read_me/treemix/run_treemix.md">phylogeny using treemix</a></li>
+<li><a href="./read_me/run_signatures_of_selection/run_signatures_of_selection.md">signature of selection analysis</a></li>
 </ul>
 <p>These four sub-workflows can be run separately or in combination with each other.</p>
 <h3 id="setup-and-test-the-pipeline">Setup and test the pipeline</h3>
@@ -28,8 +28,8 @@
 <pre class=" language-bash"><code class="prism  language-bash">nextflow run scalepopgen.nf -profile mamba,test_genstruct
 </code></pre>
 <p>The output folder will be created here:"…/test_genstruct_out/". The folder will contain interactive plots for PCA, Fst-based NJ tree, IBS-based NJ tree. It will also contains plots for “ADMIXTURE” analyses. These plots can be customized using the yaml file present inside the ". /parameters/plots/ "folder. Description of the inputs and outputs of the test run can be found here.</p>
-<h3 id="Setting the parameters with GUI">Extra notes</h3>
-The workflow implement a lot of programs and tools, with the aim of enabling users to perform a wide range of analyses. This also brings with it a large number of parameters that need to be determined for each sub-workflow. In order to make it more easier for user, we developed graphical user interface (GUI). With GUI you can specify analyses and their options by moving through the tabs of each workflow section marked with the arrow.
+<h3 id="creating a yaml file of the parameters">Creating a yaml file of the parameters</h3>
+The workflow implement a lot of programs and tools, with the aim of enabling users to perform a wide range of analyses. This also brings with it a large number of parameters that need to be determined for each sub-workflow. In order to make it more easier for user, we developed graphical user interface (GUI). This GUI is available as an executable within the "scp_config_generator" folder within this repo. With GUI you can specify analyses and their options by moving through the tabs of each workflow section marked with the arrow.
 
 ![png](./images/GUIgeneral.png)
 

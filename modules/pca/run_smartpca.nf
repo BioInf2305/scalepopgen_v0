@@ -10,9 +10,9 @@ process RUN_SMARTPCA {
         file(bed)
 
     output:
-        path("*.{eigen*,snp,ind,evec,eval,par,ped,map,log}")
+        path("*.{eigen*,snp,ind,evec,eval,par,ped,map,log,}")
         path("*.evec"), emit: evecfile
-        path("*.eval"), emit: evalfile
+        path("*var_prop.txt"), emit: evalfile
 
     when:
      task.ext.when == null || task.ext.when
@@ -50,6 +50,8 @@ process RUN_SMARTPCA {
 	python3 ${baseDir}/bin/create_par_smartpca.py ${new_prefix} ${max_chrom} ${task.cpus} ${smartpca_param}
 
 	smartpca -p ${new_prefix}.smartpca.par > ${new_prefix}.eigen.log
+
+        awk '{sum+=\$1;pc[NR]=\$1;next}END{for(i in pc){print pc[i]/sum*100}}' *.eval > ${new_prefix}_var_prop.txt
 
 
         """ 

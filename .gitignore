@@ -1,6 +1,5 @@
 .nextflow*
 work/
 ./nextflow/
-*.txt
 /goat_66_samples/
 project_yml/
