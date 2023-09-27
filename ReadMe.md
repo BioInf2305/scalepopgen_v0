@@ -29,6 +29,20 @@
 <pre class=" language-bash"><code class="prism  language-bash">nextflow run scalepopgen.nf -profile mamba,test_genstruct
 </code></pre>
 <p>The output folder will be created here:"…/test_genstruct_out/". The folder will contain interactive plots for PCA, Fst-based NJ tree, IBS-based NJ tree. It will also contains plots for “ADMIXTURE” analyses. These plots can be customized using the yaml file present inside the ". /parameters/plots/ "folder. Description of the inputs and outputs of the test run can be found here.</p>
+<h3 id="Setting the parameters with GUI">Extra notes</h3>
+The workflow implement a lot of programs and tools, with the aim of enabling users to perform a wide range of analyses. This also brings with it a large number of parameters that need to be determined for each sub-workflow. In order to make it more easier for user, we developed graphical user interface (GUI). With GUI you can specify analyses and their options by moving through the tabs of each workflow section marked with the arrow.
+
+![GUI](../../images/GUIgeneral.png)
+
+Once you select and specify the parameters according to analyses you want to perform, simply click on "File" and "Save as" yml file.
+
+![GUI](../../images/GUIsave.png)
+
+After that run it with the command:
+```
+nextflow run scalepopgen.nf -params-file analyses.yml -profile <conda,mamba,singularity,docker> -qs <number of processes>
+```
+A great advantage of this workflow are the interactive plots, which are stored in the output folder of the respective analysis. They provide the user with a graphical interpretation of the results, allowing to immediately get an impression about the genomic patterns of the analyzed samples. As an example, please take a look at [the interactive plots](https://bioinf2305.github.io/scalepopgen_results/) created with cattle data in all the different analyzes offered by the workflow.
 <h3 id="extra-notes">Extra notes</h3>
 <p>Note that read me associated with the workflow will be extensively updated in the coming days. Before using the tiles for your publication do not forget to include the attribution. This package comes with the tile from Esri, therefore, these rules must be followed: <a href="https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/">https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/</a>. The paper to cites have been mentioned in the respective read me documentation.</p>
 <h3 id="to-do">To do</h3>
